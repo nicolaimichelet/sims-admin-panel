@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../Containers/App.css';
 
 export default class adminpage extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            text: "Initial text"
+        };
+    }
+    componentWillMount(){
+
+    }
+
     render() {
         return (
             <div>
-                <h1>Hei</h1>
+                {this.state.text}
             </div>
         );
     }
