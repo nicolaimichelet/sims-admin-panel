@@ -17,7 +17,13 @@ export default class adminpage extends Component {
     this.setState({hits: API.hits})
     }
 
-
+    delete(hit){
+        const newState = this.state.hits.slice();
+        if (newState.indexOf(hit) > -1) {
+            newState.splice(newState.indexOf(hit), 1);
+            this.setState({hits: newState})
+        }
+    }
 
     render() {
         const {hits} = this.state;
@@ -26,9 +32,9 @@ export default class adminpage extends Component {
                 {this.state.text}
                 {hits.map(hit =>
                     <div key={hit.objectID}>
-                    <a href={hit.url}>{hit.title}</a>
+                    <a href={hit.url}>{hit.title}</a><btn onClick={this.delete.bind(this, hit)}>Delete</btn>
                 </div>    
-            )
+                )
                 }
             </div>
 
