@@ -8,11 +8,11 @@ const history = createBrowserHistory();
 export default class Main extends Component {
     render() {
         return (
-                <Router history = {history}>
-                    <Switch>
-                        <Route path='/Adminpage' render={() => <Admin/>}/>
-                    </Switch>
-                </Router>
+            <Router history = {history}>
+                <Switch>
+                    <Route path='/Adminpage' render={() => <Admin/>}/>
+                </Switch>
+            </Router>
         )
     }
 }
