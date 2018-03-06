@@ -41,7 +41,7 @@ export default class adminpage extends Component {
                 {this.state.text}
                 {hits.map(hit =>
                     <div key={hit.objectID}>
-                    <a href={hit.url}>{hit.title}</a><btn onClick={this.delete.bind(this, hit)}>Delete</btn>
+                    <a href={hit.url}>{hit.title}</a><btn onClick={this.delete.bind(this, hit)} class="badge badge-danger">Delete</btn>
                 </div>    
                 )
                 }
