@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../Containers/App.css';
+import '../containers/App.css';
 import {API} from '../../api.js';
 
 const DEFAULT_QUERY = 'redux';
