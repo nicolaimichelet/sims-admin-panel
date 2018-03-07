@@ -16,10 +16,7 @@ export default class Header extends Component {
                                 <a className="nav-link" href="/serviceForm">service</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Halla</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Pricing</a>
+                                <a className="nav-link" href="#">Search</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">About</a>

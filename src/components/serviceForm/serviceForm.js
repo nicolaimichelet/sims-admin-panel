@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../containers/App.css';
+import '../css/serviceForm.css';
 
 
 const DEFAULT_QUERY = 'redux';
@@ -21,52 +22,29 @@ export default class ServiceForm extends Component {
                 <div>
                     <form>
                         <fieldset>
-                            <legend>Legend</legend>
-                            <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="email@example.com"/>
+                            <legend>Add new service</legend>
+                            <div class="form-group">
+                            <label for="exampleInputName">Name</label>
+                            <input type="name" class="form-control" id="exampleName" aria-describedby="emailHelp" placeholder="Enter name of service"/>
                             </div>
+                            <legend>Related Party</legend>
+                            <div class="form-group">
+                                <label for="exampleInputRole">Role</label>
+                                <input type="role" class="form-control" id="exampleRole" aria-describedby="emailHelp" placeholder="Enter role"/>
                             </div>
                             <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                <label for="exampleInputID">ID</label>
+                                <input type="id" class="form-control" id="exampleID" aria-describedby="emailHelp" placeholder="Enter ID"/>
                             </div>
                             <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"/>
+                                <label for="exampleInputHref">HREF</label>
+                                <input type="name" class="form-control" id="exampleHref" aria-describedby="emailHelp" placeholder="href"/>
                             </div>
                             <div class="form-group">
-                            <label for="exampleSelect1">Example select</label>
-                            <select class="form-control" id="exampleSelect1">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                            </div>
-                            <div class="form-group">
-                            <label for="exampleSelect2">Example multiple select</label>
-                            <select multiple="" class="form-control" id="exampleSelect2">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                            </div>
-                            <div class="form-group">
-                            <label for="exampleTextarea">Example textarea</label>
+                            <label for="exampleTextarea">Description</label>
                             <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
                             </div>
-                            <div class="form-group">
-                            <label for="exampleInputFile">File input</label>
-                            <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"/>
-                            <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
-                            </div>
-                            <fieldset class="form-group">
+                            {/*<fieldset class="form-group">
                             <legend>Radio buttons</legend>
                             <div class="form-check">
                                 <label class="form-check-label">
@@ -101,7 +79,7 @@ export default class ServiceForm extends Component {
                                 Option two is disabled
                                 </label>
                             </div>
-                            </fieldset>
+                            </fieldset>*/}
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </fieldset>
                         </form>
