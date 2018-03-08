@@ -4,7 +4,7 @@ import { HttpServiceInterface } from './http.interface';
 import { Observable, Subject } from 'rxjs';
 
 
-export class HttpServiceProvider extends HttpServiceInterface{
+export class HttpServiceProvider{
 
   constructor(serviceManager) {
     this.requestQueue = [];
