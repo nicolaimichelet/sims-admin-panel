@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../containers/App.css';
+import '../css/adminpage.css';
 import {API} from '../../api.js';
 
 const DEFAULT_QUERY = 'redux';
@@ -9,7 +10,7 @@ export default class adminpage extends Component {
         super(props);
     
         this.state = {
-            text: "Initial text",
+          
             hits: [],
         };
     }
@@ -36,22 +37,32 @@ export default class adminpage extends Component {
 
     render() {
         const {hits} = this.state;
+
         return (
             <div>
+                <div id="borders">
+                <h1>Services</h1>
                 {this.state.text}
                 {hits.map(hit =>
                     <div key={hit.objectID}>
-                        <table class="table table-hover">
-                            <tbody>
-                            <tr class="table-active">
-                                <td><a href={hit.url}>{hit.title}</a></td>
-                                <td><btn onClick={this.delete.bind(this, hit)} class="badge badge-pill badge-danger">Delete</btn></td>
+                        <table>
+                            <tbody id="tbody">
+                            <tr>
+                                <td id="info">
+                                    <a>{hit.title}</a>
+                                </td>
+                                
+                                <th id="delete">
+                                    <btn onClick={this.delete.bind(this, hit)} >Delete</btn>
+                                </th>
+                                
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 )
                 }
+                </div>
             </div>
 
 

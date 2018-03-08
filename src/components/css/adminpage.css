@@ -1,0 +1,25 @@
+
+
+#borders{
+    border: solid 1px green;
+    margin-top: 2%;
+    margin-right: 10%;
+    margin-left: 10%;
+  }
+#info{
+    border: solid 1px pink;
+}
+
+  
+
+#delete{
+    border: solid 1px blue;
+    color: red;
+    margin-left: auto;
+    margin-right: 0;
+   
+
+    
+   
+
+}
