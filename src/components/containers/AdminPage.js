@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import '../containers/App.css';
-import '../css/adminpage.css';
-import {API} from '../../api.js';
+import 'assets/css/AdminPage.css';
 
 const DEFAULT_QUERY = 'redux';
 
-export default class adminpage extends Component {
+export default class AdminPage extends Component {
     constructor(props){
         super(props);
     
@@ -15,7 +13,7 @@ export default class adminpage extends Component {
         };
     }
     componentDidMount(){
-    this.setState({hits: API.hits})
+    this.setState({hits: []})
     }
 
 
