@@ -7,7 +7,7 @@ export class ServiceManager{
     this.def_context = "default";
   }
   registerService(service, context,...a){
-    console.assert(typeof(service) == "function" && typeof(service.constructor) == "function","Service is not a class!")
+    console.assert(typeof(service) == "function" && typeof(service.constructor) == "function","Service is not a class!");
     context = context != null ? context : this.getDefaultContext();
     if(!(context in this.services)){
       this.services[context] = [];
@@ -27,7 +27,7 @@ export class ServiceManager{
     context = context!=null ? context : this.getDefaultContext();
     for(let service of this.services[context]){
       if(service instanceof type){
-        return service
+        return service;
       }
     }
   }

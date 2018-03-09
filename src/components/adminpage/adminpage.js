@@ -5,9 +5,11 @@ import 'assets/css/adminpage.css';
 
 import {API} from 'api.js';
 
+import { connectServices, mapServicesToProps, HttpServiceInterface } from 'services';
+
 const DEFAULT_QUERY = 'redux';
 
-export default class adminpage extends Component {
+export class adminpage extends Component {
     constructor(props){
         super(props);
     
@@ -16,6 +18,7 @@ export default class adminpage extends Component {
         };
     }
     componentDidMount(){
+        console.log("HttpService", this.props.http)
     }
 
 
@@ -36,14 +39,13 @@ export default class adminpage extends Component {
     }
 
     render() {
-        const {hits} = this.state;
+        const {services} = this.state;
 
         return (
             <div>
                 <div id="borders">
                 <h1>Services</h1>
-                {this.state.text}
-                {hits.map(hit =>
+                {services.map(hit =>
                     <div key={hit.objectID}>
                         <table>
                             <tbody id="tbody">
@@ -69,3 +71,7 @@ export default class adminpage extends Component {
         );
     }
 }
+
+export default connectServices((serviceManager) => mapServicesToProps(serviceManager, {
+    "http": HttpServiceInterface
+}))(adminpage)
