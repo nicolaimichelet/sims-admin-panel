@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import '../containers/App.css';
-import '../css/serviceForm.css';
-import serviceModule from './serviceModule';
+import 'assets/css/ServiceForm.css';
+import serviceModule from './ServiceModule';
 
 
 export default class ServiceForm extends Component {

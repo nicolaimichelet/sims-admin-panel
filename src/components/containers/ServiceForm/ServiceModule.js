@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import '../containers/App.css';
-import '../css/serviceForm.css';
 
 export default class ServiceModule extends Component {
     constructor(props) {
