@@ -10,15 +10,15 @@ import MenuItem from 'material-ui/MenuItem';
 export default class ServiceForm extends Component {
     constructor(props){
         super(props);
-        this.state = {value: 1};
+        this.state = {value: 1, verdi: 0};
     }
 
     componentDidMount(){
 
     }
 
-    handleChange = (event, index, value) => this.setState({value});
-
+    handleChange = (event, index, verdi) => this.setState({verdi});
+    handleChange2 = (event, index, value) => this.setState({value});
 
 
 
@@ -27,38 +27,55 @@ export default class ServiceForm extends Component {
     render() {
         return (
 
-            <div>
+            <div className="form">
                 <h3>Add New Service</h3>
-                <TextField hintText="Enter name..." floatingLabelText="Name"/>
+                <TextField className='formtext' hintText="Enter name..." floatingLabelText="Name"/><br></br><br></br>
                 <h4> Related Party </h4>
-                <TextField hintText="Enter role..." floatingLabelText="Role"/>
-                <TextField hintText="Enter id..." floatingLabelText="ID"/>
-                <TextField hintText="Enter href..." floatingLabelText="HREF"/>
-
-                <RaisedButton label="Advanced" style={style} />
-                <RaisedButton label="Submit" primary={true} style={style} />
+                <div id="relatedParty">
+                    <TextField hintText="Enter role..." floatingLabelText="Role"/><br></br>
+                    <TextField hintText="Enter id..." floatingLabelText="ID"/><br></br>
+                    <TextField hintText="Enter href..." floatingLabelText="HREF"/><br></br>
+                </div>
+                <br></br>
+                <RaisedButton className="advanced" label="Advanced"/>
+                <RaisedButton label="Submit" primary={true} />
 
                 <div>
-                    <TextField hintText="" floatingLabelText="Category"/>
-                    <TextField hintText="" floatingLabelText="Description" multiLine={true} rows={2}/>
-                    <DatePicker hintText="End date" />
-                    <div style={styles.block}>
-                        <Toggle label="Has Started" style={styles.toggle}/>
-                    </div>
-                    <TextField hintText="Reference of the service..." floatingLabelText="HREF"/>
-                    <TextField hintText="Enter ID..." floatingLabelText="ID"/>
+                    <TextField className='formtext'  hintText="" floatingLabelText="Category"/><br></br>
+                    <TextField className='formtext' hintText="" floatingLabelText="Description" multiLine={true} rows={2}/><br></br>
 
-                    <div style={styles.block}>
-                        <Toggle label="Is the service enabled?" style={styles.toggle}/>
-                    </div>
-                    <div style={styles.block}>
-                        <Toggle label="Can this service be changed without affecting any other service?" style={styles.toggle}/>
-                    </div>
 
+                    <h6>End date</h6>
+                    <DatePicker className='formtext' hintText="End date" /><br></br>
+
+                    <div className="toggle">
+                        <Toggle label="Has the service started?" />
+                    </div>
+                    <TextField className='formtext' hintText="Reference of the service..." floatingLabelText="HREF"/><br></br>
+                    <TextField className='formtext' hintText="Enter ID..." floatingLabelText="ID"/>
+
+                    <div className="toggle">
+                        <Toggle label="Is the service enabled?" />
+                    </div>
+                    <div className="toggle">
+                        <Toggle label="Can this service be changed without affecting any other service?"/>
+                    </div>
+                    <h6>Order date</h6>
                     <DatePicker hintText="Order date" />
+                    <h6>Start date</h6>
                     <DatePicker hintText="Start date" />
-
-                    <DropDownMenu value={this.state.value} onChange={this.handleChange}>
+                    <h6>Start mode</h6>
+                    <DropDownMenu verdi={this.state.verdi} onChange={this.handleChange}>
+                        <MenuItem verdi={0} primaryText="Unknown" />
+                        <MenuItem verdi={1} primaryText="Automatically by the managed environment" />
+                        <MenuItem verdi={2} primaryText="Automatically by the owning device" />
+                        <MenuItem verdi={3} primaryText="Manually by the Provider of the Service" />
+                        <MenuItem verdi={4} primaryText="Manually by a Customer of the Provider" />
+                        <MenuItem verdi={5} primaryText="Any of the above" />
+                    </DropDownMenu>
+                    <br></br>
+                    <h6>State</h6>
+                    <DropDownMenu value={this.state.value} onChange={this.handleChange2}>
                         <MenuItem value={1} primaryText="Feasibility Checked" />
                         <MenuItem value={2} primaryText="Designed" />
                         <MenuItem value={3} primaryText="Reserved" />
@@ -67,8 +84,11 @@ export default class ServiceForm extends Component {
                         <MenuItem value={6} primaryText="Terminated" />
                     </DropDownMenu>
 
-                    <TextField hintText="Resource type..." floatingLabelText="Type"/>
-                    <TextField hintText="Resource type..." floatingLabelText="Type"/>
+
+
+                    <br></br> <TextField className='formtext' hintText="Resource type..." floatingLabelText="Type"/>
+                    <br></br><TextField className='formtext' hintText="Service order..." floatingLabelText="Service Order Ref"/>
+                    <br></br><TextField className='formtext' hintText="Service order..." floatingLabelText="Service Order Ref"/>
 
                 </div>
 
