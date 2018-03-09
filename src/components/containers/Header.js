@@ -11,7 +11,9 @@ export default class Header extends Component {
 
         const buttons = [
             <FlatButton>
+                <a href='/AdminPage'>
                 Services
+                </a>
             </FlatButton>,
             <FlatButton>
                 Places
