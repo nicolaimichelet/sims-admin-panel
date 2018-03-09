@@ -10,8 +10,15 @@ import MenuItem from 'material-ui/MenuItem';
 export default class ServiceForm extends Component {
     constructor(props){
         super(props);
-        this.state = {value: 1, verdi: 0};
+        this.state = {value: 1, verdi: 0, showAdvanced: false};
+
+
     }
+    onClick(){
+        this.setState({
+            showAdvanced: !this.state.showAdvanced});
+    }
+
 
     componentDidMount(){
 
@@ -24,7 +31,12 @@ export default class ServiceForm extends Component {
 
 
 
+
     render() {
+        var showAdvanced = {
+            display: this.state.showAdvanced ? "block" : "none"
+        };
+
         return (
 
             <div className="form">
@@ -37,10 +49,13 @@ export default class ServiceForm extends Component {
                     <TextField hintText="Enter href..." floatingLabelText="HREF"/><br></br>
                 </div>
                 <br></br>
-                <RaisedButton className="advanced" label="Advanced"/>
+                <RaisedButton className="advanced" label="Advanced" onClick={this.onClick.bind(this)}/>
                 <RaisedButton label="Submit" primary={true} />
 
-                <div>
+                {/*******************************************************************************************************************/}
+                {/********************************************** ADVANCED FIELD IN FORM *********************************************/}
+                {/*******************************************************************************************************************/}
+                <div style={ showAdvanced }>
                     <TextField className='formtext'  hintText="" floatingLabelText="Category"/><br></br>
                     <TextField className='formtext' hintText="" floatingLabelText="Description" multiLine={true} rows={2}/><br></br>
 
