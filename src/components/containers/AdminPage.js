@@ -1,64 +1,75 @@
 import React, { Component } from 'react';
 import 'assets/css/AdminPage.css';
+import Paper from 'material-ui/Paper';
+import {List, ListItem} from 'material-ui/List';
+import TextField from 'material-ui/TextField';
+import {Subject} from 'rxjs';
 
 const DEFAULT_QUERY = 'redux';
+
+
+const style = {
+    padding: "2em"
+}
 
 export default class AdminPage extends Component {
     constructor(props){
         super(props);
+        this.querySubject = new Subject();
     
         this.state = {
           
-            hits: [],
+            services: [{
+                name: "auth",
+                href: "/auth",
+                
+            },
+            {
+                name: "mdns",
+                href: "/mdns1",
+                
+            },
+            {
+                name: "SOAP",
+                href: "/soap1",
+                
+            }],
         };
     }
     componentDidMount(){
-    this.setState({hits: []})
+    //this.setState({services: []})
+        this.querySubject.debounceTime(300).distinctUntilChanged().subscribe((a)=> {
+            console.log(a)
+        })
     }
 
 
 
-    delete(hit) {
-        const newState = this.state.hits.slice();
-        if (newState.indexOf(hit) > -1) {
-            newState.splice(newState.indexOf(hit), 1);
-            this.setState({hits: newState});
-        }
-        return fetch(hit, {
-            method: 'DELETE'
-        })
-        .then(response => response.json())
-        .then((json) => {
-            })
-        .catch(error => error);
+    delete(service) {
+
+    }
+
+    onChange(value){
+        this.querySubject.next(value);
     }
 
     render() {
-        const {hits} = this.state;
-
+        const {services} = this.state;
+        const serviceElements = [];
+        for (let i in services){
+            serviceElements.push(
+                <ListItem key = {i}>{services[i].name} @href {services[i].href}</ListItem>
+            )
+        }
         return (
-            <div>
-                <div id="borders">
+            <Paper style = {style}>
                 <h1>Services</h1>
-                {this.state.text}
-                {hits.map(hit =>
-                    <div key={hit.objectID}>
-                        <table>
-                            <tr>
-                                <td >
-                                    <a>{hit.title}</a>
-                                </td>
-                                
-                                <td class="delete">
-                                    <btn onClick={this.delete.bind(this, hit)} class="badge badge-pill badge-danger">Delete</btn>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                )
-                }
-                </div>
-            </div>
+                <TextField onChange = {(e, v)=> this.onChange(v)}
+                hintText="Query"
+                /><br />
+                <List>{serviceElements}
+                </List>
+            </Paper>
 
 
         );
