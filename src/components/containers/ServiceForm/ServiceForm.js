@@ -38,8 +38,10 @@ export default class ServiceForm extends Component {
         };
 
         return (
+        <div className="form">
 
-            <div className="form">
+                {/********************************************** CLASSIC FORM INFO ***************************************/}
+
                 <h3>Add New Service</h3>
                 <TextField className='formtext' hintText="Enter name..." floatingLabelText="Name"/><br></br><br></br>
                 <h4> Related Party </h4>
@@ -52,16 +54,17 @@ export default class ServiceForm extends Component {
                 <RaisedButton className="advanced" label="Advanced" onClick={this.onClick.bind(this)}/>
                 <RaisedButton label="Submit" primary={true} />
 
-                {/*******************************************************************************************************************/}
-                {/********************************************** ADVANCED FIELD IN FORM *********************************************/}
-                {/*******************************************************************************************************************/}
+
+
+
+                {/**********************************************************.*********************************************/}
+                {/********************************************** ADVANCED FIELD IN FORM **********************************/}
+                {/**********************************************************.*********************************************/}
+            
+
                 <div style={ showAdvanced }>
                     <TextField className='formtext'  hintText="" floatingLabelText="Category"/><br></br>
                     <TextField className='formtext' hintText="" floatingLabelText="Description" multiLine={true} rows={2}/><br></br>
-
-
-                    <h6>End date</h6>
-                    <DatePicker className='formtext' hintText="End date" /><br></br>
 
                     <div className="toggle">
                         <Toggle label="Has the service started?" />
@@ -75,10 +78,19 @@ export default class ServiceForm extends Component {
                     <div className="toggle">
                         <Toggle label="Can this service be changed without affecting any other service?"/>
                     </div>
+
+
+
+
+                {/********************************************** DATES, MODES, STATE ************************************/}
+
                     <h6>Order date</h6>
                     <DatePicker hintText="Order date" />
                     <h6>Start date</h6>
                     <DatePicker hintText="Start date" />
+                    <h6>End date</h6>
+                    <DatePicker className='formtext' hintText="End date" /><br></br>
+
                     <h6>Start mode</h6>
                     <DropDownMenu verdi={this.state.verdi} onChange={this.handleChange}>
                         <MenuItem verdi={0} primaryText="Unknown" />
@@ -100,6 +112,8 @@ export default class ServiceForm extends Component {
                     </DropDownMenu>
 
 
+
+                {/********************************************** LISTS, TYPES ETC. **************************************/}
 
                     <br></br> <TextField className='formtext' hintText="Resource type..." floatingLabelText="Type"/>
                     <br></br><TextField className='formtext' hintText="Service order..." floatingLabelText="Service Order Ref"/>
