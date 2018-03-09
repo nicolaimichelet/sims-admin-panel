@@ -46,18 +46,15 @@ export default class adminpage extends Component {
                 {hits.map(hit =>
                     <div key={hit.objectID}>
                         <table>
-                            <tbody id="tbody">
                             <tr>
-                                <td id="info">
+                                <td >
                                     <a>{hit.title}</a>
                                 </td>
                                 
-                                <th id="delete">
-                                    <btn onClick={this.delete.bind(this, hit)} >Delete</btn>
-                                </th>
-                                
+                                <td class="delete">
+                                    <btn onClick={this.delete.bind(this, hit)} class="badge badge-pill badge-danger">Delete</btn>
+                                </td>
                             </tr>
-                            </tbody>
                         </table>
                     </div>
                 )
