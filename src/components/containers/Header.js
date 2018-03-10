@@ -28,8 +28,6 @@ export default class Header extends Component {
                     <FlatButton>{buttons}</FlatButton>
                 }
             >
-        
-
             </AppBar>
             
 

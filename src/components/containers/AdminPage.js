@@ -18,22 +18,7 @@ export default class AdminPage extends Component {
         this.querySubject = new Subject();
     
         this.state = {
-          
-            services: [{
-                name: "auth",
-                href: "/auth",
-                
-            },
-            {
-                name: "mdns",
-                href: "/mdns1",
-                
-            },
-            {
-                name: "SOAP",
-                href: "/soap1",
-                
-            }],
+            services: [],
         };
     }
     componentDidMount(){

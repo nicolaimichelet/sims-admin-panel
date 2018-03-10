@@ -12,7 +12,7 @@ export default class Main extends Component {
             <Router history = {history}>
                 <Switch>
                     <Route path='/adminpage' render={() => <AdminPage/>}/>
-                    <Route path= '/serviceform' render={() => <ServiceForm/>}/>
+                    <Route path= '/services/new' render={() => <ServiceForm/>}/>
                 </Switch>
             </Router>
         )
