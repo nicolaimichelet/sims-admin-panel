@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import 'assets/css/ServiceForm.css';
+import _s from 'assets/css/ServiceForm.css';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
@@ -31,32 +31,32 @@ export default class ServiceForm extends Component {
     render() {
         return (
 
-            <div className="form">
+            <div className={_s.form}>
                 <h3>Add New Service</h3>
-                <TextField className='formtext' hintText="Enter name..." floatingLabelText="Name"/><br></br><br></br>
+                <TextField className={_s.formtext} hintText="Enter name..." floatingLabelText="Name"/><br></br><br></br>
                 <h4> Related Party </h4>
-                <div id="relatedParty">
+                <div className={_s.relatedParty}>
                     <TextField hintText="Enter role..." floatingLabelText="Role"/><br></br>
                     <TextField hintText="Enter id..." floatingLabelText="ID"/><br></br>
                     <TextField hintText="Enter href..." floatingLabelText="HREF"/><br></br>
                 </div>
                 <br></br>
-                <RaisedButton className="advanced" label="Advanced"/>
+                <RaisedButton className={_s.advanced} label="Advanced"/>
                 <RaisedButton label="Submit" primary={true} />
 
                 <div>
-                    <TextField className='formtext'  hintText="" floatingLabelText="Category"/><br></br>
-                    <TextField className='formtext' hintText="" floatingLabelText="Description" multiLine={true} rows={2}/><br></br>
+                    <TextField className={_s.formtext}  hintText="" floatingLabelText="Category"/><br></br>
+                    <TextField className={_s.formtext} hintText="" floatingLabelText="Description" multiLine={true} rows={2}/><br></br>
 
 
                     <h6>End date</h6>
-                    <DatePicker className='formtext' hintText="End date" /><br></br>
+                    <DatePicker className={_s.formtext} hintText="End date" /><br></br>
 
                     <div className="toggle">
                         <Toggle label="Has the service started?" />
                     </div>
-                    <TextField className='formtext' hintText="Reference of the service..." floatingLabelText="HREF"/><br></br>
-                    <TextField className='formtext' hintText="Enter ID..." floatingLabelText="ID"/>
+                    <TextField className={_s.formtext} hintText="Reference of the service..." floatingLabelText="HREF"/><br></br>
+                    <TextField className={_s.formtext} hintText="Enter ID..." floatingLabelText="ID"/>
 
                     <div className="toggle">
                         <Toggle label="Is the service enabled?" />
@@ -90,9 +90,9 @@ export default class ServiceForm extends Component {
 
 
 
-                    <br></br> <TextField className='formtext' hintText="Resource type..." floatingLabelText="Type"/>
-                    <br></br><TextField className='formtext' hintText="Service order..." floatingLabelText="Service Order Ref"/>
-                    <br></br><TextField className='formtext' hintText="Service order..." floatingLabelText="Service Order Ref"/>
+                    <br></br> <TextField className={_s.formtext} hintText="Resource type..." floatingLabelText="Type"/>
+                    <br></br><TextField className={_s.formtext} hintText="Service order..." floatingLabelText="Service Order Ref"/>
+                    <br></br><TextField className={_s.formtext} hintText="Service order..." floatingLabelText="Service Order Ref"/>
 
                 </div>
 

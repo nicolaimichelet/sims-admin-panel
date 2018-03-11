@@ -9,11 +9,13 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import App from 'components/containers/App';
-import { ServiceProvider } from 'services';
+import { ServiceProvider, ConfigServiceProvider } from 'services';
 import { ServiceManager, HttpServiceInterface,HttpServiceProvider } from 'services';
 
 const serviceManager = new ServiceManager();
 
+serviceManager.registerService(ConfigServiceProvider, null, localStorage);
+serviceManager.getService(ConfigServiceProvider).setObject("test", ["a", "b", "c"]);
 serviceManager.registerService(HttpServiceProvider);
 
 
