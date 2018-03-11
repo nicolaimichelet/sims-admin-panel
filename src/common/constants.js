@@ -1,1 +1,1 @@
-export const DEFAULT_API="http://192.168.0.182:3000/api"
+export const DEFAULT_API="http://192.168.0.182:3000/api";
