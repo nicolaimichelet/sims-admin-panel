@@ -3,7 +3,7 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import {Tab, Tabs} from 'material-ui/Tabs';
 import Slider from 'material-ui/Slider';
-
+import { Link } from 'react-router-dom';
 
 export default class Header extends Component {
 
@@ -11,25 +11,26 @@ export default class Header extends Component {
 
         const buttons = [
             <FlatButton>
-                <a href="/AdminPage">Services</a>
+                <Link to="/services">Services</Link>
             </FlatButton>,
             <FlatButton>
                 Places
             </FlatButton>,
             <FlatButton>
-                <a href="/ServiceForm">New Service</a>
+                <Link to="/services/new">New Service</Link>
             </FlatButton>
         ]
 
         return(
+            <div>
             <AppBar
                 title="SIMS"
                 iconElementLeft={
-                    <FlatButton>{buttons}</FlatButton>
+                    <ul>{buttons}</ul>
                 }
             >
             </AppBar>
-            
+            </div>
 
         )
     }

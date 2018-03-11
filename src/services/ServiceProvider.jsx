@@ -43,3 +43,7 @@ export function mapServicesToProps(serviceManager, pairs, context){
   }
   return props
 }
+
+export function mapAndConnect(component, ...a){
+  return connectServices((serviceManager) => mapServicesToProps(serviceManager, ...a))(component);
+}

@@ -17,8 +17,12 @@ export default class ServiceForm extends Component {
 
     }
 
-    handleChange = (event, index, verdi) => this.setState({verdi});
-    handleChange2 = (event, index, value) => this.setState({value});
+    handleChange(event, index, verdi){
+        this.setState({verdi})
+    }
+    handleChange2(event, index, value){
+        this.setState({value})
+    }
 
 
 
@@ -96,14 +100,5 @@ export default class ServiceForm extends Component {
             </div>
 
         );
-
-        const styles = {
-            block: {
-                maxWidth: 250,
-            },
-            toggle: {
-                marginBottom: 16,
-            }
-        };
     }
 }

@@ -5,6 +5,8 @@ import {List, ListItem} from 'material-ui/List';
 import TextField from 'material-ui/TextField';
 import {Subject} from 'rxjs';
 
+import { mapAndConnect, HttpServiceInterface } from 'services';
+
 const DEFAULT_QUERY = 'redux';
 
 
@@ -12,7 +14,7 @@ const style = {
     padding: "2em"
 }
 
-export default class AdminPage extends Component {
+export class AdminPage extends Component {
     constructor(props){
         super(props);
         this.querySubject = new Subject();
@@ -22,9 +24,8 @@ export default class AdminPage extends Component {
         };
     }
     componentDidMount(){
-    //this.setState({services: []})
+        console.log(this.props.http);
         this.querySubject.debounceTime(300).distinctUntilChanged().subscribe((a)=> {
-            console.log(a)
         })
     }
 
@@ -55,8 +56,10 @@ export default class AdminPage extends Component {
                 <List>{serviceElements}
                 </List>
             </Paper>
-
-
         );
     }
 }
+
+export default mapAndConnect(AdminPage, {
+    http: HttpServiceInterface
+})
