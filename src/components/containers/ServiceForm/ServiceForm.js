@@ -52,16 +52,16 @@ export default class ServiceForm extends Component {
                     <h6>End date</h6>
                     <DatePicker className={_s.formtext} hintText="End date" /><br></br>
 
-                    <div className="toggle">
+                    <div className={_s.toggle}>
                         <Toggle label="Has the service started?" />
                     </div>
                     <TextField className={_s.formtext} hintText="Reference of the service..." floatingLabelText="HREF"/><br></br>
                     <TextField className={_s.formtext} hintText="Enter ID..." floatingLabelText="ID"/>
 
-                    <div className="toggle">
+                    <div className={_s.toggle}>
                         <Toggle label="Is the service enabled?" />
                     </div>
-                    <div className="toggle">
+                    <div className={_s.toggle}>
                         <Toggle label="Can this service be changed without affecting any other service?"/>
                     </div>
                     <h6>Order date</h6>
