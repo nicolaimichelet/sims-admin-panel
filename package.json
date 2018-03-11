@@ -55,8 +55,9 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "build-electron": "node scripts/build.js && node scripts/create-electron.js",
     "test": "node scripts/test.js --env=jsdom",
-    "electron": "electron scripts/electron.js" 
+    "electron": "electron scripts/electron.js"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -99,5 +100,8 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "devDependencies": {
+    "electron-packager": "^11.1.0"
   }
 }

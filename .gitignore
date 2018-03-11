@@ -1,7 +1,9 @@
 # Compiled class file
 *.class
 
+# Build output folders
 build
+electron-app
 
 # Node modules 
 node_modules
