@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import TextField from 'material-ui/TextField';
 import {Subject} from 'rxjs';
+import IconButton from 'material-ui/IconButton'
 
 const DEFAULT_QUERY = 'redux';
 
@@ -33,6 +34,21 @@ export default class AdminPage extends Component {
                 name: "SOAP",
                 href: "/soap1",
                 
+            },
+            {
+                name: "Eskil",
+                href: "/bol",
+            
+            },
+            {
+                name: "NicoMico",
+                href: "/soundcloud",
+            
+            },
+            {
+                name: "Kjor",
+                href: "/kjiip",
+            
             }],
         };
     }
@@ -41,12 +57,24 @@ export default class AdminPage extends Component {
         this.querySubject.debounceTime(300).distinctUntilChanged().subscribe((a)=> {
             console.log(a)
         })
+        this.setState({services : this.state.services})
     }
 
 
 
     delete(service) {
-
+        const newState = this.state.services.slice();
+        if (newState.indexOf(service) > -1){
+            newState.splice(newState.indexOf(service), 1);
+            this.setState({services : newState});
+        }
+        return fetch(service, {
+            method: "DELETE"
+        })
+        .then(response => response.json())
+        .then((json) => {
+        })
+        .catch(error => error);
     }
 
     onChange(value){
@@ -58,7 +86,10 @@ export default class AdminPage extends Component {
         const serviceElements = [];
         for (let i in services){
             serviceElements.push(
-                <ListItem key = {i}>{services[i].name} @href {services[i].href}</ListItem>
+                <ListItem key = {i}>{services[i].name} @href {services[i].href}
+                <button onClick = 
+                {this.delete.bind(this, services[i])}>Delete</button>
+                </ListItem>
             )
         }
         return (
