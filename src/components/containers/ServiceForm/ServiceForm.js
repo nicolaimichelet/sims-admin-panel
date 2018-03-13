@@ -23,7 +23,6 @@ export default class ServiceForm extends Component {
 
 
 
-
     render() {
         return (
 
@@ -35,24 +34,24 @@ export default class ServiceForm extends Component {
                 <TextField hintText="Enter id..." floatingLabelText="ID"/>
                 <TextField hintText="Enter href..." floatingLabelText="HREF"/>
 
-                <RaisedButton label="Advanced" style={style} />
-                <RaisedButton label="Submit" primary={true} style={style} />
+                <RaisedButton label="Advanced" />
+                <RaisedButton label="Submit" primary={true} />
 
                 <div>
                     <TextField hintText="" floatingLabelText="Category"/>
                     <TextField hintText="" floatingLabelText="Description" multiLine={true} rows={2}/>
                     <DatePicker hintText="End date" />
-                    <div style={styles.block}>
-                        <Toggle label="Has Started" style={styles.toggle}/>
+                    <div>
+                        <Toggle label="Has Started"/>
                     </div>
                     <TextField hintText="Reference of the service..." floatingLabelText="HREF"/>
                     <TextField hintText="Enter ID..." floatingLabelText="ID"/>
 
-                    <div style={styles.block}>
-                        <Toggle label="Is the service enabled?" style={styles.toggle}/>
+                    <div>
+                        <Toggle label="Is the service enabled?"/>
                     </div>
-                    <div style={styles.block}>
-                        <Toggle label="Can this service be changed without affecting any other service?" style={styles.toggle}/>
+                    <div>
+                        <Toggle label="Can this service be changed without affecting any other service?"/>
                     </div>
 
                     <DatePicker hintText="Order date" />
@@ -77,13 +76,5 @@ export default class ServiceForm extends Component {
 
         );
 
-        const styles = {
-            block: {
-                maxWidth: 250,
-            },
-            toggle: {
-                marginBottom: 16,
-            }
-        };
     }
 }

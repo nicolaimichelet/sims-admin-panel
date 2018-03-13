@@ -11,25 +11,22 @@ export default class Header extends Component {
 
         const buttons = [
             <FlatButton>
-                Services
+                <a href="/AdminPage">Services</a>
             </FlatButton>,
             <FlatButton>
                 Places
             </FlatButton>,
             <FlatButton>
-                New Service
+                <a href="/ServiceForm">New Service</a>
             </FlatButton>
         ]
 
         return(
-            <AppBar
-                title="SIMS"
-                iconElementLeft={
+            <AppBar title="SIMS" iconElementLeft={
                     <FlatButton>{buttons}</FlatButton>
-                }
-            >
+                }>
         
-
+a
             </AppBar>
             
 

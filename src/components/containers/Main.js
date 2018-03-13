@@ -11,8 +11,8 @@ export default class Main extends Component {
         return (
             <Router history = {history}>
                 <Switch>
-                    <Route path='/adminpage' render={() => <AdminPage/>}/>
-                    <Route path= '/serviceform' render={() => <ServiceForm/>}/>
+                    <Route path='/AdminPage' render={() => <AdminPage/>}/>
+                    <Route path= '/ServiceForm' render={() => <ServiceForm/>}/>
                 </Switch>
             </Router>
         )
