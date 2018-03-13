@@ -87,7 +87,8 @@ export default class AdminPage extends Component {
         for (let i in services){
             serviceElements.push(
                 <ListItem key = {i}>{services[i].name} @href {services[i].href}
-                <IconButton onClick = {this.delete.bind(this, services[i])}>Delete</IconButton>
+                <button onClick = 
+                {this.delete.bind(this, services[i])}>Delete</button>
                 </ListItem>
             )
         }
