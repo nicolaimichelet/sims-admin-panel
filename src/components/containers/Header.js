@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import 'assets/css/header.css';
-import {Tab, Tabs} from 'material-ui/Tabs';
-import Slider from 'material-ui/Slider';
+import { Link } from 'react-router-dom';
 
 
 export default class Header extends Component {
@@ -12,8 +11,8 @@ export default class Header extends Component {
 
         const buttons = (
             <div>
-                <FlatButton  hoverColor='transparent' rippleColor='transparent' labelStyle={{color: 'white'}} href="/AdminPage" label="Service" />
-                <FlatButton  hoverColor='transparent' rippleColor='transparent' labelStyle={{color: 'white'}} href="/" label="Place" />
+                <FlatButton  hoverColor='transparent' rippleColor='transparent' labelStyle={{color: 'white'}} href="/AdminPage" label="Service"/>
+                <FlatButton  hoverColor='transparent' rippleColor='transparent' labelStyle={{color: 'white'}} href="/" label="Place"/>
                 <FlatButton  hoverColor='transparent' rippleColor='transparent' labelStyle={{color: 'white'}} href="/ServiceForm" label="New Service" />
             </div>)
 

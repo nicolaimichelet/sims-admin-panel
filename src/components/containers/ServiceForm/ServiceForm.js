@@ -10,7 +10,7 @@ import MenuItem from 'material-ui/MenuItem';
 export default class ServiceForm extends Component {
     constructor(props){
         super(props);
-        this.state = {value: 1, value2: 0, showAdvanced: false};
+        this.state = {StateVal: 1, StartModeVal: 0, showAdvanced: false};
 
 
     }
@@ -24,8 +24,8 @@ export default class ServiceForm extends Component {
 
     }
 
-    handleChange = (event, index, value2) => this.setState({value2});
-    handleChange2 = (event, index, value) => this.setState({value});
+    handleChange = (event, index, StartModeVal) => this.setState({StartModeVal});
+    handleChange2 = (event, index, StateVal) => this.setState({StateVal});
 
 
 
@@ -92,23 +92,23 @@ export default class ServiceForm extends Component {
                     <DatePicker className='formtext' hintText="End date" /><br></br>
 
                     <h6>Start mode</h6>
-                    <DropDownMenu value2={this.state.verdi} onChange={this.handleChange}>
-                        <MenuItem value2={0} primaryText="Unknown" />
-                        <MenuItem value2={1} primaryText="Automatically by the managed environment" />
-                        <MenuItem value2={2} primaryText="Automatically by the owning device" />
-                        <MenuItem value2={3} primaryText="Manually by the Provider of the Service" />
-                        <MenuItem value2={4} primaryText="Manually by a Customer of the Provider" />
-                        <MenuItem value2={5} primaryText="Any of the above" />
+                    <DropDownMenu StartModeVal={this.state.verdi} onChange={this.handleChange}>
+                        <MenuItem StartModeVal={0} primaryText="Unknown" />
+                        <MenuItem StartModeVal={1} primaryText="Automatically by the managed environment" />
+                        <MenuItem StartModeVal={2} primaryText="Automatically by the owning device" />
+                        <MenuItem StartModeVal={3} primaryText="Manually by the Provider of the Service" />
+                        <MenuItem StartModeVal={4} primaryText="Manually by a Customer of the Provider" />
+                        <MenuItem StartModeVal={5} primaryText="Any of the above" />
                     </DropDownMenu>
                     <br></br>
                     <h6>State</h6>
-                    <DropDownMenu value={this.state.value} onChange={this.handleChange2}>
-                        <MenuItem value={1} primaryText="Feasibility Checked" />
-                        <MenuItem value={2} primaryText="Designed" />
-                        <MenuItem value={3} primaryText="Reserved" />
-                        <MenuItem value={4} primaryText="Active" />
-                        <MenuItem value={5} primaryText="Inactive" />
-                        <MenuItem value={6} primaryText="Terminated" />
+                    <DropDownMenu StateVal={this.state.value} onChange={this.handleChange2}>
+                        <MenuItem StateVal={1} primaryText="Feasibility Checked" />
+                        <MenuItem StateVal={2} primaryText="Designed" />
+                        <MenuItem StateVal={3} primaryText="Reserved" />
+                        <MenuItem StateVal={4} primaryText="Active" />
+                        <MenuItem StateVal={5} primaryText="Inactive" />
+                        <MenuItem StateVal={6} primaryText="Terminated" />
                     </DropDownMenu>
 
 
