@@ -10,21 +10,20 @@ export default class Header extends Component {
 
     render (){
 
-        const buttons = [
-            <FlatButton  hoverColor='transparent' rippleColor='transparent' labelStyle={{color: 'white'}} href="/AdminPage" label="Service" />,
-            <FlatButton  hoverColor='transparent' rippleColor='transparent' labelStyle={{color: 'white'}} href="/" label="Place" />,
-            <FlatButton  hoverColor='transparent' rippleColor='transparent' labelStyle={{color: 'white'}} href="/ServiceForm" label="New Service" />
-        ]
+        const buttons = (
+            <div>
+                <FlatButton  hoverColor='transparent' rippleColor='transparent' labelStyle={{color: 'white'}} href="/AdminPage" label="Service" />
+                <FlatButton  hoverColor='transparent' rippleColor='transparent' labelStyle={{color: 'white'}} href="/" label="Place" />
+                <FlatButton  hoverColor='transparent' rippleColor='transparent' labelStyle={{color: 'white'}} href="/ServiceForm" label="New Service" />
+            </div>)
 
         return(
             <AppBar
                 title="SIMS"
                 titleStyle={{marginLeft: '30%', fontSize: '220%' }}
-                iconElementLeft={
-                    <FlatButton hoverColor='transparent' rippleColor='transparent'>{buttons}</FlatButton>
-                }/>
+                iconElementLeft={buttons}/>
 
-            
+
 
         )
     }
