@@ -11,15 +11,13 @@ export default class Header extends Component {
 
         const buttons = [
             <FlatButton>
-                <a href='/AdminPage'>
-                Services
-                </a>
+                <a href="/AdminPage">Services</a>
             </FlatButton>,
             <FlatButton>
                 Places
             </FlatButton>,
             <FlatButton>
-                New Service
+                <a href="/ServiceForm">New Service</a>
             </FlatButton>
         ]
 

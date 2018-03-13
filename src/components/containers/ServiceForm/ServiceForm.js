@@ -1,100 +1,109 @@
 import React, { Component } from 'react';
 import 'assets/css/ServiceForm.css';
-import serviceModule from './ServiceModule';
-
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import DatePicker from 'material-ui/DatePicker';
+import Toggle from 'material-ui/Toggle';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 
 export default class ServiceForm extends Component {
     constructor(props){
         super(props);
-
-        this.state = { isOpen: false };
-    }
-
-    toggleModal = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
+        this.state = {value: 1, verdi: 0};
     }
 
     componentDidMount(){
 
     }
 
+    handleChange = (event, index, verdi) => this.setState({verdi});
+    handleChange2 = (event, index, value) => this.setState({value});
+
+
+
+
+
     render() {
         return (
-            <div>
+
+            <div className="form">
+                <h3>Add New Service</h3>
+                <TextField className='formtext' hintText="Enter name..." floatingLabelText="Name"/><br></br><br></br>
+                <h4> Related Party </h4>
+                <div id="relatedParty">
+                    <TextField hintText="Enter role..." floatingLabelText="Role"/><br></br>
+                    <TextField hintText="Enter id..." floatingLabelText="ID"/><br></br>
+                    <TextField hintText="Enter href..." floatingLabelText="HREF"/><br></br>
+                </div>
+                <br></br>
+                <RaisedButton className="advanced" label="Advanced"/>
+                <RaisedButton label="Submit" primary={true} />
+
                 <div>
-                    <form>
-                        <fieldset className="form">
-                            <h2>Add new service</h2>
-                            <div class="field" class="form-group">
-                            <label for="exampleInputName">Name</label>
-                            <input type="name" class="form-control" id="exampleName" aria-describedby="emailHelp" placeholder="Enter name of service"/>
-                            </div>
-                            <h5>Related party</h5>
-                            <div id="relatedParty" className="form-group">
-                                <label for="exampleInputRole">Role</label>
-                                <input type="role" class="form-control" id="exampleRole" aria-describedby="emailHelp" placeholder="Enter role"/>
-                            </div>
-                            <div id="relatedParty" class="form-group">
-                                <label for="exampleInputID">ID</label>
-                                <input type="id" class="form-control" id="exampleID" aria-describedby="emailHelp" placeholder="Enter ID"/>
-                            </div>
-                            <div id="relatedParty" class="form-group">
-                                <label for="exampleInputHref">HREF</label>
-                                <input type="name" class="form-control" id="exampleHref" aria-describedby="emailHelp" placeholder="Enter href"/>
-                            </div>
+                    <TextField className='formtext'  hintText="" floatingLabelText="Category"/><br></br>
+                    <TextField className='formtext' hintText="" floatingLabelText="Description" multiLine={true} rows={2}/><br></br>
+
+
+                    <h6>End date</h6>
+                    <DatePicker className='formtext' hintText="End date" /><br></br>
+
+                    <div className="toggle">
+                        <Toggle label="Has the service started?" />
+                    </div>
+                    <TextField className='formtext' hintText="Reference of the service..." floatingLabelText="HREF"/><br></br>
+                    <TextField className='formtext' hintText="Enter ID..." floatingLabelText="ID"/>
+
+                    <div className="toggle">
+                        <Toggle label="Is the service enabled?" />
+                    </div>
+                    <div className="toggle">
+                        <Toggle label="Can this service be changed without affecting any other service?"/>
+                    </div>
+                    <h6>Order date</h6>
+                    <DatePicker hintText="Order date" />
+                    <h6>Start date</h6>
+                    <DatePicker hintText="Start date" />
+                    <h6>Start mode</h6>
+                    <DropDownMenu verdi={this.state.verdi} onChange={this.handleChange}>
+                        <MenuItem verdi={0} primaryText="Unknown" />
+                        <MenuItem verdi={1} primaryText="Automatically by the managed environment" />
+                        <MenuItem verdi={2} primaryText="Automatically by the owning device" />
+                        <MenuItem verdi={3} primaryText="Manually by the Provider of the Service" />
+                        <MenuItem verdi={4} primaryText="Manually by a Customer of the Provider" />
+                        <MenuItem verdi={5} primaryText="Any of the above" />
+                    </DropDownMenu>
+                    <br></br>
+                    <h6>State</h6>
+                    <DropDownMenu value={this.state.value} onChange={this.handleChange2}>
+                        <MenuItem value={1} primaryText="Feasibility Checked" />
+                        <MenuItem value={2} primaryText="Designed" />
+                        <MenuItem value={3} primaryText="Reserved" />
+                        <MenuItem value={4} primaryText="Active" />
+                        <MenuItem value={5} primaryText="Inactive" />
+                        <MenuItem value={6} primaryText="Terminated" />
+                    </DropDownMenu>
 
 
 
-                            {/*<fieldset class="form-group">
-                            <legend>Radio buttons</legend>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked=""/>
-                                Option one is this and that—be sure to include why it's great
-                                </label>
-                            </div>
-                            <div class="form-check">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2"/>
-                                Option two can be something else and selecting it will deselect option one
-                                </label>
-                            </div>
-                            <div class="form-check disabled">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled=""/>
-                                Option three is disabled
-                                </label>
-                            </div>
-                            </fieldset>
-                            <fieldset class="form-group">
-                            <legend>Checkboxes</legend>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="" checked=""/>
-                                Option one is this and that—be sure to include why it's great
-                                </label>
-                            </div>
-                            <div class="form-check disabled">
-                                <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="" disabled=""/>
-                                Option two is disabled
-                                </label>
-                            </div>
-                            </fieldset>*/}
+                    <br></br> <TextField className='formtext' hintText="Resource type..." floatingLabelText="Type"/>
+                    <br></br><TextField className='formtext' hintText="Service order..." floatingLabelText="Service Order Ref"/>
+                    <br></br><TextField className='formtext' hintText="Service order..." floatingLabelText="Service Order Ref"/>
 
-                            <button onClick={this.toggleModal} id="advanced" type="module" class="btn btn-outline-secondary">Advanced</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </fieldset>
-                        </form>
+                </div>
 
 
-                 </div>
-                
             </div>
 
-
         );
+
+        const styles = {
+            block: {
+                maxWidth: 250,
+            },
+            toggle: {
+                marginBottom: 16,
+            }
+        };
     }
 }
