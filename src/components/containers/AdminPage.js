@@ -57,7 +57,7 @@ export class AdminPage extends Component {
         <Paper style = {style}>
           <h1>Services</h1>
           <TextField onChange = {(e, v)=> this.onChange(v)}
-          hintText="Query"
+            hintText="Query"
           /><br />
           <List>{serviceElements}
           </List>
