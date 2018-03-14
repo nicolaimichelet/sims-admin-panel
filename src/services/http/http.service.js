@@ -46,7 +46,9 @@ export class HttpServiceProvider extends HttpServiceInterface{
     if (!r.ok) {
       return Observable.throw(r);
     }
-    return r.json();
+    return Observable.fromPromise(r.clone().json()).catch((err) => {
+      return r.text();
+    });
   }
   /** Performs a general request
    * @param {Request} url

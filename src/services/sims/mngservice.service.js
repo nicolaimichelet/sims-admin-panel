@@ -33,7 +33,7 @@ export class ManagedServiceServiceProvider extends IManagedService{
 
 
   postService(service){
-    this.http.post(service).map((data) => {
+    return this.http.post(service).map((data) => {
       return new ManagedService(data);
     });
   }
