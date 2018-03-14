@@ -9,12 +9,6 @@ import {ToolbarGroup} from 'material-ui/Toolbar';
 
 import _s from 'assets/css/Header.css';
 
-const styles = {
-  underline: {
-    borderColor: orange500
-  }
-}
-
 export default class Header extends Component {
 
   render (){
@@ -35,7 +29,7 @@ export default class Header extends Component {
     return(
       <AppBar
         title="SIMS"
-        titleStyle={{marginLeft: '30%', fontSize: '220%' }}
+        titleStyle={{fontSize: '220%' }}
         iconElementLeft={<div/>}
         className={_s.header}
       >

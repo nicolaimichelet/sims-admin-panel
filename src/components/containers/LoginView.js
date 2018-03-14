@@ -5,20 +5,70 @@ import LoginForm from 'components/misc/LoginForm';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 
+import { DEFAULT_API } from 'common/constants';
 
+import {Router, Switch, Route, Redirect} from 'react-router';
+
+import { mapAndConnect, IManagedService, ConfigServiceInterface } from 'services';
+
+import _s from 'assets/css/LoginView.css';
 
 
 
 /* Simple login page for the admin panel */
-export default class LoginView extends Component{
+export class LoginView extends Component{
   constructor(props){
     super(props);
-    this.state = {};
+    this.initialValue = this.props.config.getItem("SIMS-BASE");
+    this.state = {
+      error: false,
+      errorText: "",
+      success: false
+    }
+  }
+
+  componentDidMount(){
+    console.log(this.props);
+  }
+
+
+  onConnect(baseUrl){
+    this.props.config.setItem("SIMS-BASE", baseUrl);
+    // Try to fetch services to see if endpoint exists
+    // Temp solution
+    this.props.imService.getServices().subscribe(() => {
+      // Success
+      this.setState({
+        success: true
+      });
+    }, (err) => {
+      // Fail
+      console.log(err);
+      this.setState({
+        errorText: err instanceof Response ? `HTTP ERROR: ${err.status} - ${err.statusText}` : "Connection failed!" 
+      });
+    }); 
   }
 
   render(){
+
+
     return (
-      <LoginForm />
+      <div className={_s["form-container"]}>
+        {
+          !this.state.success ? <LoginForm 
+            onSubmit={(...a) => this.onConnect(...a)}
+            initialValue={this.initialValue}
+            defaultValue={DEFAULT_API}
+            errorText={this.state.errorText}
+          /> : <Redirect to="/services" />
+        }
+      </div>
     );
   }
 }
+
+export default mapAndConnect(LoginView, {
+  imService: IManagedService,
+  config: ConfigServiceInterface
+})
