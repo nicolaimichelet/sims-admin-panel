@@ -7,6 +7,7 @@ export class ManagedService{
     this.href = data.href;
     this.id = data.id;
     this.category = data.category;
+    this.description = data.description;
     this.endDate = data.endDate ? new Date(data.endDate) : null;
     this.hasStarted = data.hasStarted;
     this.isStateful = data.isStateful;
