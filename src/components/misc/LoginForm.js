@@ -18,7 +18,7 @@ export default class LoginForm extends Component{
     this.state = {
       popoverEnabled: false,
       popoverTarget: null,
-      href: "http://localhost:3000/api"
+      href: props.initialValue
     }
   }
 
@@ -41,9 +41,7 @@ export default class LoginForm extends Component{
 
     const popOverElements = [];
     const options = this.props.options || [
-      {href: "https://www.google.com/sims"},
-      {href: "https://sims.faavne.no"},
-      {href: "http://localhost:3000"}
+
     ]
     for(let i in options){
       let e = options[i];
@@ -64,9 +62,11 @@ export default class LoginForm extends Component{
         <Paper className={_s["login-body"]} zDepth={0}>
           <TextField 
             style={{width: "100%"}}
-            defaultValue="http://localhost:3000/api"
+            hintText={this.props.defaultValue}
             value={this.state.href}
             floatingLabelText="SIMS API BASE URI"
+            onChange={(e, v) => this.onInputChange(v)}
+            errorText={this.props.errorText}
             onFocus={
               (e) => {
                 //this.setPopover(true, e.target); 
@@ -80,12 +80,11 @@ export default class LoginForm extends Component{
               }
             }
           />
-          <Link to={`${this.state.href}`}>
-            <RaisedButton
-              primary={true}
-              label="Connect"
-            />
-          </Link>
+          <RaisedButton
+            primary={true}
+            label="Connect"
+            onClick={() => this.props.onSubmit(this.state.href || this.props.defaultValue || "")}
+          />
 
           <Popover
             open={this.state.popoverEnabled}

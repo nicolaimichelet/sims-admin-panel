@@ -1,8 +1,10 @@
 
 
+
 export class ManagedService{
   constructor(data){
     this.uuid = data.uuid;
+    this.href = data.href;
     this.id = data.id;
     this.category = data.category;
     this.endDate = data.endDate ? new Date(data.endDate) : null;

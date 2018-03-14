@@ -1,8 +1,9 @@
-
+import { ConfigServiceInterface } from './config.interface';
 
 // Class for storing objects in a storage
-export class ConfigServiceProvider{
+export class ConfigServiceProvider extends ConfigServiceInterface{
   constructor(serviceManager, storage){
+    super();
     this.serviceManager = serviceManager;
     this.storage = storage !== null ? storage : new Storage();
   }
@@ -21,7 +22,7 @@ export class ConfigServiceProvider{
   }
 
   getItem(key){
-    this.storage.getItem(key)
+    return this.storage.getItem(key)
   }
 
   getObject(key){

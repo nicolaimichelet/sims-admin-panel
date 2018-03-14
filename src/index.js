@@ -10,13 +10,14 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import App from 'components/containers/App';
 import { ServiceProvider, ConfigServiceProvider } from 'services';
-import { ServiceManager, HttpServiceInterface,HttpServiceProvider } from 'services';
+import { ServiceManager, HttpServiceInterface,HttpServiceProvider, ManagedServiceServiceProvider } from 'services';
+
 
 const serviceManager = new ServiceManager();
 
 serviceManager.registerService(ConfigServiceProvider, null, localStorage);
-serviceManager.getService(ConfigServiceProvider).setObject("test", ["a", "b", "c"]);
 serviceManager.registerService(HttpServiceProvider);
+serviceManager.registerService(ManagedServiceServiceProvider);
 
 
 const history = createBrowserHistory();

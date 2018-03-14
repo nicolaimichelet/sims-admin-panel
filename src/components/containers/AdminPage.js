@@ -2,21 +2,22 @@ import React, { Component } from 'react';
 import _s from 'assets/css/AdminPage.css';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
+import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {Subject} from 'rxjs';
+import Snackbar from 'material-ui/Snackbar';
 
-import { mapAndConnect, HttpServiceInterface } from 'services';
+import { mapAndConnect, IManagedService } from 'services';
 
 
 import { DEFAULT_API } from 'common/constants';
 
 
+
 const DEFAULT_QUERY = 'redux';
 
 
-const style = {
-  padding: "2em"
-}
+
 
 export class AdminPage extends Component {
     constructor(props){
@@ -25,12 +26,13 @@ export class AdminPage extends Component {
   
       this.state = {
         services: [],
+        lastError: null
       };
     }
     componentDidMount(){
       this.querySubject.debounceTime(300).distinctUntilChanged().subscribe((a)=> {
       })
-      this.props.http.get(`${DEFAULT_API}/services`).subscribe((services) => {
+      this.props.imService.getServices().subscribe((services) => {
         this.setState({
           services: services
         });
@@ -40,15 +42,28 @@ export class AdminPage extends Component {
 
 
     delete(service) {
-      const newState = this.state.services.slice();
-      if (newState.indexOf(service) > -1){
-        newState.splice(newState.indexOf(service), 1);
-        this.setState({services : newState});
-      }
+      this.props.imService.deleteService(service).subscribe(() => {
+        const newState = this.state.services.slice();
+        if (newState.indexOf(service) > -1){
+          newState.splice(newState.indexOf(service), 1);
+          this.setState({services : newState});
+        }
+      }, (err) => {
+        this.setState({
+          lastError: err
+        });
+      });
+      
     }
 
     onChange(value){
       this.querySubject.next(value);
+    }
+
+    clearError(){
+      this.setState({
+        lastError: null
+      });
     }
 
     render() {
@@ -56,17 +71,18 @@ export class AdminPage extends Component {
       const serviceElements = [];
       for (let i in services){
         serviceElements.push(
-          <ListItem key = {i}>
-            {services[i].name} @href {services[i].href}
-            <button onClick = {() => this.delete(this, services[i])}>
+          <ListItem key = {i} rightIcon={
+            <RaisedButton secondary onClick = {() => this.delete(services[i])}>
               Delete
-            </button>
+            </RaisedButton>
+          }>
+            {services[i].href}
           </ListItem>
         )
       }
 
       return (
-        <Paper style = {style}>
+        <Paper className={_s["paper-container"]}>
           <h1>Services</h1>
           <TextField 
             onChange = {(e, v)=> this.onChange(v)}
@@ -76,11 +92,17 @@ export class AdminPage extends Component {
           <List>
             {serviceElements}
           </List>
+          <Snackbar
+            open={this.state.lastError != null}
+            message={this.state.lastError instanceof Error ? this.state.lastError.toString() : ""}
+            autoHideDuration={4000}
+            onRequestClose={() => this.clearError()}
+          />
         </Paper>
       );
     }
 }
 
 export default mapAndConnect(AdminPage, {
-  http: HttpServiceInterface
+  imService: IManagedService
 })
