@@ -5,6 +5,7 @@ import { IManagedService } from './mngservice.interface';
 
 import { DEFAULT_API } from 'common/constants';
 
+import { Observable } from 'rxjs';
 
 
 export class ManagedServiceServiceProvider extends IManagedService{
@@ -17,7 +18,6 @@ export class ManagedServiceServiceProvider extends IManagedService{
 
 
   getServices(){
-    console.log(this.config.getItem("SIMS-BASE"));
     // May want to move url to argument
     const endpoint = new URL('services',`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
     return this.http.get(endpoint).map(
@@ -31,13 +31,28 @@ export class ManagedServiceServiceProvider extends IManagedService{
     );
   }
 
+
+  postService(service){
+    this.http.post(service).map((data) => {
+      return new ManagedService(data);
+    });
+  }
+
   getService(id){
-    const endpoint = new URL(`service/${id}`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+    const endpoint = new URL(`services/${id}`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
     return this.http.get(endpoint).map(
       (service) => {
         return new ManagedService(service);
       }
     );
+  }
+
+  deleteService(service){
+    if(service.id){
+      const endpoint = new URL(`services/${service.id}`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+      return this.http.delete(endpoint);
+    }
+    return Observable.throw(new Error("Service has no id"));
   }
 
 }

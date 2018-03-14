@@ -114,4 +114,10 @@ export class HttpServiceProvider extends HttpServiceInterface{
     });
     return this.request(request);
   }
+  delete(url){
+    const request = new Request(url, {
+      method: 'DELETE'
+    });
+    return this.request(request);
+  }
 }

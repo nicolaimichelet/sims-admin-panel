@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import _s from 'assets/css/AdminPage.css';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
+import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {Subject} from 'rxjs';
+import Snackbar from 'material-ui/Snackbar';
 
 import { mapAndConnect, IManagedService } from 'services';
 
@@ -24,6 +26,7 @@ export class AdminPage extends Component {
   
       this.state = {
         services: [],
+        lastError: null
       };
     }
     componentDidMount(){
@@ -39,15 +42,28 @@ export class AdminPage extends Component {
 
 
     delete(service) {
-      const newState = this.state.services.slice();
-      if (newState.indexOf(service) > -1){
-        newState.splice(newState.indexOf(service), 1);
-        this.setState({services : newState});
-      }
+      this.props.imService.deleteService(service).subscribe(() => {
+        const newState = this.state.services.slice();
+        if (newState.indexOf(service) > -1){
+          newState.splice(newState.indexOf(service), 1);
+          this.setState({services : newState});
+        }
+      }, (err) => {
+        this.setState({
+          lastError: err
+        });
+      });
+      
     }
 
     onChange(value){
       this.querySubject.next(value);
+    }
+
+    clearError(){
+      this.setState({
+        lastError: null
+      });
     }
 
     render() {
@@ -55,11 +71,12 @@ export class AdminPage extends Component {
       const serviceElements = [];
       for (let i in services){
         serviceElements.push(
-          <ListItem key = {i}>
-            {services[i].href}
-            <button onClick = {() => this.delete(this, services[i])}>
+          <ListItem key = {i} rightIcon={
+            <RaisedButton secondary onClick = {() => this.delete(services[i])}>
               Delete
-            </button>
+            </RaisedButton>
+          }>
+            {services[i].href}
           </ListItem>
         )
       }
@@ -75,6 +92,12 @@ export class AdminPage extends Component {
           <List>
             {serviceElements}
           </List>
+          <Snackbar
+            open={this.state.lastError != null}
+            message={this.state.lastError instanceof Error ? this.state.lastError.toString() : ""}
+            autoHideDuration={4000}
+            onRequestClose={() => this.clearError()}
+          />
         </Paper>
       );
     }
