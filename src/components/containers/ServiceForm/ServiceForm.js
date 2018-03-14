@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import 'assets/css/ServiceForm.css';
+import _s from 'assets/css/ServiceForm.css';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
@@ -18,19 +18,19 @@ function ShowAdvanced(props){
     }
     return(
         <div>
-            <TextField className='formtext'  hintText="" floatingLabelText="Category"/><br></br>
-            <TextField className='formtext' hintText="" floatingLabelText="Description" multiLine={true} rows={2}/><br></br>
+            <TextField className={_s.formtext}  hintText="" floatingLabelText="Category"/><br></br>
+            <TextField className={_s.formtext} hintText="" floatingLabelText="Description" multiLine={true} rows={2}/><br></br>
 
-            <div className="toggle">
+            <div className={_s.toggle}>
                 <Toggle label="Has the service started?" />
             </div>
-            <TextField className='formtext' hintText="Reference of the service..." floatingLabelText="HREF"/><br></br>
-            <TextField className='formtext' hintText="Enter ID..." floatingLabelText="ID"/>
+            <TextField className={_s.formtext} hintText="Reference of the service..." floatingLabelText="HREF"/><br></br>
+            <TextField className={_s.formtext} hintText="Enter ID..." floatingLabelText="ID"/>
 
-            <div className="toggle">
+            <div className={_s.toggle}>
                 <Toggle label="Is the service enabled?" />
             </div>
-            <div className="toggle">
+            <div className={_s.toggle}>
                 <Toggle label="Can this service be changed without affecting any other service?"/>
             </div>
 
@@ -44,7 +44,7 @@ function ShowAdvanced(props){
             <h6>Start date</h6>
             <DatePicker hintText="Start date" />
             <h6>End date</h6>
-            <DatePicker className='formtext' hintText="End date" /><br></br>
+            <DatePicker className={_s.formtext} hintText="End date" /><br></br>
             {/**
             <h6>Start mode</h6>
             <DropDownMenu StartModeVal={this.state.StartModeVal} onChange={this.handleChangeStart.bind(this)}>
@@ -70,9 +70,9 @@ function ShowAdvanced(props){
 
             {/********************************************** LISTS, TYPES ETC. **************************************/}
 
-            <br></br> <TextField className='formtext' hintText="Resource type..." floatingLabelText="Type"/>
-            <br></br><TextField className='formtext' hintText="Service order..." floatingLabelText="Service Order Ref"/>
-            <br></br><TextField className='formtext' hintText="Service order..." floatingLabelText="Service Order Ref"/>
+            <br></br><TextField className={_s.formtext} hintText="Resource type..." floatingLabelText="Type"/>
+            <br></br><TextField className={_s.formtext} hintText="Service order..." floatingLabelText="Service Order Ref"/>
+            <br></br><TextField className={_s.formtext} hintText="Service order..." floatingLabelText="Service Order Ref"/>
 
         </div>
     )
@@ -82,60 +82,39 @@ function ShowAdvanced(props){
 
 export default class ServiceForm extends Component {
     constructor(props){
-        super(props);
-        this.state = {StateVal: 1, StartModeVal: 0, showAdvanced: false};
-
+      super(props);
+      this.state = {StateVal: 1, StartModeVal: 0, showAdvanced: false};
     }
     onClick(){
-        this.setState({
-            showAdvanced: !this.state.showAdvanced});
-
+      this.setState({
+        showAdvanced: !this.state.showAdvanced
+      });
+        
     }
-
 
     componentDidMount(){
 
     }
 
-    handleChangeStart = (event, index, StartModeVal) => this.setState.bind(this);
-    handleChangeState = (event, index, StateVal) => this.setState({StateVal});
-
     render() {
+      return (
+        <div className={_s.form}>
 
-        return (
-        <div className="form">
+          {/********************************************** CLASSIC FORM INFO ***************************************/}
 
-                {/********************************************** CLASSIC FORM INFO ***************************************/}
-
-                <h3>Add New Service</h3>
-                <TextField className='formtext' hintText="Enter name..." floatingLabelText="Name"/><br></br><br></br>
-                <h4> Related Party </h4>
-                <div id="relatedParty">
-                    <TextField hintText="Enter role..." floatingLabelText="Role"/><br></br>
-                    <TextField hintText="Enter id..." floatingLabelText="ID"/><br></br>
-                    <TextField hintText="Enter href..." floatingLabelText="HREF"/><br></br>
-                </div>
-                <br></br>
-                {/********************************************** ADVANCED FORM  ***************************************/}
-                <ShowAdvanced show={this.state.showAdvanced}/>
-                <RaisedButton className="advanced" label="Advanced" onClick={this.onClick.bind(this)}/>
-                <RaisedButton label="Submit" primary={true} />
-
-
-
-
-
-            </div>
-
-        );
-
-        const styles = {
-            block: {
-                maxWidth: 250,
-            },
-            toggle: {
-                marginBottom: 16,
-            }
-        };
+          <h3>Add New Service</h3>
+          <TextField className={_s.formtext} hintText="Enter name..." floatingLabelText="Name"/><br></br><br></br>
+          <h4> Related Party </h4>
+          <div className={_s.relatedParty}>
+            <TextField hintText="Enter role..." floatingLabelText="Role"/><br></br>
+            <TextField hintText="Enter id..." floatingLabelText="ID"/><br></br>
+            <TextField hintText="Enter href..." floatingLabelText="HREF"/><br></br>
+          </div>
+          {/********************************************** ADVANCED FORM  ***************************************/}
+          <ShowAdvanced show={this.state.showAdvanced}/>
+          <RaisedButton className={_s.advanced} label="Advanced" onClick={this.onClick.bind(this)}/>
+          <RaisedButton label="Submit" primary={true} />
+        </div>
+      );
     }
 }

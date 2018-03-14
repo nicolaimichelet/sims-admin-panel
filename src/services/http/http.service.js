@@ -7,6 +7,7 @@ import { Observable, Subject } from 'rxjs';
 export class HttpServiceProvider extends HttpServiceInterface{
 
   constructor(serviceManager) {
+    super();
     this.requestQueue = [];
     this.requestSubject = new Subject();
     this.count = 0;

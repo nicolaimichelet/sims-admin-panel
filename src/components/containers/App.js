@@ -1,19 +1,35 @@
 import React, { Component } from 'react';
-import Header from './Header'
-import Main from './Main'
+import Header from './Header';
 import 'assets/css/App.css';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+import {Router, Switch, Route} from 'react-router';
+import AdminPage from './AdminPage';
+import LoginView from './LoginView';
+import ServiceForm from 'components/containers/ServiceForm/ServiceForm';
+
 
 
 export default class App extends Component {
   render() {
     return (
-      <MuiThemeProvider>
-        <Header/>
-        <Main/>
-      </MuiThemeProvider>
+      <Switch>
+        <Route path='/' component={(props) => {
+          return (
+            <div>
+              <Route path='/' render={(props) => <Header {...props} />} />
+              <Switch>
+                <Route path='/services' exact={true} render={(props) => <AdminPage {...props} />}/>
+                <Route path= '/services/new' exact={true} render={(props) => <ServiceForm {...props} />}/>
+              </Switch>
+            </div>
+          );
+        }}/>
+        <Route path="/" exact={true} render={() => {
+          return (
+            <LoginView />
+          );
+        }}/>
+      </Switch>
     )
   }
 }
