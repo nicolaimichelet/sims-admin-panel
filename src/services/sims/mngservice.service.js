@@ -33,7 +33,9 @@ export class ManagedServiceServiceProvider extends IManagedService{
 
 
   postService(service){
-    return this.http.post(service).map((data) => {
+
+    const endpoint = new URL(`services`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+    return this.http.post(endpoint, service).map((data) => {
       return new ManagedService(data);
     });
   }

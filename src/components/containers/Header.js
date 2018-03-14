@@ -6,13 +6,13 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { Link } from 'react-router-dom';
 import {ToolbarGroup} from 'material-ui/Toolbar';
-
 import _s from 'assets/css/Header.css';
+import FontIcon from 'material-ui/FontIcon';
 
 export default class Header extends Component {
 
   render (){
-    const path = this.props.location.pathname
+    const path = this.props.location.pathname;
     const toolbar = [
       <Link key={1} to="/services">
         {path == "/services" ? 
@@ -24,6 +24,9 @@ export default class Header extends Component {
           <RaisedButton secondary label="New Service" /> : 
           <FlatButton hoverColor='transparent' rippleColor='transparent' label="New Service" />}
       </Link>,
+      <Link key={4} to="/login">
+        <FlatButton label="Exit"/>
+      </Link>
     ];
 
     return(

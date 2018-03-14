@@ -4,6 +4,9 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 import Toggle from 'material-ui/Toggle';
+import { mapAndConnect, IManagedService, ManagedService} from "services";
+import {Redirect} from "react-router";
+
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 
@@ -18,13 +21,7 @@ function ShowAdvanced(props){
   }
   return(
     <div>
-        <TextField className={_s.formtext}  hintText="" floatingLabelText="Category"/><br></br>
-        <TextField className={_s.formtext} hintText="" floatingLabelText="Description" multiLine={true} rows={2}/><br></br>
 
-        <div className={_s.toggle}>
-          <Toggle label="Has the service started?" />
-        </div>
-        <TextField className={_s.formtext} hintText="Reference of the service..." floatingLabelText="HREF"/><br></br>
         <TextField className={_s.formtext} hintText="Enter ID..." floatingLabelText="ID"/>
 
         <div className={_s.toggle}>
@@ -33,6 +30,12 @@ function ShowAdvanced(props){
         <div className={_s.toggle}>
           <Toggle label="Can this service be changed without affecting any other service?"/>
         </div>
+
+      <div className={_s.relatedParty}>
+        <TextField onChange={(e,v)=> this.onFieldChange("role", v)} value={this.state.formValues.role} hintText="Enter role..." floatingLabelText="Role"/><br></br>
+        <TextField onChange={(e,v)=> this.onFieldChange("id", v)} value={this.state.formValues.id} hintText="Enter id..." floatingLabelText="ID"/><br></br>
+        <TextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} hintText="Enter href..." floatingLabelText="HREF"/><br></br>
+      </div>
 
 
 
@@ -80,11 +83,22 @@ function ShowAdvanced(props){
 }
 
 
-export default class ServiceForm extends Component {
+export class ServiceForm extends Component {
     constructor(props){
       super(props);
-      this.state = {StateVal: 1, StartModeVal: 0, showAdvanced: false};
+      this.state = {
+        formValues: {
+          name: "",
+          category: "",
+          description: "",
+          hasStarted: false,
+          href: "",
+        },
+        showAdvanced: false,
+        success: false
+      }
     }
+
     onClick(){
       this.setState({
         showAdvanced: !this.state.showAdvanced
@@ -92,8 +106,20 @@ export default class ServiceForm extends Component {
         
     }
 
-    createService(){
+    onFieldChange (field, value){
+      this.setState({
+        formValues: Object.assign({},this.state.formValues, {
+          [field]: value
+        })
+      })
+    }
 
+    submitService(){
+      this.props.imService.postService(new ManagedService(this.state.formValues)).subscribe(() => {
+        this.setState({
+          success: true
+        })
+      })
     }
 
     componentDidMount(){
@@ -107,18 +133,26 @@ export default class ServiceForm extends Component {
           {/********************************************** CLASSIC FORM INFO ***************************************/}
 
           <h3>Add New Service</h3>
-          <TextField className={_s.formtext} hintText="Enter name..." floatingLabelText="Name"/><br></br><br></br>
-          <h4> Related Party </h4>
-          <div className={_s.relatedParty}>
-            <TextField hintText="Enter role..." floatingLabelText="Role"/><br></br>
-            <TextField hintText="Enter id..." floatingLabelText="ID"/><br></br>
-            <TextField hintText="Enter href..." floatingLabelText="HREF"/><br></br>
+          <TextField onChange={(e,v)=> this.onFieldChange("name", v)} value={this.state.formValues.name} className={_s.formtext} hintText="Enter name..." floatingLabelText="Name"/><br></br><br></br>
+          <TextField onChange={(e,v)=> this.onFieldChange("category", v)} value={this.state.formValues.category} className={_s.formtext}  hintText="" floatingLabelText="Category"/><br></br>
+          <TextField onChange={(e,v)=> this.onFieldChange("description", v)} value={this.state.formValues.description} className={_s.formtext} hintText="" floatingLabelText="Description" multiLine={true} rows={2}/><br></br>
+
+          <div className={_s.toggle}>
+            <Toggle onChange={(e,v)=> this.onFieldChange("hasStarted", v)} value={this.state.formValues.hasStarted} label="Has the service started?" />
           </div>
+          <TextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} className={_s.formtext} hintText="Reference of the service..." floatingLabelText="HREF"/><br></br>
           {/********************************************** ADVANCED FORM  ***************************************/}
           <ShowAdvanced show={this.state.showAdvanced}/>
-          <RaisedButton className={_s.advanced} label="Advanced" onClick={this.onClick.bind(this)}/>
-          <RaisedButton label="Submit" primary={true} />
+          {/*<RaisedButton className={_s.advanced} label="Advanced" onClick={this.onClick.bind(this)}/>*/}
+          <RaisedButton onClick={()=> {
+            this.submitService();
+          }} label="Submit" primary={true} />
+          {this.state.success ? <Redirect to="/services" /> : null}
         </div>
       );
     }
 }
+
+export default mapAndConnect(ServiceForm, {
+  imService: IManagedService
+})
