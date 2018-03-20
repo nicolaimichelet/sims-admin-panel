@@ -42,11 +42,11 @@ function ShowAdvanced(props){
 
         {/********************************************** DATES, MODES, STATE ************************************/}
 
-        <h6>Order date</h6>
+        <h3>Order date</h3>
         <DatePicker hintText="Order date" />
-        <h6>Start date</h6>
+        <h3>Start date</h3>
         <DatePicker hintText="Start date" />
-        <h6>End date</h6>
+        <h3>End date</h3>
         <DatePicker className={_s.formtext} hintText="End date" /><br></br>
         {/**
         <h6>Start mode</h6>
