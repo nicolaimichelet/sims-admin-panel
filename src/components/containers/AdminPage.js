@@ -14,11 +14,13 @@ import {
     TableRow,
     TableRowColumn,
 } from 'material-ui/Table';
+import Dialog from 'material-ui/Dialog';
 
 import { mapAndConnect, IManagedService } from 'services';
 
 
 import { DEFAULT_API } from 'common/constants';
+import { FlatButton } from 'material-ui';
 
 
 
@@ -34,7 +36,9 @@ export class AdminPage extends Component {
   
       this.state = {
         services: [],
-        lastError: null
+        lastError: null,
+        selected: null,
+        open: false,
       };
     }
     componentDidMount(){
@@ -47,6 +51,20 @@ export class AdminPage extends Component {
       });
     }
 
+    handleClickTable(service){
+        this.setState({
+            open: true,
+            selected: service,
+        })
+        console.log('service clicked')
+    }
+    
+    handleClose(){
+        this.setState({
+            open: false,
+        })
+    }
+
 
 
     delete(service) {
@@ -54,8 +72,9 @@ export class AdminPage extends Component {
         const newState = this.state.services.slice();
         if (newState.indexOf(service) > -1){
           newState.splice(newState.indexOf(service), 1);
-          this.setState({services : newState});
+          this.setState({services : newState, open: false});
         }
+      
       }, (err) => {
         this.setState({
           lastError: err
@@ -80,7 +99,7 @@ export class AdminPage extends Component {
       for (let i in services){
         let e = services[i];
         serviceElements.push(
-          <TableRow className={_s[`state-${e.state}`]
+          <TableRow onRowClick={console.log} className={_s[`state-${e.state}`]
           } key = {i}>
           <TableRowColumn>{e.id}</TableRowColumn>
           <TableRowColumn>{e.name}</TableRowColumn>
@@ -98,7 +117,7 @@ export class AdminPage extends Component {
             hintText="Query"
           />
           <br />
-          <Table>
+          <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
             <TableHeader>
                 <TableRow>
                     <TableHeaderColumn>ID</TableHeaderColumn>
@@ -118,6 +137,29 @@ export class AdminPage extends Component {
             autoHideDuration={4000}
             onRequestClose={() => this.clearError()}
           />
+          {this.state.selected != null ? 
+          <Dialog title = {this.state.selected.name}
+          open = {this.state.open}
+          onRequestClose = {() => this.handleClose()}
+          actions = {[<RaisedButton
+            label = 'edit'
+            primary = {true}
+            
+          />,
+          <RaisedButton
+            label = "delete"
+            onClick = { () => this.delete(this.state.selected)}
+          />]}
+          
+          >
+            {this.state.selected.description}
+            
+            
+          </Dialog>
+          :
+          null
+          }
+
         </Paper>
       );
     }
