@@ -132,7 +132,7 @@ export class ServiceForm extends Component {
 
           {/********************************************** CLASSIC FORM INFO ***************************************/}
 
-          <h3>Add New Service</h3>
+          <h1>Add New Service</h1>
           <TextField onChange={(e,v)=> this.onFieldChange("name", v)} value={this.state.formValues.name} className={_s.formtext} hintText="Enter name..." floatingLabelText="Name"/><br></br><br></br>
           <TextField onChange={(e,v)=> this.onFieldChange("category", v)} value={this.state.formValues.category} className={_s.formtext}  hintText="" floatingLabelText="Category"/><br></br>
           <TextField onChange={(e,v)=> this.onFieldChange("description", v)} value={this.state.formValues.description} className={_s.formtext} hintText="" floatingLabelText="Description" multiLine={true} rows={2}/><br></br>
