@@ -11,90 +11,48 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 
 
-{/**********************************************************.*********************************************/}
-{/********************************************** ADVANCED FIELD IN FORM **********************************/}
-{/**********************************************************.*********************************************/}
 
-function ShowAdvanced(props){
-  if (!props.show){
-    return null;
-  }
-  return(
-    <div>
-
-        <TextField className={_s.formtext} hintText="Enter ID..." floatingLabelText="ID"/>
-
-        <div className={_s.toggle}>
-          <Toggle label="Is the service enabled?" />
-        </div>
-        <div className={_s.toggle}>
-          <Toggle label="Can this service be changed without affecting any other service?"/>
-        </div>
-
+{/*
       <div className={_s.relatedParty}>
         <TextField onChange={(e,v)=> this.onFieldChange("role", v)} value={this.state.formValues.role} hintText="Enter role..." floatingLabelText="Role"/><br></br>
         <TextField onChange={(e,v)=> this.onFieldChange("id", v)} value={this.state.formValues.id} hintText="Enter id..." floatingLabelText="ID"/><br></br>
         <TextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} hintText="Enter href..." floatingLabelText="HREF"/><br></br>
       </div>
-
-
+*/}
 
 
         {/********************************************** DATES, MODES, STATE ************************************/}
-
+/*
         <h6>Order date</h6>
         <DatePicker hintText="Order date" />
         <h6>Start date</h6>
         <DatePicker hintText="Start date" />
         <h6>End date</h6>
-        <DatePicker className={_s.formtext} hintText="End date" /><br></br>
-        {/**
-        <h6>Start mode</h6>
-        <DropDownMenu StartModeVal={this.state.StartModeVal} onChange={this.handleChangeStart.bind(this)}>
-          <MenuItem StartModeVal={0} primaryText="Unknown" />
-          <MenuItem StartModeVal={1} primaryText="Automatically by the managed environment" />
-          <MenuItem StartModeVal={2} primaryText="Automatically by the owning device" />
-          <MenuItem StartModeVal={3} primaryText="Manually by the Provider of the Service" />
-          <MenuItem StartModeVal={4} primaryText="Manually by a Customer of the Provider" />
-          <MenuItem StartModeVal={5} primaryText="Any of the above" />
-        </DropDownMenu>
-        <br></br>
-        <h6>State</h6>
-        <DropDownMenu StateVal={this.state.StateVal} onChange={this.handleChangeState.bind(this)}>
-          <MenuItem StateVal={1} primaryText="Feasibility Checked" />
-          <MenuItem StateVal={2} primaryText="Designed" />
-          <MenuItem StateVal={3} primaryText="Reserved" />
-          <MenuItem StateVal={4} primaryText="Active" />
-          <MenuItem StateVal={5} primaryText="Inactive" />
-          <MenuItem StateVal={6} primaryText="Terminated" />
-        </DropDownMenu>
-        */}
-
+        <DatePicker className={_s.formtext} hintText="End date" /><br></br>*/
 
         {/********************************************** LISTS, TYPES ETC. **************************************/}
-
+/*
         <br></br><TextField className={_s.formtext} hintText="Resource type..." floatingLabelText="Type"/>
         <br></br><TextField className={_s.formtext} hintText="Service order..." floatingLabelText="Service Order Ref"/>
-        <br></br><TextField className={_s.formtext} hintText="Service order..." floatingLabelText="Service Order Ref"/>
-
-      </div>
-  )
-
-}
-
+        <br></br><TextField className={_s.formtext} hintText="Service order..." floatingLabelText="Service Order Ref"/>*/
 
 export class ServiceForm extends Component {
     constructor(props){
       super(props);
       this.state = {
         formValues: {
-          name: "",
-          category: "",
-          description: "",
-          hasStarted: false,
+          id: "",
           href: "",
+          category: "",
+          name: "",
+          nameError: "",
+          description: "",
+          isServiceEnabled: false,
+          hasStarted: false,
+          startMode: "",
+          isStateful: false,
+          state: "",
         },
-        showAdvanced: false,
         success: false
       }
     }
@@ -103,23 +61,43 @@ export class ServiceForm extends Component {
       this.setState({
         showAdvanced: !this.state.showAdvanced
       });
-        
     }
 
+    /*When a field changes, we assign the value in the field.*/
     onFieldChange (field, value){
       this.setState({
         formValues: Object.assign({},this.state.formValues, {
           [field]: value
         })
-      })
+      },() => this.validate())
+
+    }
+
+    validate() {
+      const errors = {};
+
+      errors.nameError = this.state.formValues.name === "" ? "Name is a required field" : null;
+        this.setState({
+          formValues:{
+          ...this.state.formValues,
+          ...errors
+        }});
+    };
+
+    canBeSubmitted(){
+      const {name} = this.state.formValues;
+      return ( name.length > 0);
     }
 
     submitService(){
-      this.props.imService.postService(new ManagedService(this.state.formValues)).subscribe(() => {
-        this.setState({
-          success: true
+      const err = this.validate();
+      if (!err) {
+        this.props.imService.postService(new ManagedService(this.state.formValues)).subscribe(() => {
+          this.setState({
+            success: true
+          })
         })
-      })
+      }
     }
 
     componentDidMount(){
@@ -127,26 +105,52 @@ export class ServiceForm extends Component {
     }
 
     render() {
+
+      const isEnabled = this.canBeSubmitted();
+
       return (
         <div className={_s.form}>
 
           {/********************************************** CLASSIC FORM INFO ***************************************/}
 
           <h3>Add New Service</h3>
-          <TextField onChange={(e,v)=> this.onFieldChange("name", v)} value={this.state.formValues.name} className={_s.formtext} hintText="Enter name..." floatingLabelText="Name"/><br></br><br></br>
-          <TextField onChange={(e,v)=> this.onFieldChange("category", v)} value={this.state.formValues.category} className={_s.formtext}  hintText="" floatingLabelText="Category"/><br></br>
-          <TextField onChange={(e,v)=> this.onFieldChange("description", v)} value={this.state.formValues.description} className={_s.formtext} hintText="" floatingLabelText="Description" multiLine={true} rows={2}/><br></br>
+          <TextField onChange={(e,v)=> this.onFieldChange("id", v)} value={this.state.formValues.id} className={_s.formtext} hintText="Enter ID..." floatingLabelText="ID"/>
+          <TextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} className={_s.formtext} hintText="Reference of the service..." floatingLabelText="HREF"/>
+          <TextField onChange={(e,v)=> this.onFieldChange("category", v)} value={this.state.formValues.category} className={_s.formtext}  hintText="Enter category..." floatingLabelText="Category"/>
+          <TextField onChange={(e,v)=> this.onFieldChange("name", v)} value={this.state.formValues.name} errorText={this.state.formValues.nameError} className={_s.formtext} hintText="Enter name..." floatingLabelText="Name"/>
+          <TextField onChange={(e,v)=> this.onFieldChange("description", v)} value={this.state.formValues.description} className={_s.formtext} hintText="Description of the service..." floatingLabelText="Description" multiLine={true} rows={1}/>
 
           <div className={_s.toggle}>
+            <Toggle onChange={(e,v) => this.onFieldChange("isServiceEnabled", v)} value={this.state.formValues.isServiceEnabled} label="Is the service enabled?" />
             <Toggle onChange={(e,v)=> this.onFieldChange("hasStarted", v)} value={this.state.formValues.hasStarted} label="Has the service started?" />
           </div>
-          <TextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} className={_s.formtext} hintText="Reference of the service..." floatingLabelText="HREF"/><br></br>
-          {/********************************************** ADVANCED FORM  ***************************************/}
-          <ShowAdvanced show={this.state.showAdvanced}/>
-          {/*<RaisedButton className={_s.advanced} label="Advanced" onClick={this.onClick.bind(this)}/>*/}
+          <h5 className={_s.dropdown}>Start Mode</h5>
+          <DropDownMenu onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode}>
+            <MenuItem value={0} primaryText="Unknown" />
+            <MenuItem value={1} primaryText="Automatically by the managed environment" />
+            <MenuItem value={2} primaryText="Automatically by the owning device" />
+            <MenuItem value={3} primaryText="Manually by the Provider of the Service" />
+            <MenuItem value={4} primaryText="Manually by a Customer of the Provider" />
+            <MenuItem value={5} primaryText="Any of the above" />
+          </DropDownMenu>
+          <div className={_s.toggle}>
+            <Toggle onChange={(e,v)=> this.onFieldChange("isStateful", v)} value={this.state.formValues.isStateful} label="Can this service be changed without affecting any other service?"/>
+          </div>
+
+          <h5 className={_s.dropdown}>State</h5>
+          <DropDownMenu onChange={(e,v) => this.onFieldChange("state", v)} value={this.state.formValues.state}>
+            <MenuItem value={0} primaryText="Feasibility Checked" />
+            <MenuItem value={1} primaryText="Designed" />
+            <MenuItem value={2} primaryText="Reserved" />
+            <MenuItem value={3} primaryText="Active" />
+            <MenuItem value={4} primaryText="Inactive" />
+            <MenuItem value={5} primaryText="Terminated" />
+          </DropDownMenu>
+
+          {/*Submit button, redirects to services page*/}
           <RaisedButton onClick={()=> {
             this.submitService();
-          }} label="Submit" primary={true} />
+          }} label="Submit" primary={true} disabled={!isEnabled}/>
           {this.state.success ? <Redirect to="/services" /> : null}
         </div>
       );
