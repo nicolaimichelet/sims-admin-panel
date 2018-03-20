@@ -21,11 +21,11 @@ export default class Header extends Component {
       </Link>,
       <Link key={3} to="/services/new">
         {path == "/services/new" ? 
-          <RaisedButton secondary label="New Service" /> : 
+          <RaisedButton label="New Service" /> :
           <FlatButton hoverColor='transparent' rippleColor='transparent' label="New Service" />}
       </Link>,
       <Link key={4} to="/login">
-        <FlatButton label="Exit"/>
+        <FlatButton hoverColor='transparent' rippleColor='transparent' label="Exit"/>
       </Link>
     ];
 
