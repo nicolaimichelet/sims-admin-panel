@@ -203,3 +203,19 @@ table{
   text-align: right;
   padding: 0.5%;
 }
+
+.state-active{
+  background-color: #34BA25;
+}
+
+.state-inactive{
+  background-color: #DEC508;
+}
+
+.state-terminated{
+  background-color: #E30100;
+}
+
+.state-feasibilityChecked, .state-designed, .state-reserved{
+  background-color: #0A72CC;
+}

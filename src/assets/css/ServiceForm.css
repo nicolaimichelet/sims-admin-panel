@@ -18,6 +18,7 @@
 }
 .formtext {
   width: 30% !important;
+
   padding-right: 10% !important;
   margin-right: 3% !important;
 }
@@ -25,3 +26,14 @@
 .dropdown {
   margin-top: 3%;
 }
+}
+
+h1{
+  margin-left: 0.6%;
+  margin-top: 2%;
+  font-family: Arial;
+}
+h3{
+  font-family: Arial;
+}
+

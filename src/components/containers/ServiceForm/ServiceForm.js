@@ -21,13 +21,15 @@ import MenuItem from 'material-ui/MenuItem';
 */}
 
 
-        {/********************************************** DATES, MODES, STATE ************************************/}
+        {/********************************************** DATES, MODES, STATE ************************************/
 /*
-        <h6>Order date</h6>
+        <h3>Order date</h3>
+        <h3>Order date</h3>
         <DatePicker hintText="Order date" />
-        <h6>Start date</h6>
+        <h3>Start date</h3>
         <DatePicker hintText="Start date" />
-        <h6>End date</h6>
+
+        <h3>End date</h3>
         <DatePicker className={_s.formtext} hintText="End date" /><br></br>*/
 
         {/********************************************** LISTS, TYPES ETC. **************************************/}
@@ -113,18 +115,20 @@ export class ServiceForm extends Component {
 
           {/********************************************** CLASSIC FORM INFO ***************************************/}
 
-          <h3>Add New Service</h3>
+
+          <h1>Add New Service</h1>
           <TextField onChange={(e,v)=> this.onFieldChange("id", v)} value={this.state.formValues.id} className={_s.formtext} hintText="Enter ID..." floatingLabelText="ID"/>
           <TextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} className={_s.formtext} hintText="Reference of the service..." floatingLabelText="HREF"/>
           <TextField onChange={(e,v)=> this.onFieldChange("category", v)} value={this.state.formValues.category} className={_s.formtext}  hintText="Enter category..." floatingLabelText="Category"/>
           <TextField onChange={(e,v)=> this.onFieldChange("name", v)} value={this.state.formValues.name} errorText={this.state.formValues.nameError} className={_s.formtext} hintText="Enter name..." floatingLabelText="Name"/>
           <TextField onChange={(e,v)=> this.onFieldChange("description", v)} value={this.state.formValues.description} className={_s.formtext} hintText="Description of the service..." floatingLabelText="Description" multiLine={true} rows={1}/>
 
+
           <div className={_s.toggle}>
             <Toggle onChange={(e,v) => this.onFieldChange("isServiceEnabled", v)} value={this.state.formValues.isServiceEnabled} label="Is the service enabled?" />
             <Toggle onChange={(e,v)=> this.onFieldChange("hasStarted", v)} value={this.state.formValues.hasStarted} label="Has the service started?" />
           </div>
-          <h5 className={_s.dropdown}>Start Mode</h5>
+          <h3 className={_s.dropdown}>Start Mode</h3>
           <DropDownMenu onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode}>
             <MenuItem value={0} primaryText="Unknown" />
             <MenuItem value={1} primaryText="Automatically by the managed environment" />
@@ -137,7 +141,7 @@ export class ServiceForm extends Component {
             <Toggle onChange={(e,v)=> this.onFieldChange("isStateful", v)} value={this.state.formValues.isStateful} label="Can this service be changed without affecting any other service?"/>
           </div>
 
-          <h5 className={_s.dropdown}>State</h5>
+          <h3 className={_s.dropdown}>State</h3>
           <DropDownMenu onChange={(e,v) => this.onFieldChange("state", v)} value={this.state.formValues.state}>
             <MenuItem value={0} primaryText="Feasibility Checked" />
             <MenuItem value={1} primaryText="Designed" />
