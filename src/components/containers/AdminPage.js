@@ -80,7 +80,8 @@ export class AdminPage extends Component {
       for (let i in services){
         let e = services[i];
         serviceElements.push(
-          <TableRow key = {i}>
+          <TableRow className={_s[`state-${e.state}`]
+          } key = {i}>
           <TableRowColumn>{e.id}</TableRowColumn>
           <TableRowColumn>{e.name}</TableRowColumn>
           <TableRowColumn>{e.href}</TableRowColumn>
