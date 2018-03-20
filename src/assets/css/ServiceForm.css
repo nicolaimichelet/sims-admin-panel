@@ -14,9 +14,18 @@
 
 .toggle {
   width: 30%;
+  margin-top: 3%;
 }
 .formtext {
   width: 30% !important;
+
+  padding-right: 10% !important;
+  margin-right: 3% !important;
+}
+
+.dropdown {
+  margin-top: 3%;
+}
 }
 
 h1{
@@ -27,3 +36,4 @@ h1{
 h3{
   font-family: Arial;
 }
+
