@@ -6,11 +6,21 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {Subject} from 'rxjs';
 import Snackbar from 'material-ui/Snackbar';
+import {
+    Table,
+    TableBody,
+    TableHeader,
+    TableHeaderColumn,
+    TableRow,
+    TableRowColumn,
+} from 'material-ui/Table';
+import Dialog from 'material-ui/Dialog';
 
 import { mapAndConnect, IManagedService } from 'services';
 
 
 import { DEFAULT_API } from 'common/constants';
+import { FlatButton } from 'material-ui';
 
 
 
@@ -26,7 +36,9 @@ export class AdminPage extends Component {
   
       this.state = {
         services: [],
-        lastError: null
+        lastError: null,
+        selected: null,
+        open: false,
       };
     }
     componentDidMount(){
@@ -39,6 +51,20 @@ export class AdminPage extends Component {
       });
     }
 
+    handleClickTable(service){
+        this.setState({
+            open: true,
+            selected: service,
+        })
+        console.log('service clicked')
+    }
+    
+    handleClose(){
+        this.setState({
+            open: false,
+        })
+    }
+
 
 
     delete(service) {
@@ -46,8 +72,9 @@ export class AdminPage extends Component {
         const newState = this.state.services.slice();
         if (newState.indexOf(service) > -1){
           newState.splice(newState.indexOf(service), 1);
-          this.setState({services : newState});
+          this.setState({services : newState, open: false});
         }
+      
       }, (err) => {
         this.setState({
           lastError: err
@@ -70,14 +97,15 @@ export class AdminPage extends Component {
       const {services} = this.state;
       const serviceElements = [];
       for (let i in services){
+        let e = services[i];
         serviceElements.push(
-          <ListItem key = {i} rightIcon={
-            <RaisedButton secondary onClick = {() => this.delete(services[i])}>
-              Delete
-            </RaisedButton>
-          }>
-            {services[i].href}
-          </ListItem>
+          <TableRow onRowClick={console.log} className={_s[`state-${e.state}`]
+          } key = {i}>
+          <TableRowColumn>{e.id}</TableRowColumn>
+          <TableRowColumn>{e.name}</TableRowColumn>
+          <TableRowColumn>{e.href}</TableRowColumn>
+          <TableRowColumn>{e.hasStarted ? 'yes' : 'no'}</TableRowColumn>
+          </TableRow>
         )
       }
 
@@ -89,15 +117,49 @@ export class AdminPage extends Component {
             hintText="Query"
           />
           <br />
-          <List>
-            {serviceElements}
-          </List>
+          <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
+            <TableHeader>
+                <TableRow>
+                    <TableHeaderColumn>ID</TableHeaderColumn>
+                    <TableHeaderColumn>Name</TableHeaderColumn>
+                    <TableHeaderColumn>href</TableHeaderColumn>
+                    <TableHeaderColumn>Has started</TableHeaderColumn>
+                </TableRow>
+            </TableHeader>
+            
+            <TableBody>
+                {serviceElements}
+            </TableBody>
+          </Table>
           <Snackbar
             open={this.state.lastError != null}
             message={this.state.lastError instanceof Error ? this.state.lastError.toString() : ""}
             autoHideDuration={4000}
             onRequestClose={() => this.clearError()}
           />
+          {this.state.selected != null ? 
+          <Dialog title = {this.state.selected.name}
+          open = {this.state.open}
+          onRequestClose = {() => this.handleClose()}
+          actions = {[<RaisedButton
+            label = 'edit'
+            primary = {true}
+            
+          />,
+          <RaisedButton
+            label = "delete"
+            onClick = { () => this.delete(this.state.selected)}
+          />]}
+          
+          >
+            {this.state.selected.description}
+            
+            
+          </Dialog>
+          :
+          null
+          }
+
         </Paper>
       );
     }
