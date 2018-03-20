@@ -6,7 +6,7 @@ import {Router, Switch, Route, Redirect} from 'react-router';
 import AdminPage from './AdminPage';
 import LoginView from './LoginView';
 import ServiceForm from 'components/containers/ServiceForm/ServiceForm';
-
+import ServiceEditForm from 'components/containers/ServiceForm/ServiceEditForm';
 
 
 export default class App extends Component {
@@ -26,6 +26,7 @@ export default class App extends Component {
               <Switch>
                 <Route path='/services' exact={true} render={(props) => <AdminPage {...props} />}/>
                 <Route path= '/services/new' exact={true} render={(props) => <ServiceForm {...props} />}/>
+                <Route path= '/services/edit/:id' exact={true} render={(props) => <ServiceEditForm {...props} />}/>
               </Switch>
             </div>
           );
