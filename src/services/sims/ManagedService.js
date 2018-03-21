@@ -1,6 +1,8 @@
 
 
 
+
+
 export class ManagedService{
   constructor(data){
     this.uuid = data.uuid;
@@ -28,5 +30,47 @@ export class ManagedService{
       })
     }
     return ret;
+  }
+
+}
+
+
+export class serviceCharacteristic{
+  constructor(name, value){
+    this.name = name;
+    this.value = value;
+  }
+}
+
+export class ServiceSpecification{
+  constructor(id, name){
+    this.id = id;
+    this.name = name;
+  }
+}
+
+export class ServiceRelationship{
+  constructor(type, service){
+    this.type = type;
+    this.service = {
+      id: service.id,
+      href: service.href
+    }
+  }
+}
+
+export class SupportingResource{
+  constructor(id, href){
+    this.id = id;
+    this.href = href;
+  }
+}
+
+
+export class RelatedParty{
+  constructor(id, role, href){
+    this.id = id;
+    this.role = role;
+    this.href = href;
   }
 }
