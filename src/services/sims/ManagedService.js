@@ -15,5 +15,18 @@ export class ManagedService{
     this.startMode = data.startMode;
     this.state = data.state;
     this.type = data.type;
+
+  }
+  getPatch(){
+    const ret = [];
+    for (let key in this){
+      ret.push({
+        path: `/${key}`,
+        value: this[key],
+        op: "replace",
+          
+      })
+    }
+    return ret;
   }
 }
