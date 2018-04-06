@@ -142,7 +142,7 @@ export class ServiceForm extends Component {
             <DropDownMenu onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode}>
               {startModeItems}
             </DropDownMenu>
-          
+
           <div className={_s.toggle}>
             <Toggle onChange={(e,v)=> this.onFieldChange("isStateful", v)} value={this.state.formValues.isStateful} label="Can this service be changed without affecting any other service?"/>
           </div>
