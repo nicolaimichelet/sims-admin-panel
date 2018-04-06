@@ -105,6 +105,7 @@ export class AdminPage extends Component {
           <TableRowColumn>{e.name}</TableRowColumn>
           <TableRowColumn>{e.href}</TableRowColumn>
           <TableRowColumn>{e.hasStarted ? 'yes' : 'no'}</TableRowColumn>
+          <TableRowColumn></TableRowColumn> //Her nico
           </TableRow>
         )
       }
@@ -124,6 +125,7 @@ export class AdminPage extends Component {
                     <TableHeaderColumn>Name</TableHeaderColumn>
                     <TableHeaderColumn>href</TableHeaderColumn>
                     <TableHeaderColumn>Has started</TableHeaderColumn>
+                    <TableHeaderColumn>State</TableHeaderColumn>
                 </TableRow>
             </TableHeader>
             
