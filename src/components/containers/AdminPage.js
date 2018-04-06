@@ -154,7 +154,15 @@ export class AdminPage extends Component {
           />]}
           
           >
-            {this.state.selected.description}
+            Description: {this.state.selected.description} <br/>
+            Order date: {this.state.selected.orderDate}<br/>
+            Start date: {this.state.selected.startDate}<br/>
+            End date: {this.state.selected.endDate}<br/>
+            Start mode: {this.state.selected.startMode}<br/>
+            Is stateful: {this.state.selected.isStateFul}<br/>
+            Category: {this.state.selected.category}
+
+         
             
             
           </Dialog>
