@@ -205,15 +205,20 @@ table{
 }
 
 .state-active{
-  background-color: #34BA25;
+
+  color: green;
+  font-weight: bold;
 }
 
 .state-inactive{
-  background-color: #DEC508;
+  
+  color: #DEC508;
+  font-weight: bold;
 }
 
 .state-terminated{
-  background-color: rgb(227, 0, 151);
+ color: red;
+ font-weight: bold;
 }
 
 .state-feasibilityChecked, .state-designed, .state-reserved{
