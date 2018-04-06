@@ -31,6 +31,14 @@ export class ManagedServiceServiceProvider extends IManagedService{
     );
   }
 
+  updateService(service){
+    const endpoint = new URL(`services`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+    const patches = service.getPatch();
+    return Observable.fromArray(patches).flatMap((op)=> {
+      return this.http.patch(endpoint,op);
+    }).bufferCount(patches.length);
+  }
+
 
   postService(service){
 

@@ -213,7 +213,7 @@ table{
 }
 
 .state-terminated{
-  background-color: #E30100;
+  background-color: rgb(227, 0, 151);
 }
 
 .state-feasibilityChecked, .state-designed, .state-reserved{
