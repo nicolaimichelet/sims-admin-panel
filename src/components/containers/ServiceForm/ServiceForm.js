@@ -152,6 +152,14 @@ export class ServiceForm extends Component {
             {stateMenuItems}
            </DropDownMenu>
 
+          <h3>Order date</h3>
+          <DatePicker hintText="Order date" />
+          <h3>Start date</h3>
+          <DatePicker hintText="Start date" />
+
+          <h3>End date</h3>
+          <DatePicker className={_s.formtext} hintText="End date" /><br></br>
+
           {/*Submit button, redirects to services page*/}
           <RaisedButton onClick={()=> {
             this.submitService();
