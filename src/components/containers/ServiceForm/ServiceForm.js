@@ -8,7 +8,7 @@ import { mapAndConnect, IManagedService, ManagedService} from "services";
 import {Redirect} from "react-router";
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import {lightGreen600,lightGreen400, lightGreen300, lightGreen900, grey50} from 'material-ui/styles/colors';
+import {lightGreen600, lightGreen400, lightGreen300, lightGreen700, grey50} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -126,8 +126,12 @@ export class ServiceForm extends Component {
                 selectColor: lightGreen600,
                 color: lightGreen600,
                 headerColor: lightGreen300,
-                
-
+            },
+            flatButton: {
+                primaryTextColor: lightGreen700,
+            },
+            raisedButton: {
+                primaryColor: lightGreen400,
             }
         });
 
