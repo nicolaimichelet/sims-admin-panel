@@ -57,6 +57,20 @@ export class ServiceForm extends Component {
         },
         success: false
       }
+      if (props.service){
+        this.state.formValues.id = props.service.id;
+        this.state.formValues.href = props.service.href;
+        this.state.formValues.category = props.service.category;
+        this.state.formValues.name = props.service.name;
+        this.state.formValues.nameError = props.service.nameError;
+        this.state.formValues.description = props.service.description;
+        this.state.formValues.isServiceEnabled = props.service.isServiceEnabled;
+        this.state.formValues.hasStarted = props.service.hasStarted;
+        this.state.formValues.startMode = props.service.startMode;
+        this.state.formValues.isStateful = props.service.isStateful;
+        this.state.formValues.state = props.service.state;
+        
+      }
     }
 
     onClick(){
@@ -94,13 +108,23 @@ export class ServiceForm extends Component {
     submitService(){
       const err = this.validate();
       if (!err) {
-        this.props.imService.postService(new ManagedService(this.state.formValues)).subscribe(() => {
+        let service = new ManagedService(this.state.formValues);
+        let observable;
+        if (this.props.service){
+          service.id = this.props.service.id;
+          observable = this.props.imService.updateService(service);
+        }else{
+          observable = this.props.imService.postService(new ManagedService(this.state.formValues))
+        }
+        observable.subscribe(() => {
           this.setState({
             success: true
           })
         })
+        
       }
     }
+
 
     componentDidMount(){
 

@@ -15,6 +15,7 @@ import {
     TableRowColumn,
 } from 'material-ui/Table';
 import Dialog from 'material-ui/Dialog';
+import { Link } from 'react-router-dom';
 
 import { mapAndConnect, IManagedService } from 'services';
 
@@ -143,11 +144,12 @@ export class AdminPage extends Component {
           <Dialog title = {this.state.selected.name}
           open = {this.state.open}
           onRequestClose = {() => this.handleClose()}
-          actions = {[<RaisedButton
-            label = 'edit'
-            primary = {true}
+          actions = {[<Link to = {`/services/edit/${this.state.selected.id}`}>
+            <RaisedButton
+              label = 'edit'
+              primary = {true}
             
-          />,
+            /></Link>,
           <RaisedButton
             label = "delete"
             onClick = { () => this.delete(this.state.selected)}

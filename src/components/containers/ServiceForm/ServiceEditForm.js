@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { mapAndConnect, IManagedService, ManagedService} from "services";
+import  ServiceForm  from './ServiceForm';
 
 
 
@@ -32,7 +33,9 @@ export class ServiceEditForm extends Component{
   render(){
     return this.state.service == null ? 
       <div>{this.state.errorText != null ? this.state.errorText : "Loading..."}</div> :
-      <div>{this.state.service.name}</div>
+      <ServiceForm service = {this.state.service}/>
+        
+
   }
 
 }
