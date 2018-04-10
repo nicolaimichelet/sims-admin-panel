@@ -144,14 +144,14 @@ export class ServiceForm extends Component {
 
           <div className={_s.dropdown}>
             <h3>Start Mode</h3>
-              <SelectField onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode}>
+              <SelectField onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode} hintText="Start mode...">
                 {startModeItems}
               </SelectField>
           </div>
 
           <div className={_s.dropdown}>
             <h3>State</h3>
-              <SelectField onChange={(e,v) => this.onFieldChange("state", v)} value={this.state.formValues.state}>
+              <SelectField onChange={(e,v) => this.onFieldChange("state", v)} value={this.state.formValues.state} hintText="State of service...">
                 {stateMenuItems}
               </SelectField>
           </div>
@@ -162,7 +162,7 @@ export class ServiceForm extends Component {
 
           <div className={_s.dates}>
             <h3>Order date</h3>
-              <DatePicker hintText="Oder date" />
+              <DatePicker hintText="Order date" />
           </div>
           <div className={_s.dates}>
             <h3>Start date</h3>
