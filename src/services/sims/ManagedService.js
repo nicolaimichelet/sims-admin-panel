@@ -1,6 +1,6 @@
 
 
-
+import { get, at } from 'lodash';
 
 
 export class ManagedService{
@@ -19,6 +19,7 @@ export class ManagedService{
     this.type = data.type;
     this.supportingService = [];
     this.supportingResource = [];
+    this.serviceCharacteristic = [];
     this.relatedParty = [];
     this.serviceRelationship = [];
     this.serviceSpecification;
@@ -26,13 +27,16 @@ export class ManagedService{
 
   getPatch(){
     const ret = [];
+
+
     for (let key in this){
-      ret.push({
-        path: `/${key}`,
-        value: this[key],
-        op: "replace",
-          
-      })
+      if(! typeof(get(this, key)) != "object"){
+        ret.push({
+          path: `/${path}`,
+          value: get(this,key),
+          op: "replace",
+        });
+      }
     }
     return ret;
   }
@@ -46,7 +50,7 @@ export class ManagedService{
     });
   
     data.serviceRelationship.forEach((e) => {
-      service.addServiceRelationship(new ServiceRelationship(e.type, e.service));
+      service.addServiceRelationship(new ServiceRelationship(e.type, e.serviceRef));
     });
 
     data.supportingResource.forEach((e) => {
@@ -60,6 +64,8 @@ export class ManagedService{
     if(spec){
       service.setServiceSpecification(new ServiceSpecification(spec.id, spec.href));
     }
+
+    return service;
   }
 
 

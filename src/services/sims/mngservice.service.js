@@ -19,7 +19,7 @@ export class ManagedServiceServiceProvider extends IManagedService{
 
   getServices(){
     // May want to move url to argument
-    const endpoint = new URL('services',`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+    const endpoint = new URL('service',`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
     return this.http.get(endpoint).map(
       (services) => {
         return services.map(elem => {
@@ -39,14 +39,14 @@ export class ManagedServiceServiceProvider extends IManagedService{
 
 
   postService(service){
-    const endpoint = new URL(`services`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+    const endpoint = new URL(`service`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
     return this.http.post(endpoint, service.toData()).map((data) => {
       return ManagedService.fromData(data);
     });
   }
 
   getService(id){
-    const endpoint = new URL(`services/${id}`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+    const endpoint = new URL(`service/${id}`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
     return this.http.get(endpoint).map(
       (service) => {
         return new ManagedService.fromData(service);
@@ -56,7 +56,7 @@ export class ManagedServiceServiceProvider extends IManagedService{
 
   deleteService(service){
     if(service.id){
-      const endpoint = new URL(`services/${service.id}`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+      const endpoint = new URL(`service/${service.id}`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
       return this.http.delete(endpoint);
     }
     return Observable.throw(new Error("Service has no id"));
