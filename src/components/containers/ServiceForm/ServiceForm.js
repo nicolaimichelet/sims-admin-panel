@@ -10,6 +10,12 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 
+import {lightGreen600, lightGreen400, lightGreen300, lightGreen700, grey50} from 'material-ui/styles/colors';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Paper from 'material-ui/Paper';
+
+
 
 /*{/!*
       <div className={_s.relatedParty}>
@@ -46,6 +52,20 @@ export class ServiceForm extends Component {
       this.possibleStates = ["feasibilityChecked", "designed", "reserved", "active", "inactive", "terminated"];
       this.possibleStartModes = ["Unknown","Automatically by the managed environment","Automatically by the owning device","Manually by the Provider of the Service",
         "Manually by a Customer of the Provider","Any of the above"];
+      
+      if (props.service){
+        this.state.formValues.id = props.service.id;
+        this.state.formValues.href = props.service.href;
+        this.state.formValues.category = props.service.category;
+        this.state.formValues.name = props.service.name;
+        this.state.formValues.nameError = props.service.nameError;
+        this.state.formValues.description = props.service.description;
+        this.state.formValues.isServiceEnabled = props.service.isServiceEnabled;
+        this.state.formValues.hasStarted = props.service.hasStarted;
+        this.state.formValues.startMode = props.service.startMode;
+        this.state.formValues.isStateful = props.service.isStateful;
+        this.state.formValues.state = props.service.state;
+      }
     }
 
     onClick(){
@@ -83,22 +103,55 @@ export class ServiceForm extends Component {
     submitService(){
       const err = this.validate();
       if (!err) {
+        
         let data = Object.assign({},this.state.formValues);
         data.state = this.possibleStates[data.state];
         data.startMode = this.possibleStartModes[data.startMode];
-        this.props.imService.postService(new ManagedService(data)).subscribe(() => {
+
+        let service = new ManagedService(data);
+        let observable;
+        
+        if (this.props.service){
+          service.id = this.props.service.id;
+          observable = this.props.imService.updateService(service);
+        }else{
+          observable = this.props.imService.postService(service)
+        }
+        
+        observable.subscribe(() => {
           this.setState({
             success: true
-          })
-        })
+          });
+        });
       }
     }
+
 
     componentDidMount(){
 
     }
 
     render() {
+        const muiTheme = getMuiTheme({
+            toggle: {
+                thumbOnColor: lightGreen600,
+                trackOnColor: lightGreen300,
+            },
+            textField: {
+                focusColor: lightGreen300,
+            },
+            datePicker: {
+                selectColor: lightGreen600,
+                color: lightGreen600,
+                headerColor: lightGreen300,
+            },
+            flatButton: {
+                primaryTextColor: lightGreen700,
+            },
+            raisedButton: {
+                primaryColor: lightGreen400,
+            }
+        });
 
       const isEnabled = this.canBeSubmitted();
 
@@ -111,11 +164,13 @@ export class ServiceForm extends Component {
       })
 
       return (
-        <div className={_s.form}>
-
+       
           {/********************************************** CLASSIC FORM INFO ***************************************/}
 
-          <h1 className={_s.header}> Add New Service</h1>
+      <Paper className={_s["paper-container"]}>
+        <div className={_s["form"]}>
+          <MuiThemeProvider muiTheme={muiTheme}>
+            <h1 className={_s.header}> Add New Service</h1>
 
           <div className={_s.textFields}>
             <TextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} className={_s.formtext} hintText="Reference of the service..." floatingLabelText="HREF"/>
@@ -144,14 +199,14 @@ export class ServiceForm extends Component {
 
           <div className={_s.dropdown}>
             <h3>Start Mode</h3>
-              <SelectField onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode} hintText="Start mode...">
+              <SelectField onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode}>
                 {startModeItems}
               </SelectField>
           </div>
 
           <div className={_s.dropdown}>
             <h3>State</h3>
-              <SelectField onChange={(e,v) => this.onFieldChange("state", v)} value={this.state.formValues.state} hintText="State of service...">
+              <SelectField onChange={(e,v) => this.onFieldChange("state", v)} value={this.state.formValues.state}>
                 {stateMenuItems}
               </SelectField>
           </div>
@@ -162,7 +217,7 @@ export class ServiceForm extends Component {
 
           <div className={_s.dates}>
             <h3>Order date</h3>
-              <DatePicker hintText="Order date" />
+              <DatePicker hintText="Oder date" />
           </div>
           <div className={_s.dates}>
             <h3>Start date</h3>
@@ -173,20 +228,20 @@ export class ServiceForm extends Component {
               <DatePicker minDate={new Date()} hintText="End date" /><br></br>
           </div>
 
-
-
           {/*Submit button, redirects to services page*/}
           <div className={_s.submit}>
             <RaisedButton onClick={()=> {
               this.submitService();
             }}  label="Submit" primary={true} disabled={!isEnabled}/>
             {this.state.success ? <Redirect to="/services" /> : null}
-          </div>
+           </div>
+          </MuiThemeProvider>
         </div>
+      </Paper>
+
       );
     }
 }
-
 export default mapAndConnect(ServiceForm, {
   imService: IManagedService
 })
