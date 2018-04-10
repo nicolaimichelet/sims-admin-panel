@@ -3,7 +3,9 @@
 
 .paper-container{
   padding: 2em !important;
+  background-color: #fcffe4 !important;
 }
+
 
 
 /********* CSS FOR TABLE ON ADMIN PAGE WITH DELETE BUTTONS **********/
@@ -15,9 +17,10 @@ h1{
 
 table{
   width: 70%;
-  background-color: rgba(0, 0, 0, 0.075);
+  """background-color: rgba(0, 0, 0, 0.075);"""
   border-bottom: 1px solid white;
   margin-left: 0.6%;
+  background-color: #fcffe4 !important;
 }
 
 
@@ -205,7 +208,7 @@ table{
 }
 
 .state-active{
-  color: #9ff24c;
+  color: #9ddb48;
   font-weight: bold;
   -webkit-text-stroke: 0.2px #3f572a;
 }
@@ -220,7 +223,7 @@ table{
 .state-terminated{
  color: #ff6651;
  font-weight: bold;
-  -webkit-text-stroke: 0.2px #993d31;
+  -webkit-text-stroke: 0.2px #772f26;
 }
 
 .state-feasibilityChecked, .state-designed, .state-reserved{
