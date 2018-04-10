@@ -6,10 +6,8 @@ import DatePicker from 'material-ui/DatePicker';
 import Toggle from 'material-ui/Toggle';
 import { mapAndConnect, IManagedService, ManagedService} from "services";
 import {Redirect} from "react-router";
-
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-
 
 
 /*{/!*
@@ -43,7 +41,6 @@ export class ServiceForm extends Component {
       super(props);
       this.state = {
         formValues: {
-          id: "",
           href: "",
           category: "",
           name: "",
@@ -56,7 +53,10 @@ export class ServiceForm extends Component {
           state: "",
         },
         success: false
-      }
+      };
+      this.possibleStates = ["feasibilityChecked", "designed", "reserved", "active", "inactive", "terminated"];
+      this.possibleStartModes = ["Unknown","Automatically by the managed environment","Automatically by the owning device","Manually by the Provider of the Service",
+        "Manually by a Customer of the Provider","Any of the above"];
     }
 
     onClick(){
@@ -94,7 +94,10 @@ export class ServiceForm extends Component {
     submitService(){
       const err = this.validate();
       if (!err) {
-        this.props.imService.postService(new ManagedService(this.state.formValues)).subscribe(() => {
+        let data = Object.assign({},this.state.formValues);
+        data.state = this.possibleStates[data.state];
+        data.startMode = this.possibleStartModes[data.startMode];
+        this.props.imService.postService(new ManagedService(data)).subscribe(() => {
           this.setState({
             success: true
           })
@@ -110,14 +113,20 @@ export class ServiceForm extends Component {
 
       const isEnabled = this.canBeSubmitted();
 
+      const stateMenuItems = this.possibleStates.map((t, number) => {
+        return <MenuItem value={number} key={number} primaryText={t}/>
+      });
+
+      const startModeItems = this.possibleStartModes.map((t, number) => {
+        return <MenuItem value={number} key={number} primaryText={t}/>
+      })
+
       return (
         <div className={_s.form}>
 
           {/********************************************** CLASSIC FORM INFO ***************************************/}
 
-
           <h1>Add New Service</h1>
-          <TextField onChange={(e,v)=> this.onFieldChange("id", v)} value={this.state.formValues.id} className={_s.formtext} hintText="Enter ID..." floatingLabelText="ID"/>
           <TextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} className={_s.formtext} hintText="Reference of the service..." floatingLabelText="HREF"/>
           <TextField onChange={(e,v)=> this.onFieldChange("category", v)} value={this.state.formValues.category} className={_s.formtext}  hintText="Enter category..." floatingLabelText="Category"/>
           <TextField onChange={(e,v)=> this.onFieldChange("name", v)} value={this.state.formValues.name} errorText={this.state.formValues.nameError} className={_s.formtext} hintText="Enter name..." floatingLabelText="Name"/>
@@ -128,28 +137,28 @@ export class ServiceForm extends Component {
             <Toggle onChange={(e,v) => this.onFieldChange("isServiceEnabled", v)} value={this.state.formValues.isServiceEnabled} label="Is the service enabled?" />
             <Toggle onChange={(e,v)=> this.onFieldChange("hasStarted", v)} value={this.state.formValues.hasStarted} label="Has the service started?" />
           </div>
+
           <h3 className={_s.dropdown}>Start Mode</h3>
-          <DropDownMenu onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode}>
-            <MenuItem value={0} primaryText="Unknown" />
-            <MenuItem value={1} primaryText="Automatically by the managed environment" />
-            <MenuItem value={2} primaryText="Automatically by the owning device" />
-            <MenuItem value={3} primaryText="Manually by the Provider of the Service" />
-            <MenuItem value={4} primaryText="Manually by a Customer of the Provider" />
-            <MenuItem value={5} primaryText="Any of the above" />
-          </DropDownMenu>
+            <DropDownMenu onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode}>
+              {startModeItems}
+            </DropDownMenu>
+
           <div className={_s.toggle}>
             <Toggle onChange={(e,v)=> this.onFieldChange("isStateful", v)} value={this.state.formValues.isStateful} label="Can this service be changed without affecting any other service?"/>
           </div>
 
           <h3 className={_s.dropdown}>State</h3>
-          <DropDownMenu onChange={(e,v) => this.onFieldChange("state", v)} value={this.state.formValues.state}>
-            <MenuItem value={0} primaryText="Feasibility Checked" />
-            <MenuItem value={1} primaryText="Designed" />
-            <MenuItem value={2} primaryText="Reserved" />
-            <MenuItem value={3} primaryText="Active" />
-            <MenuItem value={4} primaryText="Inactive" />
-            <MenuItem value={5} primaryText="Terminated" />
-          </DropDownMenu>
+           <DropDownMenu onChange={(e,v) => this.onFieldChange("state", v)} value={this.state.formValues.state}>
+            {stateMenuItems}
+           </DropDownMenu>
+
+          <h3>Order date</h3>
+          <DatePicker hintText="Order date" />
+          <h3>Start date</h3>
+          <DatePicker hintText="Start date" />
+
+          <h3>End date</h3>
+          <DatePicker className={_s.formtext} hintText="End date" /><br></br>
 
           {/*Submit button, redirects to services page*/}
           <RaisedButton onClick={()=> {

@@ -6,6 +6,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {Subject} from 'rxjs';
 import Snackbar from 'material-ui/Snackbar';
+import CheckCircle from 'material-ui/svg-icons/action/check-circle'
+
+
 import {
     Table,
     TableBody,
@@ -103,6 +106,7 @@ export class AdminPage extends Component {
           <TableRowColumn>{e.id}</TableRowColumn>
           <TableRowColumn>{e.name}</TableRowColumn>
           <TableRowColumn>{e.href}</TableRowColumn>
+          <TableRowColumn>{e.hasStarted ? 'yes' : 'no'}</TableRowColumn>
           <TableRowColumn>{e.hasStarted ? 'Yes' : 'No'}</TableRowColumn>
           <TableRowColumn className={_s[`state-${e.state}`]
           }  >{e.state}</TableRowColumn>
