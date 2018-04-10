@@ -22,11 +22,9 @@ export class ManagedServiceServiceProvider extends IManagedService{
     const endpoint = new URL('services',`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
     return this.http.get(endpoint).map(
       (services) => {
-        const mappedServices = [];
-        services.forEach(elem => {
-          mappedServices.push(new ManagedService(elem));
+        return services.map(elem => {
+          return ManagedService.fromData(elem);
         });
-        return mappedServices;
       }
     );
   }
@@ -41,10 +39,9 @@ export class ManagedServiceServiceProvider extends IManagedService{
 
 
   postService(service){
-
     const endpoint = new URL(`services`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
-    return this.http.post(endpoint, service).map((data) => {
-      return new ManagedService(data);
+    return this.http.post(endpoint, service.toData()).map((data) => {
+      return ManagedService.fromData(data);
     });
   }
 
@@ -52,7 +49,7 @@ export class ManagedServiceServiceProvider extends IManagedService{
     const endpoint = new URL(`services/${id}`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
     return this.http.get(endpoint).map(
       (service) => {
-        return new ManagedService(service);
+        return new ManagedService.fromData(service);
       }
     );
   }
