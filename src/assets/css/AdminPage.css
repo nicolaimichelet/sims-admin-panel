@@ -211,19 +211,22 @@ table{
   color: #9ddb48;
   font-weight: bold;
   -webkit-text-stroke: 0.2px #3f572a;
+  letter-spacing: 1px;
 }
 
 .state-inactive{
   
-  color: #fff040;
+  color: #ffe541;
   font-weight: bold;
-  -webkit-text-stroke: 0.2px #7e6d18;
+  -webkit-text-stroke: 0.1px #7e6d18;
+  letter-spacing: 1px;
 }
 
 .state-terminated{
  color: #ff6651;
  font-weight: bold;
   -webkit-text-stroke: 0.2px #772f26;
+  letter-spacing: 1px;
 }
 
 .state-feasibilityChecked, .state-designed, .state-reserved{
