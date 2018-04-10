@@ -8,6 +8,10 @@ import { mapAndConnect, IManagedService, ManagedService} from "services";
 import {Redirect} from "react-router";
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import {lightGreen600,lightGreen400, lightGreen300, lightGreen900, grey50} from 'material-ui/styles/colors';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
 
 
 /*{/!*
@@ -110,6 +114,22 @@ export class ServiceForm extends Component {
     }
 
     render() {
+        const muiTheme = getMuiTheme({
+            toggle: {
+                thumbOnColor: lightGreen600,
+                trackOnColor: lightGreen300,
+            },
+            textField: {
+                focusColor: lightGreen300,
+            },
+            datePicker: {
+                selectColor: lightGreen600,
+                color: lightGreen600,
+                headerColor: lightGreen300,
+                
+
+            }
+        });
 
       const isEnabled = this.canBeSubmitted();
 
@@ -123,7 +143,7 @@ export class ServiceForm extends Component {
 
       return (
         <div className={_s.form}>
-
+            <MuiThemeProvider muiTheme={muiTheme}>
           {/********************************************** CLASSIC FORM INFO ***************************************/}
 
           <h1>Add New Service</h1>
@@ -165,11 +185,11 @@ export class ServiceForm extends Component {
             this.submitService();
           }} label="Submit" primary={true} disabled={!isEnabled}/>
           {this.state.success ? <Redirect to="/services" /> : null}
+            </MuiThemeProvider>
         </div>
       );
     }
 }
-
 export default mapAndConnect(ServiceForm, {
   imService: IManagedService
 })
