@@ -102,13 +102,14 @@ export class AdminPage extends Component {
       for (let i in services){
         let e = services[i];
         serviceElements.push(
-          <TableRow onRowClick={console.log} className={_s[`state-${e.state}`]
-          } key = {i}>
+          <TableRow onRowClick={console.log} key = {i}>
           <TableRowColumn>{e.id}</TableRowColumn>
           <TableRowColumn>{e.name}</TableRowColumn>
           <TableRowColumn>{e.href}</TableRowColumn>
           <TableRowColumn>{e.hasStarted ? 'yes' : 'no'}</TableRowColumn>
-          <TableRowColumn>{e.state}</TableRowColumn>
+          <TableRowColumn>{e.hasStarted ? 'Yes' : 'No'}</TableRowColumn>
+          <TableRowColumn className={_s[`state-${e.state}`]
+          }  >{e.state}</TableRowColumn>
           </TableRow>
         )
       }
@@ -157,7 +158,16 @@ export class AdminPage extends Component {
           />]}
           
           >
-            {this.state.selected.description}
+            Description: {this.state.selected.description} <br/>
+            Order date: {this.state.selected.orderDate}<br/>
+            Start date: {this.state.selected.startDate}<br/>
+            End date: {this.state.selected.endDate}<br/>
+            Start mode: {this.state.selected.startMode}<br/>
+            Is stateful: {this.state.selected.isStateFul}<br/>
+            Category: {this.state.selected.category}<br/><br/>
+            Status: {this.state.selected.state}
+
+         
             
             
           </Dialog>
