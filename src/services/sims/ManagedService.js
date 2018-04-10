@@ -28,7 +28,6 @@ export class ManagedService{
   getPatch(){
     const ret = [];
 
-
     for (let key in this){
       if(! typeof(get(this, key)) != "object"){
         ret.push({
@@ -38,6 +37,7 @@ export class ManagedService{
         });
       }
     }
+
     return ret;
   }
 
