@@ -31,7 +31,7 @@ export class ManagedService{
     for (let key in this){
       if(! typeof(get(this, key)) != "object"){
         ret.push({
-          path: `/${path}`,
+          path: `/${key}`,
           value: get(this,key),
           op: "replace",
         });
