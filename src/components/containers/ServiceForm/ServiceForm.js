@@ -62,6 +62,20 @@ export class ServiceForm extends Component {
       this.possibleStates = ["feasibilityChecked", "designed", "reserved", "active", "inactive", "terminated"];
       this.possibleStartModes = ["Unknown","Automatically by the managed environment","Automatically by the owning device","Manually by the Provider of the Service",
         "Manually by a Customer of the Provider","Any of the above"];
+      
+      if (props.service){
+        this.state.formValues.id = props.service.id;
+        this.state.formValues.href = props.service.href;
+        this.state.formValues.category = props.service.category;
+        this.state.formValues.name = props.service.name;
+        this.state.formValues.nameError = props.service.nameError;
+        this.state.formValues.description = props.service.description;
+        this.state.formValues.isServiceEnabled = props.service.isServiceEnabled;
+        this.state.formValues.hasStarted = props.service.hasStarted;
+        this.state.formValues.startMode = props.service.startMode;
+        this.state.formValues.isStateful = props.service.isStateful;
+        this.state.formValues.state = props.service.state;
+      }
     }
 
     onClick(){
@@ -99,16 +113,29 @@ export class ServiceForm extends Component {
     submitService(){
       const err = this.validate();
       if (!err) {
+        
         let data = Object.assign({},this.state.formValues);
         data.state = this.possibleStates[data.state];
         data.startMode = this.possibleStartModes[data.startMode];
-        this.props.imService.postService(new ManagedService(data)).subscribe(() => {
+
+        let service = new ManagedService(data);
+        let observable;
+        
+        if (this.props.service){
+          service.id = this.props.service.id;
+          observable = this.props.imService.updateService(service);
+        }else{
+          observable = this.props.imService.postService(service)
+        }
+        
+        observable.subscribe(() => {
           this.setState({
             success: true
-          })
-        })
+          });
+        });
       }
     }
+
 
     componentDidMount(){
 
