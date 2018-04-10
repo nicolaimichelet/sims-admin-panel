@@ -105,6 +105,7 @@ export class AdminPage extends Component {
           <TableRowColumn>{e.name}</TableRowColumn>
           <TableRowColumn>{e.href}</TableRowColumn>
           <TableRowColumn>{e.hasStarted ? 'Yes' : 'No'}</TableRowColumn>
+          <TableRowColumn>{e.category}</TableRowColumn>
           <TableRowColumn className={_s[`state-${e.state}`]
           }  >{e.state}</TableRowColumn>
           </TableRow>
@@ -116,7 +117,7 @@ export class AdminPage extends Component {
           <h1>Services</h1>
           <TextField 
             onChange = {(e, v)=> this.onChange(v)}
-            hintText="Query"
+            hintText="Search"
           />
           <br />
           <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
@@ -126,6 +127,7 @@ export class AdminPage extends Component {
                     <TableHeaderColumn>Name</TableHeaderColumn>
                     <TableHeaderColumn>href</TableHeaderColumn>
                     <TableHeaderColumn>Has started</TableHeaderColumn>
+                    <TableHeaderColumn>Category</TableHeaderColumn>
                     <TableHeaderColumn>State</TableHeaderColumn>
                 </TableRow>
             </TableHeader>
