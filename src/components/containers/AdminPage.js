@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import _s from 'assets/css/AdminPage.css';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
+import {lightGreen300} from 'material-ui/styles/colors';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {Subject} from 'rxjs';
@@ -99,6 +102,11 @@ export class AdminPage extends Component {
     render() {
       const {services} = this.state;
       const serviceElements = [];
+        const muiTheme = getMuiTheme({
+            textField: {
+                focusColor: lightGreen300,
+            }
+        });
       for (let i in services){
         let e = services[i];
         serviceElements.push(
@@ -116,6 +124,7 @@ export class AdminPage extends Component {
 
       return (
         <Paper className={_s["paper-container"]}>
+            <MuiThemeProvider muiTheme={muiTheme}>
           <h1>Services</h1>
           <TextField 
             onChange = {(e, v)=> this.onChange(v)}
@@ -174,7 +183,7 @@ export class AdminPage extends Component {
           :
           null
           }
-
+            </MuiThemeProvider>
         </Paper>
       );
     }
