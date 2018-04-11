@@ -34,6 +34,7 @@ import Paper from 'material-ui/Paper';
 export class ServiceForm extends Component {
     constructor(props){
       super(props);
+      this.onToggleChange = this.onToggleChange.bind(this);
       this.state = {
         formValues: {
           href: "",
@@ -74,19 +75,26 @@ export class ServiceForm extends Component {
       });
     }
 
-    /*When a field changes, we assign the value in the field.*/
+    onToggleChange(){
+      const currentState = this.state.formValues.isServiceEnabled;
+      console.log(this.state.formValues.isServiceEnabled);
+      this.setState({isServiceEnabled : !currentState});
+      console.log(this.state.formValues.isServiceEnabled);
+    }
+
+    /*When a text field changes, we assign the value in the field.*/
     onFieldChange (field, value){
       this.setState({
         formValues: Object.assign({},this.state.formValues, {
           [field]: value
         })
       },() => this.validate())
-
     }
+
+
 
     validate() {
       const errors = {};
-
       errors.nameError = this.state.formValues.name === "" ? "Name is a required field" : null;
         this.setState({
           formValues:{
@@ -191,7 +199,7 @@ export class ServiceForm extends Component {
             </div>
 
             <div className={_s.toggle}>
-              <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }}  onChange={(e,v) => this.onFieldChange("isServiceEnabled", v)} value={this.state.formValues.isServiceEnabled} label="Is the service enabled?" />
+              <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onChange={(e,v) => this.onFieldChange("isServiceEnabled", v)} value={this.state.formValues.isServiceEnabled} label="Is the service enabled?" />
             </div>
             <div className={_s.toggle}>
               <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onChange={(e,v)=> this.onFieldChange("hasStarted", v)} value={this.state.formValues.hasStarted} label="Has the service started?" />
