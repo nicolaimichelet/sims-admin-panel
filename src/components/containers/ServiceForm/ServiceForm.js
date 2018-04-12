@@ -229,7 +229,7 @@ export class ServiceForm extends Component {
               <div className={_s.submit}>
                 <RaisedButton onClick={()=> {
                   this.submitService();
-                }}  label="Sbmit" primary={true} disabled={!isEnabled}/>
+                }}  label="Submit" primary={true} disabled={!isEnabled}/>
                 {this.state.success ? <Redirect to="/services" /> : null}
               </div>
               <ObjectInput class={ServiceSpecification} onChange={(v) => console.log("new service spec", v)}>

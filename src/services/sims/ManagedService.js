@@ -50,7 +50,7 @@ export class ManagedService{
     });
   
     data.serviceRelationship.forEach((e) => {
-      service.addServiceRelationship(new ServiceRelationship(e.type, e.serviceRef));
+      service.addServiceRelationship(new ServiceRelationship(e.type, e.service));
     });
 
     data.supportingResource.forEach((e) => {
