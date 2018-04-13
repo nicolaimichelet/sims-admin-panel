@@ -19,20 +19,18 @@ export class ManagedServiceServiceProvider extends IManagedService{
 
   getServices(){
     // May want to move url to argument
-    const endpoint = new URL('services',`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+    const endpoint = new URL('service',`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
     return this.http.get(endpoint).map(
       (services) => {
-        const mappedServices = [];
-        services.forEach(elem => {
-          mappedServices.push(new ManagedService(elem));
+        return services.map(elem => {
+          return ManagedService.fromData(elem);
         });
-        return mappedServices;
       }
     );
   }
 
   updateService(service){
-    const endpoint = new URL(`services`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+    const endpoint = new URL(`service`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
     const patches = service.getPatch();
     return Observable.from(patches).flatMap((op)=> {
       return this.http.patch(endpoint,op);
@@ -41,25 +39,24 @@ export class ManagedServiceServiceProvider extends IManagedService{
 
 
   postService(service){
-
-    const endpoint = new URL(`services`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
-    return this.http.post(endpoint, service).map((data) => {
-      return new ManagedService(data);
+    const endpoint = new URL(`service`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+    return this.http.post(endpoint, service.toData()).map((data) => {
+      return ManagedService.fromData(data);
     });
   }
 
   getService(id){
-    const endpoint = new URL(`services/${id}`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+    const endpoint = new URL(`service/${id}`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
     return this.http.get(endpoint).map(
       (service) => {
-        return new ManagedService(service);
+        return new ManagedService.fromData(service);
       }
     );
   }
 
   deleteService(service){
     if(service.id){
-      const endpoint = new URL(`services/${service.id}`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+      const endpoint = new URL(`service/${service.id}`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
       return this.http.delete(endpoint);
     }
     return Observable.throw(new Error("Service has no id"));
