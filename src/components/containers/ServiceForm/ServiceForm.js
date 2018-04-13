@@ -46,6 +46,9 @@ export class ServiceForm extends Component {
           startMode: "",
           isStateful: false,
           state: "",
+          orderDate: "",
+          startDate: "",
+          endDate: "",
         },
         success: false
       };
@@ -224,15 +227,27 @@ export class ServiceForm extends Component {
 
             <div className={_s.dates}>
               <h3>Order date</h3>
-                <DatePicker hintText="Order date..." />
+              <DatePicker
+                hintText={"Order Date"}
+                onChange={(e,date) => {this.onFieldChange("orderDate",date)}}
+                value={this.state.formValues.orderDate}
+              />
             </div>
             <div className={_s.dates}>
               <h3>Start date</h3>
-                <DatePicker hintText="Start date..." />
+              <DatePicker
+                hintText={"Start Date"}
+                onChange={(e,date) => {this.onFieldChange("startDate",date)}}
+                value={this.state.formValues.startDate}
+              />
             </div>
             <div className={_s.dates}>
               <h3>End date</h3>
-                <DatePicker minDate={new Date()} hintText="End date..." /><br></br>
+              <DatePicker
+                hintText={"End Date"}
+                onChange={(e,date) => {this.onFieldChange("endDate",date)}}
+                value={this.state.formValues.endDate}
+              /><br></br>
             </div>
 
           {/*Submit button, redirects to services page*/}
