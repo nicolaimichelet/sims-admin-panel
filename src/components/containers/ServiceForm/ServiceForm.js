@@ -37,7 +37,7 @@ export class ServiceForm extends Component {
           startMode: "",
           isStateful: false,
           state: "",
-          serviceSpecification: {id: 1,href: "hello"},
+          serviceSpecification: {href: "hello", name: "", version: ""},
           supportingService: [],
           serviceCharacteristic: [],
           relatedParty: [],
@@ -230,8 +230,9 @@ export class ServiceForm extends Component {
               <div>
                 <h3>Service Specification</h3>
                 <ObjectInput value={this.state.formValues.serviceSpecification} onChange={(v) => this.onFieldChange("serviceSpecification", v)}>
-                  <TextField className={_s.objectTextField} type="number" name="id" hintText="id of the service specification" />
+                  <TextField className={_s.objectTextField} type="name" name="name" hintText="name of the service specification" />
                   <TextField className={_s.objectTextField} name="href" hintText="href of the service specification" />
+                  <TextField className={_s.objectTextField} name="version" hintText="version of the service specification" />
                 </ObjectInput>
               </div>
               <Divider className={_s.divider} />

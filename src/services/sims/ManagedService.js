@@ -62,7 +62,7 @@ export class ManagedService{
     });
     let spec = data.serviceSpecification;
     if(spec){
-      service.setServiceSpecification(new ServiceSpecification(spec.id, spec.href));
+      service.setServiceSpecification(new ServiceSpecification(spec.id, spec.href, spec.name, spec.version));
     }
 
     return service;
@@ -208,15 +208,18 @@ export class ServiceRelationship{
 }
 
 export class SupportingResource{
-  constructor(id, href){
+  constructor(id, href, name, version){
     this.id = id;
     this.href = href;
+    this.name = name;
+    this.version = version;
   }
 
   toData(){
     return {
-      id: this.id,
-      href: this.href
+      href: this.href,
+      version: this.version,
+      name: this.name
     }
   }
 }
