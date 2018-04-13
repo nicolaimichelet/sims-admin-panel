@@ -4,6 +4,7 @@ import { get, at } from 'lodash';
 
 
 export class ManagedService{
+
   constructor(data){
 
     this.uuid = data.uuid;
@@ -156,6 +157,9 @@ export class ManagedService{
     return this.serviceSpecification;
   }
 
+  static fromObject(data){
+    return new ManagedService(data);
+  }
 }
 
 
@@ -174,15 +178,19 @@ export class ServiceCharacteristic{
 }
 
 export class ServiceSpecification{
-  constructor(id, href){
+  constructor(id, href, name, version){
     this.id = id;
     this.href = href;
+    this.name = name;
+    this.version = version;
   }
 
   toData(){
     return {
       id: this.id,
-      href: this.href
+      href: this.href,
+      name: this.name,
+      version: this.version
     }
   }
 }
