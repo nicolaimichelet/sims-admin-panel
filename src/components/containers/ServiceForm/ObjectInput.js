@@ -11,7 +11,7 @@ import MenuItem from 'material-ui/MenuItem';
 
 
 import { get, set, has, cloneDeep } from 'lodash';
-
+import { paths } from 'common/utils';
 
 export class ObjectInput extends Component{
   constructor(props){
@@ -32,19 +32,10 @@ export class ObjectInput extends Component{
 
   _updateFields(props){
     let nmap = {};
-    React.Children.forEach(props.children, child => {
-      let props = child.props;
-        
-      if(props.name){
-        if(!has(this.state.value, props.name)){
-          set(nmap, props.name, props.value != null ? props.value : props.defaultValue);
-        }else{
-          set(nmap, props.name, get(this.state.value, props.name));
-        }
+    if(props.value != null){
+      for(let atr of paths(props.value) ){
+        set(nmap, atr, get(props.value, atr));
       }
-    });
-    if(props.object != null){
-      
     }
     this.setState({
       value: nmap
@@ -53,9 +44,6 @@ export class ObjectInput extends Component{
 
   onFieldChange(name, nval){
     set(this.state.value, name, nval);
-
-
-
     let object = cloneDeep(this.state.value);
     this.setState({
       value: object
@@ -72,17 +60,25 @@ export class ObjectInput extends Component{
 
 
   render(){
-    const inputs = React.Children.map(this.props.children, (field) => {
-      let onChange = (...a) => {
-        this.onFieldChange(field.props.name, a[1]);
-        if(field.props.onChange){
-          field.props.onChange(...a);
+
+    const inputs = React.Children.map(this.props.children, (field, idx) => {
+      if(field.props.name){
+        
+        let onChange = (...a) => {
+          this.onFieldChange(field.props.name, a[1]);
+          if(field.props.onChange){
+            field.props.onChange(...a);
+          }
         }
+
+        return React.cloneElement(field, {
+          onChange: onChange,
+          value: get(this.state.value, field.props.name),
+          key: field.key || field.props.key || idx
+        });
       }
 
-      return React.cloneElement(field, {
-        onChange: onChange
-      });
+      return field;
     });
     return (
       <div>

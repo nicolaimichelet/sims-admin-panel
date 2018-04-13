@@ -86,7 +86,7 @@ export class ManagedService{
       serviceCharacteristic: this.serviceCharacteristic.map((e) => e.toData()),
       relatedParty: this.relatedParty.map((e) => e.toData()),
       serviceRelationship: this.serviceRelationship.map((e) => e.toData()),
-      serviceSpecification: this.serviceSpecification.toData(),
+      serviceSpecification: this.serviceSpecification && this.serviceSpecification.toData(),
       supportingResource: this.supportingResource.map((e) => e.toData()),
     }
   }
@@ -174,15 +174,15 @@ export class ServiceCharacteristic{
 }
 
 export class ServiceSpecification{
-  constructor(id, name){
+  constructor(id, href){
     this.id = id;
-    this.name = name;
+    this.href = href;
   }
 
   toData(){
     return {
       id: this.id,
-      name: this.name
+      href: this.href
     }
   }
 }

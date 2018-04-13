@@ -37,6 +37,12 @@ export class ServiceForm extends Component {
           startMode: "",
           isStateful: false,
           state: "",
+          serviceSpecification: {id: 1,href: "hello"},
+          supportingService: [],
+          serviceCharacteristic: [],
+          relatedParty: [],
+          serviceRelationship: [],
+          supportingResource: []
         },
         success: false
       };
@@ -100,7 +106,7 @@ export class ServiceForm extends Component {
         data.state = this.possibleStates[data.state];
         data.startMode = this.possibleStartModes[data.startMode];
 
-        let service = new ManagedService(data);
+        let service = ManagedService.fromData(data);
         let observable;
         
         if (this.props.service){
@@ -178,9 +184,8 @@ export class ServiceForm extends Component {
                 <TextField onChange={(e,v)=> this.onFieldChange("description", v)} value={this.state.formValues.description} hintText="Description of the service..." floatingLabelText="Description" multiLine={true} rows={1}/>
               </div>
 
-              <div className={_s.divider}>
-                <Divider />
-              </div>
+              <Divider className={_s.divider} />
+
               <div className={_s.toggle}>
                 <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }}  onChange={(e,v) => this.onFieldChange("isServiceEnabled", v)} value={this.state.formValues.isServiceEnabled} label="Is the service enabled?" />
               </div>
@@ -190,9 +195,8 @@ export class ServiceForm extends Component {
               <div className={_s.toggle}>
                 <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onChange={(e,v)=> this.onFieldChange("isStateful", v)} value={this.state.formValues.isStateful} label="Can this service be changed without affecting any other service?"/>
               </div>
-              <div className={_s.divider}>
-                <Divider />
-              </div>
+
+              <Divider className={_s.divider} />
 
               <div className={_s.dropdown1}>
                 <h3>Start Mode</h3>
@@ -208,9 +212,7 @@ export class ServiceForm extends Component {
                   </SelectField>
               </div>
 
-              <div className={_s.divider}>
-                <Divider />
-              </div>
+              <Divider className={_s.divider} />
 
               <div className={_s.dates}>
                 <h3>Order date</h3>
@@ -224,7 +226,15 @@ export class ServiceForm extends Component {
                 <h3>End date</h3>
                   <DatePicker minDate={new Date()} hintText="End date..." /><br></br>
               </div>
-
+              <Divider className={_s.divider} />
+              <div>
+                <h3>Service Specification</h3>
+                <ObjectInput value={this.state.formValues.serviceSpecification} onChange={(v) => this.onFieldChange("serviceSpecification", v)}>
+                  <TextField className={_s.objectTextField} type="number" name="id" hintText="id of the service specification" />
+                  <TextField className={_s.objectTextField} name="href" hintText="href of the service specification" />
+                </ObjectInput>
+              </div>
+              <Divider className={_s.divider} />
             {/*Submit button, redirects to services page*/}
               <div className={_s.submit}>
                 <RaisedButton onClick={()=> {
@@ -232,10 +242,7 @@ export class ServiceForm extends Component {
                 }}  label="Submit" primary={true} disabled={!isEnabled}/>
                 {this.state.success ? <Redirect to="/services" /> : null}
               </div>
-              <ObjectInput class={ServiceSpecification} onChange={(v) => console.log("new service spec", v)}>
-                <TextField name="id" />
-                <TextField name="href" />
-              </ObjectInput>
+
             </MuiThemeProvider>
           </div>
         </Paper>
