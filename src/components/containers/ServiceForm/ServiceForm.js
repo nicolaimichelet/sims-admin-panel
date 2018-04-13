@@ -8,28 +8,19 @@ import { mapAndConnect, IManagedService, ManagedService} from "services";
 import {Redirect} from "react-router";
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+
 import Divider from 'material-ui/Divider';
+
 
 import {lightGreen600, lightGreen400, lightGreen300, lightGreen700, grey50} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Paper from 'material-ui/Paper';
 
+import { ObjectInput } from './ObjectInput';
+import { ServiceSpecification } from 'services/sims/ManagedService';
 
 
-/*{/!*
-      <div className={_s.relatedParty}>
-        <TextField onChange={(e,v)=> this.onFieldChange("role", v)} value={this.state.formValues.role} hintText="Enter role..." floatingLabelText="Role"/><br></br>
-        <TextField onChange={(e,v)=> this.onFieldChange("id", v)} value={this.state.formValues.id} hintText="Enter id..." floatingLabelText="ID"/><br></br>
-        <TextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} hintText="Enter href..." floatingLabelText="HREF"/><br></br>
-      </div>
-*!/}
-
-        {/!********************************************** LISTS, TYPES ETC. **************************************!/}
-/!*
-        <br></br><TextField className={_s.formtext} hintText="Resource type..." floatingLabelText="Type"/>
-        <br></br><TextField className={_s.formtext} hintText="Service order..." floatingLabelText="Service Order Ref"/>
-        <br></br><TextField className={_s.formtext} hintText="Service order..." floatingLabelText="Service Order Ref"/>*!/*/
 
 export class ServiceForm extends Component {
     constructor(props){
@@ -47,6 +38,12 @@ export class ServiceForm extends Component {
           startMode: "",
           isStateful: false,
           state: "",
+          serviceSpecification: {href: "hello", name: "", version: ""},
+          supportingService: [],
+          serviceCharacteristic: [],
+          relatedParty: [],
+          serviceRelationship: [],
+          supportingResource: []
         },
         success: false
       };
@@ -96,11 +93,12 @@ export class ServiceForm extends Component {
     validate() {
       const errors = {};
       errors.nameError = this.state.formValues.name === "" ? "Name is a required field" : null;
-        this.setState({
-          formValues:{
+      this.setState({
+        formValues:{
           ...this.state.formValues,
           ...errors
-        }});
+        }
+      });
     };
 
     canBeSubmitted(){
@@ -116,7 +114,7 @@ export class ServiceForm extends Component {
         data.state = this.possibleStates[data.state];
         data.startMode = this.possibleStartModes[data.startMode];
 
-        let service = new ManagedService(data);
+        let service = ManagedService.fromData(data);
         let observable;
         
         if (this.props.service){
@@ -136,29 +134,29 @@ export class ServiceForm extends Component {
 
 
     componentDidMount(){
-
+      this.validate();
     }
 
     render() {
         const muiTheme = getMuiTheme({
-            toggle: {
-                thumbOnColor: lightGreen600,
-                trackOnColor: lightGreen300,
-            },
-            textField: {
-                focusColor: lightGreen300,
-            },
-            datePicker: {
-                selectColor: lightGreen600,
-                color: lightGreen600,
-                headerColor: lightGreen300,
-            },
-            flatButton: {
-                primaryTextColor: lightGreen700,
-            },
-            raisedButton: {
-                primaryColor: lightGreen400,
-            }
+          toggle: {
+            thumbOnColor: lightGreen600,
+            trackOnColor: lightGreen300,
+          },
+          textField: {
+            focusColor: lightGreen300,
+          },
+          datePicker: {
+            selectColor: lightGreen600,
+            color: lightGreen600,
+            headerColor: lightGreen300,
+          },
+          flatButton: {
+            primaryTextColor: lightGreen700,
+          },
+          raisedButton: {
+            primaryColor: lightGreen400,
+          }
         });
 
       const isEnabled = this.canBeSubmitted();
@@ -172,88 +170,91 @@ export class ServiceForm extends Component {
       });
 
       return (
-      <Paper className={_s.paperContainer}>
-        <div className={_s.form}>
-          <MuiThemeProvider muiTheme={muiTheme}>
+        <Paper className={_s.paperContainer}>
+          <div className={_s.form}>
+            <MuiThemeProvider muiTheme={muiTheme}>
 
-            <h1 className={_s.header}> Add New Service</h1>
+              <h1 className={_s.header}> Add New Service</h1>
 
-            <div className={_s.formtext}>
-              <TextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} hintText="Reference of the service..." floatingLabelText="HREF"/>
-            </div>
+              <div className={_s.formtext}>
+                <TextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} hintText="Reference of the service..." floatingLabelText="HREF"/>
+              </div>
 
-            <div className={_s.formtext}>
-              <TextField onChange={(e,v)=> this.onFieldChange("category", v)} value={this.state.formValues.category} hintText="Enter category..." floatingLabelText="Category"/>
-            </div>
+              <div className={_s.formtext}>
+                <TextField onChange={(e,v)=> this.onFieldChange("category", v)} value={this.state.formValues.category} hintText="Enter category..." floatingLabelText="Category"/>
+              </div>
 
-            <div className={_s.formtext}>
-              <TextField onChange={(e,v)=> this.onFieldChange("name", v)} value={this.state.formValues.name} errorText={this.state.formValues.nameError} hintText="Enter name..." floatingLabelText="Name"/>
-            </div>
+              <div className={_s.formtext}>
+                <TextField onChange={(e,v)=> this.onFieldChange("name", v)} value={this.state.formValues.name} errorText={this.state.formValues.nameError} hintText="Enter name..." floatingLabelText="Name"/>
+              </div>
 
-            <div className={_s.formtext}>
-              <TextField onChange={(e,v)=> this.onFieldChange("description", v)} value={this.state.formValues.description} hintText="Description of the service..." floatingLabelText="Description" multiLine={true} rows={1}/>
-            </div>
+              <div className={_s.formtext}>
+                <TextField onChange={(e,v)=> this.onFieldChange("description", v)} value={this.state.formValues.description} hintText="Description of the service..." floatingLabelText="Description" multiLine={true} rows={1}/>
+              </div>
 
-            <div className={_s.divider}>
-              <Divider />
-            </div>
+              <Divider className={_s.divider} />
 
-            <div className={_s.toggle}>
-              <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onChange={(e,v) => this.onFieldChange("isServiceEnabled", v)} value={this.state.formValues.isServiceEnabled} label="Is the service enabled?" />
-            </div>
-            <div className={_s.toggle}>
-              <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onChange={(e,v)=> this.onFieldChange("hasStarted", v)} value={this.state.formValues.hasStarted} label="Has the service started?" />
-            </div>
-            <div className={_s.toggle}>
-              <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onChange={(e,v)=> this.onFieldChange("isStateful", v)} value={this.state.formValues.isStateful} label="Can this service be changed without affecting any other service?"/>
-            </div>
+              <div className={_s.toggle}>
+                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }}  onChange={(e,v) => this.onFieldChange("isServiceEnabled", v)} value={this.state.formValues.isServiceEnabled} label="Is the service enabled?" />
+              </div>
+              <div className={_s.toggle}>
+                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onChange={(e,v)=> this.onFieldChange("hasStarted", v)} value={this.state.formValues.hasStarted} label="Has the service started?" />
+              </div>
+              <div className={_s.toggle}>
+                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onChange={(e,v)=> this.onFieldChange("isStateful", v)} value={this.state.formValues.isStateful} label="Can this service be changed without affecting any other service?"/>
+              </div>
 
-            <div className={_s.divider}>
-              <Divider />
-            </div>
+              <Divider className={_s.divider} />
 
-            <div className={_s.dropdown1}>
-              <h3>Start Mode</h3>
-                <SelectField onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode} hintText="Start mode...">
-                  {startModeItems}
-                </SelectField>
-            </div>
+              <div className={_s.dropdown1}>
+                <h3>Start Mode</h3>
+                  <SelectField onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode} hintText="Start mode...">
+                    {startModeItems}
+                  </SelectField>
+              </div>
 
-            <div className={_s.dropdown2}>
-              <h3>State</h3>
-                <SelectField onChange={(e,v) => this.onFieldChange("state", v)} value={this.state.formValues.state} hintText={"State of the service..."}>
-                  {stateMenuItems}
-                </SelectField>
-            </div>
+              <div className={_s.dropdown2}>
+                <h3>State</h3>
+                  <SelectField onChange={(e,v) => this.onFieldChange("state", v)} value={this.state.formValues.state} hintText={"State of the service..."}>
+                    {stateMenuItems}
+                  </SelectField>
+              </div>
 
-            <div className={_s.divider}>
-              <Divider />
-            </div>
+              <Divider className={_s.divider} />
 
-            <div className={_s.dates}>
-              <h3>Order date</h3>
-                <DatePicker hintText="Order date..." />
-            </div>
-            <div className={_s.dates}>
-              <h3>Start date</h3>
-                <DatePicker hintText="Start date..." />
-            </div>
-            <div className={_s.dates}>
-              <h3>End date</h3>
-                <DatePicker minDate={new Date()} hintText="End date..." /><br></br>
-            </div>
+              <div className={_s.dates}>
+                <h3>Order date</h3>
+                  <DatePicker hintText="Order date..." />
+              </div>
+              <div className={_s.dates}>
+                <h3>Start date</h3>
+                  <DatePicker hintText="Start date..." />
+              </div>
+              <div className={_s.dates}>
+                <h3>End date</h3>
+                  <DatePicker minDate={new Date()} hintText="End date..." /><br></br>
+              </div>
+              <Divider className={_s.divider} />
+              <div>
+                <h3>Service Specification</h3>
+                <ObjectInput value={this.state.formValues.serviceSpecification} onChange={(v) => this.onFieldChange("serviceSpecification", v)}>
+                  <TextField className={_s.objectTextField} type="name" name="name" hintText="name of the service specification" />
+                  <TextField className={_s.objectTextField} name="href" hintText="href of the service specification" />
+                  <TextField className={_s.objectTextField} name="version" hintText="version of the service specification" />
+                </ObjectInput>
+              </div>
+              <Divider className={_s.divider} />
+            {/*Submit button, redirects to services page*/}
+              <div className={_s.submit}>
+                <RaisedButton onClick={()=> {
+                  this.submitService();
+                }}  label="Submit" primary={true} disabled={!isEnabled}/>
+                {this.state.success ? <Redirect to="/services" /> : null}
+              </div>
 
-          {/*Submit button, redirects to services page*/}
-            <div className={_s.submit}>
-              <RaisedButton onClick={()=> {
-                this.submitService();
-              }}  label="Sbmit" primary={true} disabled={!isEnabled}/>
-              {this.state.success ? <Redirect to="/services" /> : null}
-            </div>
-          </MuiThemeProvider>
-        </div>
-      </Paper>
-
+            </MuiThemeProvider>
+          </div>
+        </Paper>
       );
     }
 }
