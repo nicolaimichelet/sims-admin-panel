@@ -72,12 +72,6 @@ export class ServiceForm extends Component {
       });
     }
 
-    onToggleChange(){
-      const currentState = this.state.formValues.isServiceEnabled;
-      console.log(this.state.formValues.isServiceEnabled);
-      this.setState({isServiceEnabled : !currentState});
-      console.log(this.state.formValues.isServiceEnabled);
-    }
 
     /*When a text field changes, we assign the value in the field.*/
     onFieldChange (field, value){
@@ -195,13 +189,13 @@ export class ServiceForm extends Component {
               <Divider className={_s.divider} />
 
               <div className={_s.toggle}>
-                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }}  onChange={(e,v) => this.onFieldChange("isServiceEnabled", v)} value={this.state.formValues.isServiceEnabled} label="Is the service enabled?" />
+                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }}  onToggle={(e,v) => this.onFieldChange("isServiceEnabled", v)} toggled={this.state.formValues.isServiceEnabled} label="Is the service enabled?" />
               </div>
               <div className={_s.toggle}>
-                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onChange={(e,v)=> this.onFieldChange("hasStarted", v)} value={this.state.formValues.hasStarted} label="Has the service started?" />
+                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onToggle={(e,v)=> this.onFieldChange("hasStarted", v)} toggled={this.state.formValues.hasStarted} label="Has the service started?" />
               </div>
               <div className={_s.toggle}>
-                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onChange={(e,v)=> this.onFieldChange("isStateful", v)} value={this.state.formValues.isStateful} label="Can this service be changed without affecting any other service?"/>
+                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onToggle={(e,v)=> this.onFieldChange("isStateful", v)} toggled={this.state.formValues.isStateful} label="Can this service be changed without affecting any other service?"/>
               </div>
 
               <Divider className={_s.divider} />
