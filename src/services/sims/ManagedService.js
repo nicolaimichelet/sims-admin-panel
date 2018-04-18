@@ -13,6 +13,7 @@ export class ManagedService{
     this.endDate = data.endDate ? new Date(data.endDate) : null;
     this.hasStarted = data.hasStarted;
     this.isStateful = data.isStateful;
+    this.isServiceEnabled = data.isServiceEnabled;
     this.name = data.name;
     this.startMode = data.startMode;
     this.state = data.state;
@@ -79,6 +80,7 @@ export class ManagedService{
       endDate:  this.endDate,
       hasStarted:  this.hasStarted,
       isStateful:  this.isStateful,
+      isServiceEnabled: this.isServiceEnabled,
       name:  this.name,
       startMode:  this.startMode,
       state:  this.state,

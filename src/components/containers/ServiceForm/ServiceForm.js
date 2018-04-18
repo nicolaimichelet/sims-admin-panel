@@ -25,8 +25,7 @@ import { ServiceSpecification } from 'services/sims/ManagedService';
 export class ServiceForm extends Component {
     constructor(props){
       super(props);
-      this.onToggleChange = this.onToggleChange.bind(this);
-      this.state = {
+        this.state = {
         formValues: {
           href: "",
           category: "",
@@ -222,7 +221,7 @@ export class ServiceForm extends Component {
               </div>
               <div className={_s.dates}>
                 <h3>Start date</h3>
-                  <DatePicker hintText="Start date..." />
+                  <DatePicker hintText="Start dte..." />
               </div>
               <div className={_s.dates}>
                 <h3>End date</h3>

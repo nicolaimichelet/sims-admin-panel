@@ -166,7 +166,8 @@ export class AdminPage extends Component {
             Start date: {this.state.selected.startDate}<br/>
             End date: {this.state.selected.endDate}<br/>
             Start mode: {this.state.selected.startMode}<br/>
-            Is stateful: {this.state.selected.isStateFul}<br/>
+            Is stateful: {this.state.selected.isStateful ? 'Yes' : 'No'}<br/>
+            Is service enabled: {this.state.selected.isServiceEnabled ? 'Yes' : 'No'} <br/>
             Category: {this.state.selected.category}<br/><br/>
             Status: {this.state.selected.state}
 
