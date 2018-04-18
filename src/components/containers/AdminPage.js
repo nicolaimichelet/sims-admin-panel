@@ -107,7 +107,6 @@ export class AdminPage extends Component {
           <TableRowColumn>{e.id}</TableRowColumn>
           <TableRowColumn>{e.name}</TableRowColumn>
           <TableRowColumn>{e.href}</TableRowColumn>
-          <TableRowColumn>{e.hasStarted ? 'yes' : 'no'}</TableRowColumn>
           <TableRowColumn>{e.hasStarted ? 'Yes' : 'No'}</TableRowColumn>
           <TableRowColumn>{e.category}</TableRowColumn>
           <TableRowColumn className={_s[`state-${e.state}`]
