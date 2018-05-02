@@ -78,6 +78,13 @@ export class AdminPage extends Component {
         })
     }
 
+    changeSorting(){
+      let serviceState = this.state.services;
+      serviceState.sort((a,b)=> a.state.localeCompare(b.state)).slice();
+      this.setState({services : serviceState});
+      console.log(serviceState);
+    }
+
 
 
     delete(service) {
@@ -143,13 +150,16 @@ export class AdminPage extends Component {
           <br />
           <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
             <TableHeader>
-                <TableRow>
+              <TableRow onCellClick={(event,_,idx) => {
+                  if(idx == 6){
+                  this.changeSorting();
+                }}}>
                     <TableHeaderColumn>ID</TableHeaderColumn>
                     <TableHeaderColumn>Name</TableHeaderColumn>
                     <TableHeaderColumn>href</TableHeaderColumn>
                     <TableHeaderColumn>Has started</TableHeaderColumn>
                     <TableHeaderColumn>Category</TableHeaderColumn>
-                    <TableHeaderColumn>State</TableHeaderColumn>
+                    <TableHeaderColumn onCellClick= {()=>{this.changeSorting()}}>State</TableHeaderColumn>
                 </TableRow>
             </TableHeader>
             
