@@ -7,6 +7,9 @@ import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import {lightGreen600, lightGreen400, lightGreen300} from 'material-ui/styles/colors';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import { Link } from 'react-router-dom';
 import _s from 'assets/css/LoginForm.css';
@@ -38,6 +41,12 @@ export default class LoginForm extends Component{
 
 
   render(){
+
+    const muiTheme = getMuiTheme({
+        raisedButton: {
+          primaryColor: lightGreen400,
+        }
+      });
 
     const popOverElements = [];
     const options = this.props.options || [
@@ -80,11 +89,13 @@ export default class LoginForm extends Component{
               }
             }
           />
+          <MuiThemeProvider muiTheme={muiTheme}>
           <RaisedButton
             primary={true}
             label="Connect"
             onClick={() => this.props.onSubmit(this.state.href || this.props.defaultValue || "")}
           />
+          </MuiThemeProvider>
 
           <Popover
             open={this.state.popoverEnabled}

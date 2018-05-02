@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import _s from 'assets/css/AdminPage.css';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
+import {lightGreen300, lightGreen400} from 'material-ui/styles/colors';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {Subject} from 'rxjs';
 import Snackbar from 'material-ui/Snackbar';
+
 import CheckCircle from 'material-ui/svg-icons/action/check-circle'
 
 
@@ -47,6 +51,16 @@ export class AdminPage extends Component {
     }
     componentDidMount(){
       this.querySubject.debounceTime(300).distinctUntilChanged().subscribe((a)=> {
+        this.props.imService.search(a).subscribe((services) => {
+          this.setState({
+            services: services
+          });
+        });
+      });
+      this.props.imService.getServices().subscribe((services) => {
+        this.setState({
+          services: services
+        });
       });
       this.refresh()
     }
@@ -63,6 +77,13 @@ export class AdminPage extends Component {
         this.setState({
             open: false,
         });
+    }
+
+    changeSorting(){
+      let serviceState = this.state.services;
+      serviceState.sort((a,b)=> a.state.localeCompare(b.state)).slice();
+      this.setState({services : serviceState});
+      console.log(serviceState);
     }
 
 
@@ -120,6 +141,14 @@ export class AdminPage extends Component {
     render() {
       const {services} = this.state;
       const serviceElements = [];
+      const muiTheme = getMuiTheme({
+            textField: {
+                focusColor: lightGreen300,
+            },
+            raisedButton: {
+                primaryColor: lightGreen400,
+            }
+      });
       for (let i in services){
         let e = services[i];
         serviceElements.push(
@@ -137,6 +166,7 @@ export class AdminPage extends Component {
 
       return (
         <Paper className={_s["paper-container"]}>
+          <MuiThemeProvider muiTheme={muiTheme}>
           <h1>Services</h1>
           <TextField 
             onChange = {(e, v)=> this.onChange(v)}
@@ -154,13 +184,16 @@ export class AdminPage extends Component {
           <br />
           <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
             <TableHeader>
-                <TableRow>
+              <TableRow onCellClick={(event,_,idx) => {
+                  if(idx == 6){
+                  this.changeSorting();
+                }}}>
                     <TableHeaderColumn>ID</TableHeaderColumn>
                     <TableHeaderColumn>Name</TableHeaderColumn>
                     <TableHeaderColumn>href</TableHeaderColumn>
                     <TableHeaderColumn>Has started</TableHeaderColumn>
                     <TableHeaderColumn>Category</TableHeaderColumn>
-                    <TableHeaderColumn>State</TableHeaderColumn>
+                    <TableHeaderColumn onCellClick= {()=>{this.changeSorting()}}>State</TableHeaderColumn>
                 </TableRow>
             </TableHeader>
             
@@ -207,7 +240,7 @@ export class AdminPage extends Component {
           :
           null
           }
-
+        </MuiThemeProvider>
         </Paper>
       );
     }
