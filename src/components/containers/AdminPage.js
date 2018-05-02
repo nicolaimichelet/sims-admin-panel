@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _s from 'assets/css/AdminPage.css';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
-import {lightGreen300, lightGreen400} from 'material-ui/styles/colors';
+import {lightGreen300, lightGreen400, red700} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -147,6 +147,7 @@ export class AdminPage extends Component {
             },
             raisedButton: {
                 primaryColor: lightGreen400,
+                secondaryColor: red700,
             }
       });
       for (let i in services){
