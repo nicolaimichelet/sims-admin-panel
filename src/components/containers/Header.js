@@ -30,7 +30,7 @@ export default class Header extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <Link key={1} to="/services">
         {path == "/services" ? 
-          <RaisedButton secondary={true} hoverColor={true} label="Services" /> :
+          <RaisedButton secondary={true} label="Services" /> :
           <FlatButton hoverColor={lightGreen400} rippleColor='transparent' label="Services" />}
         </Link>
         <Link key={3} to="/services/new">
