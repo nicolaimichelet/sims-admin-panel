@@ -42,7 +42,7 @@ export class ServiceForm extends Component {
           serviceCharacteristic: [],
           relatedParty: [],
           serviceRelationship: [],
-          supportingResource: []
+          supportingResource: [],
           orderDate: "",
           startDate: "",
           endDate: "",
