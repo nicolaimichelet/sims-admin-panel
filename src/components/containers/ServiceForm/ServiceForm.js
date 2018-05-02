@@ -21,7 +21,6 @@ import { ObjectInput } from './ObjectInput';
 import { ServiceSpecification } from 'services/sims/ManagedService';
 
 
-
 export class ServiceForm extends Component {
     constructor(props){
       super(props);
@@ -221,7 +220,7 @@ export class ServiceForm extends Component {
               </div>
               <div className={_s.dates}>
                 <h3>Start date</h3>
-                  <DatePicker hintText="Start dte..." />
+                  <DatePicker hintText="Start date..." />
               </div>
               <div className={_s.dates}>
                 <h3>End date</h3>

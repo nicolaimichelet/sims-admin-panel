@@ -47,30 +47,27 @@ export class AdminPage extends Component {
     }
     componentDidMount(){
       this.querySubject.debounceTime(300).distinctUntilChanged().subscribe((a)=> {
-      })
-      this.props.imService.getServices().subscribe((services) => {
-        this.setState({
-          services: services
-        });
       });
+      this.refresh()
     }
 
     handleClickTable(service){
         this.setState({
             open: true,
             selected: service,
-        })
+        });
         console.log('service clicked')
     }
     
     handleClose(){
         this.setState({
             open: false,
-        })
+        });
     }
 
 
 
+    //deletes a specific service on ID
     delete(service) {
       this.props.imService.deleteService(service).subscribe(() => {
         const newState = this.state.services.slice();
@@ -78,14 +75,37 @@ export class AdminPage extends Component {
           newState.splice(newState.indexOf(service), 1);
           this.setState({services : newState, open: false});
         }
-      
       }, (err) => {
         this.setState({
           lastError: err
         });
       });
-      
     }
+
+    //deletes all services
+    deleteAll(){
+      this.props.imService.deleteAll().subscribe( () => {
+        this.refresh();
+      });
+    }
+
+    //seeds or fills database with 50 services
+    seedServices(){
+      this.props.imService.seedServices().subscribe( () => {
+        this.refresh();
+      });
+    }
+
+    //Method for refreshing page
+    refresh(){
+      this.props.imService.getServices().subscribe((services) => {
+        this.setState({
+          services: services
+        });
+      });
+    }
+
+
 
     onChange(value){
       this.querySubject.next(value);
@@ -122,6 +142,15 @@ export class AdminPage extends Component {
             onChange = {(e, v)=> this.onChange(v)}
             hintText="Search"
           />
+
+          <RaisedButton className={_s.deleteAll} onClick={ () => {
+            this.deleteAll()
+          }} label="Delete all" secondary={true}/>
+
+          <RaisedButton className={_s.deleteAll} onClick={ () => {
+            this.seedServices()
+          }} label="Example data" primary={true}/>
+
           <br />
           <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
             <TableHeader>

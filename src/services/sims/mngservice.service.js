@@ -62,4 +62,14 @@ export class ManagedServiceServiceProvider extends IManagedService{
     return Observable.throw(new Error("Service has no id"));
   }
 
+  deleteAll(){
+      const endpoint = new URL(`service`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+      return this.http.delete(endpoint);
+  }
+
+  seedServices(){
+    const endpoint = new URL(`seed/50`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+    return this.http.get(endpoint);
+  }
+
 }
