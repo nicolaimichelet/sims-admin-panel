@@ -47,6 +47,7 @@ export class AdminPage extends Component {
         lastError: null,
         selected: null,
         open: false,
+        sortingOrder: "none",
       };
     }
     componentDidMount(){
@@ -81,9 +82,16 @@ export class AdminPage extends Component {
 
     changeSorting(){
       let serviceState = this.state.services;
-      serviceState.sort((a,b)=> a.state.localeCompare(b.state)).slice();
-      this.setState({services : serviceState});
-      console.log(serviceState);
+      serviceState.sort((a,b)=> {
+        if(this.state.sortingOrder != "asc"){
+          return a.state.localeCompare(b.state);
+        }
+        return b.state.localeCompare(a.state);
+      })
+        
+      this.setState({services : serviceState, sortingOrder: this.state.sortingOrder != "asc" ? "asc" : "decs"});
+
+
     }
 
 
