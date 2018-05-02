@@ -21,6 +21,7 @@ import {
     TableRowColumn,
 } from 'material-ui/Table';
 import Dialog from 'material-ui/Dialog';
+import { Link } from 'react-router-dom';
 
 import { mapAndConnect, IManagedService } from 'services';
 
@@ -114,8 +115,8 @@ export class AdminPage extends Component {
           <TableRowColumn>{e.id}</TableRowColumn>
           <TableRowColumn>{e.name}</TableRowColumn>
           <TableRowColumn>{e.href}</TableRowColumn>
-          <TableRowColumn>{e.hasStarted ? 'yes' : 'no'}</TableRowColumn>
           <TableRowColumn>{e.hasStarted ? 'Yes' : 'No'}</TableRowColumn>
+          <TableRowColumn>{e.category}</TableRowColumn>
           <TableRowColumn className={_s[`state-${e.state}`]
           }  >{e.state}</TableRowColumn>
           </TableRow>
@@ -128,7 +129,7 @@ export class AdminPage extends Component {
           <h1>Services</h1>
           <TextField 
             onChange = {(e, v)=> this.onChange(v)}
-            hintText="Query"
+            hintText="Search"
           />
           <br />
           <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
@@ -138,6 +139,7 @@ export class AdminPage extends Component {
                     <TableHeaderColumn>Name</TableHeaderColumn>
                     <TableHeaderColumn>href</TableHeaderColumn>
                     <TableHeaderColumn>Has started</TableHeaderColumn>
+                    <TableHeaderColumn>Category</TableHeaderColumn>
                     <TableHeaderColumn>State</TableHeaderColumn>
                 </TableRow>
             </TableHeader>
@@ -156,11 +158,12 @@ export class AdminPage extends Component {
           <Dialog title = {this.state.selected.name}
           open = {this.state.open}
           onRequestClose = {() => this.handleClose()}
-          actions = {[<RaisedButton
-            label = 'edit'
-            primary = {true}
+          actions = {[<Link to = {`/services/edit/${this.state.selected.id}`}>
+            <RaisedButton
+              label = 'edit'
+              primary = {true}
             
-          />,
+            /></Link>,
           <RaisedButton
             label = "delete"
             onClick = { () => this.delete(this.state.selected)}
