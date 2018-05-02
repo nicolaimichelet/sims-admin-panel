@@ -52,7 +52,7 @@ export class AdminPage extends Component {
     }
     componentDidMount(){
       this.querySubject.debounceTime(300).distinctUntilChanged().subscribe((a)=> {
-        this.props.imService.search(a).subscribe((services) => {
+        this.props.imService.search({name : a}).subscribe((services) => {
           this.setState({
             services: services
           });
@@ -112,7 +112,7 @@ export class AdminPage extends Component {
     }
 
     onChange(value){
-      this.querySubject.next(value);
+      this.querySubject.next(value); // må gjøre så category funker, eget parameter eller objekt
     }
 
     clearError(){
@@ -153,7 +153,12 @@ export class AdminPage extends Component {
           <h1>Services</h1>
           <TextField 
             onChange = {(e, v)=> this.onChange(v)}
-            hintText="Search"
+            hintText="Search on Name"
+          />
+          <br/>
+          <TextField 
+            onChange = {(e, v)=> this.onChange(v)}
+            hintText="Search on Category"
           />
           <br />
           <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
