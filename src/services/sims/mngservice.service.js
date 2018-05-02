@@ -15,6 +15,18 @@ export class ManagedServiceServiceProvider extends IManagedService{
     this.config = serviceManager.getService(ConfigServiceInterface);
   }
 
+  search(name){
+    const endpoint = new URL('service',`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+    endpoint.searchParams.append("name",name);
+    return this.http.get(endpoint).map(
+      (services) => {
+        return services.map(elem => {
+          return ManagedService.fromData(elem)
+        });
+      }
+    )
+  }
+
 
 
   getServices(){

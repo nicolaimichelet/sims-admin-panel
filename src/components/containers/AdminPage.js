@@ -51,7 +51,12 @@ export class AdminPage extends Component {
     }
     componentDidMount(){
       this.querySubject.debounceTime(300).distinctUntilChanged().subscribe((a)=> {
-      })
+        this.props.imService.search(a).subscribe((services) => {
+          this.setState({
+            services: services
+          });
+        });
+      });
       this.props.imService.getServices().subscribe((services) => {
         this.setState({
           services: services
