@@ -238,3 +238,15 @@ table{
 .state-feasibilityChecked, .state-designed, .state-reserved{
   background-color: #0A72CC;
 }
+
+.tableRow:hover{
+  background-color: lightgray; 
+}
+
+.tableHeader{
+  cursor: pointer;
+}
+
+.tableHeader:hover{
+  color: blue !important;
+}
