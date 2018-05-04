@@ -159,7 +159,7 @@ export class AdminPage extends Component {
       const ModuleStyle = {
           title:{
               fontSize: 25,
-              fontWeight: 'bold',
+              fontWeight: 'normal',
           },
           content:{
               fontWeight: 'bold',
@@ -182,7 +182,8 @@ export class AdminPage extends Component {
             raisedButton: {
                 primaryColor: lightGreen400,
                 secondaryColor: red700,
-            }
+            },
+
       });
       for (let i in services){
         let e = services[i];
@@ -265,7 +266,7 @@ export class AdminPage extends Component {
           />]}
 
           >
-              
+
           <hr></hr>
           Description: <u style={ModuleStyle.rest}> {this.state.selected.description}</u> <br/>
           Order date: <u style={ModuleStyle.rest}>{this.state.selected.orderDate ? this.state.selected.orderDate.toLocaleDateString('en-US', options) : "None"}</u><br/>
