@@ -143,7 +143,7 @@ export class AdminPage extends Component {
       for (let i in services){
         let e = services[i];
         serviceElements.push(
-          <TableRow onRowClick={console.log} key = {i}>
+          <TableRow className = {_s.tableRow} onRowClick={console.log} key = {i}>
           <TableRowColumn>{e.id}</TableRowColumn>
           <TableRowColumn>{e.name}</TableRowColumn>
           <TableRowColumn>{e.href}</TableRowColumn>
@@ -165,15 +165,10 @@ export class AdminPage extends Component {
             onChange = {(e, v)=> this.onChange(v)}
             hintText="Search on Name"
           />
-          <br/>
-          <TextField 
-            onChange = {(e, v)=> this.onChange(v)}
-            hintText="Search on Category"
-          />
           <br />
           <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
             <TableHeader>
-              <TableRow onCellClick={(event,_,idx) => {
+              <TableRow  onCellClick={(event,_,idx) => {
                 const columns = {
                   [6]: "state",
                   [5]: "category",                   
@@ -186,8 +181,8 @@ export class AdminPage extends Component {
                     <TableHeaderColumn>Name</TableHeaderColumn>
                     <TableHeaderColumn>href</TableHeaderColumn>
                     <TableHeaderColumn>Has started</TableHeaderColumn>
-                    <TableHeaderColumn>Category</TableHeaderColumn>
-                    <TableHeaderColumn>State</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader}>Category</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader}>State</TableHeaderColumn>
                 </TableRow>
             </TableHeader>
             
