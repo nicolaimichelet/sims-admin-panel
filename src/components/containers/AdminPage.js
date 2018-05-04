@@ -82,10 +82,12 @@ export class AdminPage extends Component {
     changeSorting(){
       let serviceState = this.state.services;
       serviceState.sort((a,b)=> {
+        a = a.state ? a.state : "";
+        b = b.state ? b.state : "";
         if(this.state.sortingOrder != "asc"){
-          return a.state.localeCompare(b.state);
+          return a.localeCompare(b);
         }
-        return b.state.localeCompare(a.state);
+        return b.localeCompare(a);
       })
         
       this.setState({services : serviceState, sortingOrder: this.state.sortingOrder != "asc" ? "asc" : "decs"});
@@ -147,6 +149,8 @@ export class AdminPage extends Component {
         )
       }
 
+      let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
       return (
         <Paper className={_s["paper-container"]}>
           <MuiThemeProvider muiTheme={muiTheme}>
@@ -203,9 +207,9 @@ export class AdminPage extends Component {
           
           >
             Description: {this.state.selected.description} <br/>
-            Order date: {this.state.selected.orderDate}<br/>
-            Start date: {this.state.selected.startDate}<br/>
-            End date: {this.state.selected.endDate}<br/>
+            Order date: {this.state.selected.orderDate ? this.state.selected.orderDate.toLocaleDateString('en-US', options) : "None"}<br/>
+            Start date: {this.state.selected.startDate ? this.state.selected.startDate.toLocaleDateString('en-US', options) : "None"}<br/>
+            End date: {this.state.selected.endDate ? this.state.selected.endDate.toLocaleDateString('en-US', options): "None"}<br/>
             Start mode: {this.state.selected.startMode}<br/>
             Is stateful: {this.state.selected.isStateful ? 'Yes' : 'No'}<br/>
             Is service enabled: {this.state.selected.isServiceEnabled ? 'Yes' : 'No'} <br/>
