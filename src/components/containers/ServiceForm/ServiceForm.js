@@ -18,6 +18,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Paper from 'material-ui/Paper';
 
 import { ObjectInput } from './ObjectInput';
+import { ListInput } from './ListInput';
 import { ServiceSpecification } from 'services/sims/ManagedService';
 
 
@@ -42,7 +43,7 @@ export class ServiceForm extends Component {
           serviceCharacteristic: [],
           relatedParty: [],
           serviceRelationship: [],
-          supportingResource: []
+          supportingResource: [],
           orderDate: "",
           startDate: "",
           endDate: "",
@@ -249,6 +250,17 @@ export class ServiceForm extends Component {
                   <TextField className={_s.objectTextField} name="href" hintText="href of the service specification" />
                   <TextField className={_s.objectTextField} name="version" hintText="version of the service specification" />
                 </ObjectInput>
+              </div>
+              <div>
+                <h3>Test list with ObjectInput</h3>
+                <ListInput onChange={console.log} component={(props) => {
+                  return (
+                    <ObjectInput {...props}>
+                      <TextField className={_s.objectTextField} type="name" name="name" hintText="name of the service specificatio" />
+                      <TextField className={_s.objectTextField} type="name" name="href" hintText="href of the service specificatio" />
+                    </ObjectInput>
+                  );
+                }}/>
               </div>
               <Divider className={_s.divider} />
             {/*Submit button, redirects to services page*/}
