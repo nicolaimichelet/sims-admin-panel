@@ -10,6 +10,9 @@ import TextField from 'material-ui/TextField';
 import {Subject} from 'rxjs';
 import Snackbar from 'material-ui/Snackbar';
 
+
+
+
 import CheckCircle from 'material-ui/svg-icons/action/check-circle'
 
 
@@ -28,8 +31,7 @@ import { mapAndConnect, IManagedService } from 'services';
 
 
 import { DEFAULT_API } from 'common/constants';
-import { FlatButton } from 'material-ui';
-
+import { FlatButton, FontIcon, IconButton } from 'material-ui';
 
 
 const DEFAULT_QUERY = 'redux';
@@ -49,7 +51,16 @@ export class AdminPage extends Component {
         open: false,
         sortingOrder: "none",
       };
+      this.icons = {
+        active: "lightbulb_outline",
+        inactive: "pause_circle_outline",
+        terminated: "highlight_off",
+        designed: "announcement",
+        reserved: "phone",
+      }
     }
+
+
     componentDidMount(){
       this.querySubject.debounceTime(300).distinctUntilChanged().subscribe((a)=> {
         this.props.imService.search({name : a}).subscribe((services) => {
@@ -168,6 +179,7 @@ export class AdminPage extends Component {
       });
       for (let i in services){
         let e = services[i];
+        const icon = this.icons[e.state];
         serviceElements.push(
           <TableRow className = {_s.tableRow} onRowClick={console.log} key = {i}>
           <TableRowColumn>{e.id}</TableRowColumn>
@@ -175,8 +187,8 @@ export class AdminPage extends Component {
           <TableRowColumn>{e.href}</TableRowColumn>
           <TableRowColumn>{e.hasStarted ? 'Yes' : 'No'}</TableRowColumn>
           <TableRowColumn>{e.category}</TableRowColumn>
-          <TableRowColumn className={_s[`state-${e.state}`]
-          }  >{e.state}</TableRowColumn>
+          <TableRowColumn style={{overflow : 'visable'}}  className={_s[`state-${e.state}`]
+          }  >{icon ? <IconButton tooltip= {e.state} iconClassName = "material-icons" > {icon} </IconButton>  : e.state}</TableRowColumn>
           </TableRow>
         )
       }
