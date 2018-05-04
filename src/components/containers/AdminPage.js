@@ -79,18 +79,24 @@ export class AdminPage extends Component {
         })
     }
 
-    changeSorting(){
+    changeSorting(type){
       let serviceState = this.state.services;
+      
+      let order = this.state.sortingOrder;
+      if (this.state.lastColumn != type){
+        order = "asc"
+      }
+      
       serviceState.sort((a,b)=> {
-        a = a.state ? a.state : "";
-        b = b.state ? b.state : "";
-        if(this.state.sortingOrder != "asc"){
+        a = a[type] ? a[type] : "";
+        b = b[type] ? b[type] : "";
+        if(order != "decs"){
           return a.localeCompare(b);
         }
         return b.localeCompare(a);
       })
         
-      this.setState({services : serviceState, sortingOrder: this.state.sortingOrder != "asc" ? "asc" : "decs"});
+      this.setState({services : serviceState, lastColumn: type, sortingOrder: order != "asc" ? "asc" : "decs"});
 
 
     }
@@ -168,15 +174,20 @@ export class AdminPage extends Component {
           <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
             <TableHeader>
               <TableRow onCellClick={(event,_,idx) => {
-                  if(idx == 6){
-                  this.changeSorting();
-                }}}>
+                const columns = {
+                  [6]: "state",
+                  [5]: "category",                   
+                }
+                if(idx in columns){
+                  this.changeSorting(columns[idx]);
+                }
+              }}>
                     <TableHeaderColumn>ID</TableHeaderColumn>
                     <TableHeaderColumn>Name</TableHeaderColumn>
                     <TableHeaderColumn>href</TableHeaderColumn>
                     <TableHeaderColumn>Has started</TableHeaderColumn>
                     <TableHeaderColumn>Category</TableHeaderColumn>
-                    <TableHeaderColumn onCellClick= {()=>{this.changeSorting()}}>State</TableHeaderColumn>
+                    <TableHeaderColumn>State</TableHeaderColumn>
                 </TableRow>
             </TableHeader>
             
