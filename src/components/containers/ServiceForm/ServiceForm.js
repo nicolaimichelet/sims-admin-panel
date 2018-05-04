@@ -21,7 +21,6 @@ import { ObjectInput } from './ObjectInput';
 import { ServiceSpecification } from 'services/sims/ManagedService';
 
 
-
 export class ServiceForm extends Component {
     constructor(props){
       super(props);
