@@ -4,6 +4,7 @@ import { get, at } from 'lodash';
 
 
 export class ManagedService{
+
   constructor(data){
 
     this.uuid = data.uuid;
@@ -59,9 +60,8 @@ export class ManagedService{
     data.supportingResource.forEach((e) => {
       service.addSupportingResource(new SupportingResource(e.id, e.href));
     });
-
     data.relatedParty.forEach((e) => {
-      service.addRelatedParty(new RelatedParty(e.id, e.role, e.href));
+      service.addRelatedParty(new RelatedParty(e.id, e.role, e.href, e.name));
     });
     let spec = data.serviceSpecification;
     if(spec){
@@ -162,6 +162,9 @@ export class ManagedService{
     return this.serviceSpecification;
   }
 
+  static fromObject(data){
+    return new ManagedService(data);
+  }
 }
 
 
@@ -180,15 +183,19 @@ export class ServiceCharacteristic{
 }
 
 export class ServiceSpecification{
-  constructor(id, href){
+  constructor(id, href, name, version){
     this.id = id;
     this.href = href;
+    this.name = name;
+    this.version = version;
   }
 
   toData(){
     return {
       id: this.id,
-      href: this.href
+      href: this.href,
+      name: this.name,
+      version: this.version
     }
   }
 }
@@ -232,9 +239,10 @@ export class SupportingResource{
 
 
 export class RelatedParty{
-  constructor(id, role, href){
+  constructor(id, role, href, name){
     this.id = id;
     this.role = role;
+    this.name = name;
     this.href = href;
   }
 
@@ -242,7 +250,8 @@ export class RelatedParty{
     return {
       id: this.id,
       role: this.role,
-      href: this.href
+      href: this.href,
+      name: this.name
     }
   }
 }

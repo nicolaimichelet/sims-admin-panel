@@ -30,6 +30,10 @@ export class ObjectInput extends Component{
     this._updateFields(nextProps);
   }
 
+  isControlled(){
+    return this.props.value != null;
+  }
+
   _updateFields(props){
     let nmap = {};
     if(props.value != null){
@@ -52,7 +56,7 @@ export class ObjectInput extends Component{
     if(this.props.map) {
       object = this.props.map(object);
     }
-    
+
     if(this.props.onChange){
       this.props.onChange(object);
     }
@@ -73,7 +77,7 @@ export class ObjectInput extends Component{
 
         return React.cloneElement(field, {
           onChange: onChange,
-          value: get(this.state.value, field.props.name),
+          value: this.isControlled() ? get(this.state.value, field.props.name) : undefined,
           key: field.key || field.props.key || idx
         });
       }
@@ -81,7 +85,7 @@ export class ObjectInput extends Component{
       return field;
     });
     return (
-      <div>
+      <div style={{display: "inline-block"}}>
         {inputs}
       </div>
     );
