@@ -4,25 +4,23 @@ import PropTypes from 'prop-types';
 import { ObjectInput } from './ObjectInput';
 import { FlatButton } from 'material-ui';
 import RaisedButton from 'material-ui/RaisedButton/RaisedButton';
-
+import IconButton from 'material-ui/IconButton';
 
 
 
 export class ListInput extends Component{
   constructor(props){
     super(props);
-
+    let values = props.values || [];
     this.state = {
-      values: props.values || [],
-      count: props.count || []
+      values: values,
+      count: props.count || props.min || values.length 
     }
   }
 
   onInputChange(idx, value){
-    console.log("Value change");
     let values = this.state.values.slice();
     values[idx] = value;
-    console.log(values);
     
     this.setState({
       values: values
@@ -83,12 +81,11 @@ export class ListInput extends Component{
   render(){
     let fields = [];
     let FieldType = this.props.component;
-    console.log(FieldType, this.state.count);
     for(let i = 0; i < this.state.count; i++){
       fields.push(
         <li key={i}>
-          <FieldType value={/*this.isControlled() ?*/ this.state.values[i] /*: null */} onChange={(...a) => {console.log(...a);this.onInputChange(i, ...a)}}/>
-          <button onClick={() => this.removeField(i)}>Remove</button>
+          <FieldType key={i} value={/*this.isControlled() ?*/ this.state.values[i] /*: null */} onChange={(...a) => {this.onInputChange(i, ...a)}}/>
+          <IconButton iconClassName="material-icons" onClick={() => this.removeField(i)}>remove_circle</IconButton>
         </li>
       );
     }

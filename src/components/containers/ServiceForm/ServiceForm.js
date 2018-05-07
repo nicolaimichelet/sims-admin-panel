@@ -22,6 +22,18 @@ import { ListInput } from './ListInput';
 import { ServiceSpecification } from 'services/sims/ManagedService';
 
 
+function RelatedPartyList(props){
+  return (
+    <ObjectInput {...props}>
+      <TextField className={_s.objectTextField} type="text" name="name" floatingLabelFixed={true} floatingLabelText="name of the related party" />
+      <TextField className={_s.objectTextField} type="text" name="role" floatingLabelFixed={true} floatingLabelText="role of the related party" />
+      <TextField className={_s.objectTextField} type="text" name="href" floatingLabelFixed={true} floatingLabelText="href of the related party" />
+    </ObjectInput>
+  );
+}
+
+
+
 export class ServiceForm extends Component {
     constructor(props){
       super(props);
@@ -37,7 +49,7 @@ export class ServiceForm extends Component {
           startMode: "",
           isStateful: false,
           state: "",
-          serviceSpecification: {href: "hello", name: "", version: ""},
+          serviceSpecification: {href: "", name: "", version: ""},
           supportingService: [],
           serviceCharacteristic: [],
           relatedParty: [],
@@ -54,6 +66,7 @@ export class ServiceForm extends Component {
         "Manually by a Customer of the Provider","Any of the above"];
       
       if (props.service){
+        let data = props.service.toData();
         this.state.formValues.id = props.service.id;
         this.state.formValues.href = props.service.href;
         this.state.formValues.category = props.service.category;
@@ -65,6 +78,9 @@ export class ServiceForm extends Component {
         this.state.formValues.startMode = props.service.startMode;
         this.state.formValues.isStateful = props.service.isStateful;
         this.state.formValues.state = props.service.state;
+        let serviceSpec = props.service.getServiceSpecification();
+        this.state.formValues.serviceSpecification = serviceSpec ? serviceSpec.toData() : {href: "", name: "", version: ""};
+        this.state.formValues.relatedParty = data.relatedParty;
       }
     }
 
@@ -251,16 +267,10 @@ export class ServiceForm extends Component {
                   <TextField className={_s.objectTextField} name="version" hintText="version of the service specification" />
                 </ObjectInput>
               </div>
+              <Divider className={_s.divider} />
               <div>
-                <h3>Test list with ObjectInput</h3>
-                <ListInput onChange={console.log} component={(props) => {
-                  return (
-                    <ObjectInput {...props}>
-                      <TextField className={_s.objectTextField} type="name" name="name" hintText="name of the service specificatio" />
-                      <TextField className={_s.objectTextField} type="name" name="href" hintText="href of the service specificatio" />
-                    </ObjectInput>
-                  );
-                }}/>
+                <h3>Related Parties</h3>
+                <ListInput min={1} onChange={(v) => {this.onFieldChange("relatedParty", v)}} count={this.state.formValues.relatedParty.length} values={this.state.formValues.relatedParty} component={RelatedPartyList} />
               </div>
               <Divider className={_s.divider} />
             {/*Submit button, redirects to services page*/}

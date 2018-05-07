@@ -56,7 +56,7 @@ export class ObjectInput extends Component{
     if(this.props.map) {
       object = this.props.map(object);
     }
-    
+
     if(this.props.onChange){
       this.props.onChange(object);
     }
@@ -85,7 +85,7 @@ export class ObjectInput extends Component{
       return field;
     });
     return (
-      <div>
+      <div style={{display: "inline-block"}}>
         {inputs}
       </div>
     );

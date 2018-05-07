@@ -60,9 +60,8 @@ export class ManagedService{
     data.supportingResource.forEach((e) => {
       service.addSupportingResource(new SupportingResource(e.id, e.href));
     });
-
     data.relatedParty.forEach((e) => {
-      service.addRelatedParty(new RelatedParty(e.id, e.role, e.href));
+      service.addRelatedParty(new RelatedParty(e.id, e.role, e.href, e.name));
     });
     let spec = data.serviceSpecification;
     if(spec){
@@ -240,9 +239,10 @@ export class SupportingResource{
 
 
 export class RelatedParty{
-  constructor(id, role, href){
+  constructor(id, role, href, name){
     this.id = id;
     this.role = role;
+    this.name = name;
     this.href = href;
   }
 
@@ -250,7 +250,8 @@ export class RelatedParty{
     return {
       id: this.id,
       role: this.role,
-      href: this.href
+      href: this.href,
+      name: this.name
     }
   }
 }
