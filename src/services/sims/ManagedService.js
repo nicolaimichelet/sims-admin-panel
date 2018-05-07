@@ -174,15 +174,19 @@ export class ServiceCharacteristic{
 }
 
 export class ServiceSpecification{
-  constructor(id, href){
+  constructor(id, href, name,  version){
     this.id = id;
     this.href = href;
+    this.name = name;
+    this.version = version;
   }
 
   toData(){
     return {
       id: this.id,
-      href: this.href
+      href: this.href,
+      name: this.name,
+      version: this.version
     }
   }
 }
