@@ -15,6 +15,20 @@ export class ManagedServiceServiceProvider extends IManagedService{
     this.config = serviceManager.getService(ConfigServiceInterface);
   }
 
+  search(params){
+    let endpoint = new URL('service',`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+    const searchParams = new URLSearchParams(params);
+    endpoint = new URL(`?${searchParams.toString()}`,endpoint);
+    return this.http.get(endpoint).map(
+      (services) => {
+        return services.map(elem => {
+          return ManagedService.fromData(elem)
+        });
+      }
+    )
+  }
+
+
 
 
   getServices(){
@@ -60,6 +74,16 @@ export class ManagedServiceServiceProvider extends IManagedService{
       return this.http.delete(endpoint);
     }
     return Observable.throw(new Error("Service has no id"));
+  }
+
+  deleteAll(){
+      const endpoint = new URL(`service`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+      return this.http.delete(endpoint);
+  }
+
+  seedServices(){
+    const endpoint = new URL(`seed/50`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
+    return this.http.get(endpoint);
   }
 
 }
