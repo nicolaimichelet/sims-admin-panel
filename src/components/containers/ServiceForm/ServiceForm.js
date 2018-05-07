@@ -21,11 +21,10 @@ import { ObjectInput } from './ObjectInput';
 import { ServiceSpecification } from 'services/sims/ManagedService';
 
 
-
 export class ServiceForm extends Component {
     constructor(props){
       super(props);
-      this.state = {
+        this.state = {
         formValues: {
           href: "",
           category: "",
@@ -42,7 +41,10 @@ export class ServiceForm extends Component {
           serviceCharacteristic: [],
           relatedParty: [],
           serviceRelationship: [],
-          supportingResource: []
+          supportingResource: [],
+          orderDate: "",
+          startDate: "",
+          endDate: "",
         },
         success: false
       };
@@ -71,19 +73,20 @@ export class ServiceForm extends Component {
       });
     }
 
-    /*When a field changes, we assign the value in the field.*/
+
+    /*When a text field changes, we assign the value in the field.*/
     onFieldChange (field, value){
       this.setState({
         formValues: Object.assign({},this.state.formValues, {
           [field]: value
         })
       },() => this.validate())
-
     }
+
+
 
     validate() {
       const errors = {};
-
       errors.nameError = this.state.formValues.name === "" ? "Name is a required field" : null;
       this.setState({
         formValues:{
@@ -187,13 +190,13 @@ export class ServiceForm extends Component {
               <Divider className={_s.divider} />
 
               <div className={_s.toggle}>
-                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }}  onChange={(e,v) => this.onFieldChange("isServiceEnabled", v)} value={this.state.formValues.isServiceEnabled} label="Is the service enabled?" />
+                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }}  onToggle={(e,v) => this.onFieldChange("isServiceEnabled", v)} toggled={this.state.formValues.isServiceEnabled} label="Is the service enabled?" />
               </div>
               <div className={_s.toggle}>
-                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onChange={(e,v)=> this.onFieldChange("hasStarted", v)} value={this.state.formValues.hasStarted} label="Has the service started?" />
+                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onToggle={(e,v)=> this.onFieldChange("hasStarted", v)} toggled={this.state.formValues.hasStarted} label="Has the service started?" />
               </div>
               <div className={_s.toggle}>
-                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onChange={(e,v)=> this.onFieldChange("isStateful", v)} value={this.state.formValues.isStateful} label="Can this service be changed without affecting any other service?"/>
+                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onToggle={(e,v)=> this.onFieldChange("isStateful", v)} toggled={this.state.formValues.isStateful} label="Can this service be changed without affecting any other service?"/>
               </div>
 
               <Divider className={_s.divider} />
@@ -216,15 +219,27 @@ export class ServiceForm extends Component {
 
               <div className={_s.dates}>
                 <h3>Order date</h3>
-                  <DatePicker hintText="Order date..." />
+                <DatePicker
+                  hintText={"Order Date"}
+                  onChange={(e,date) => {this.onFieldChange("orderDate",date)}}
+                  value={this.state.formValues.orderDate}
+                />
               </div>
               <div className={_s.dates}>
                 <h3>Start date</h3>
-                  <DatePicker hintText="Start date..." />
+                <DatePicker
+                  hintText={"Start Date"}
+                  onChange={(e,date) => {this.onFieldChange("startDate",date)}}
+                  value={this.state.formValues.startDate}
+                />
               </div>
               <div className={_s.dates}>
                 <h3>End date</h3>
-                  <DatePicker minDate={new Date()} hintText="End date..." /><br></br>
+                <DatePicker
+                  hintText={"End Date"}
+                  onChange={(e,date) => {this.onFieldChange("endDate",date)}}
+                  value={this.state.formValues.endDate}
+                /><br></br>
               </div>
               <Divider className={_s.divider} />
               <div>
@@ -247,6 +262,7 @@ export class ServiceForm extends Component {
             </MuiThemeProvider>
           </div>
         </Paper>
+
       );
     }
 }

@@ -2,10 +2,17 @@ import React, { Component } from 'react';
 import _s from 'assets/css/AdminPage.css';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
+import {lightGreen300, lightGreen400, red700} from 'material-ui/styles/colors';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {Subject} from 'rxjs';
 import Snackbar from 'material-ui/Snackbar';
+
+
+
+
 import CheckCircle from 'material-ui/svg-icons/action/check-circle'
 
 
@@ -24,8 +31,7 @@ import { mapAndConnect, IManagedService } from 'services';
 
 
 import { DEFAULT_API } from 'common/constants';
-import { FlatButton } from 'material-ui';
-
+import { FlatButton, FontIcon, IconButton } from 'material-ui';
 
 
 const DEFAULT_QUERY = 'redux';
@@ -43,34 +49,73 @@ export class AdminPage extends Component {
         lastError: null,
         selected: null,
         open: false,
+        sortingOrder: "none",
       };
+      this.icons = {
+        active: "lightbulb_outline",
+        inactive: "pause_circle_outline",
+        terminated: "highlight_off",
+        designed: "announcement",
+        reserved: "phone",
+      }
     }
+
+
     componentDidMount(){
       this.querySubject.debounceTime(300).distinctUntilChanged().subscribe((a)=> {
-      })
+        this.props.imService.search({name : a}).subscribe((services) => {
+          this.setState({
+            services: services
+          });
+        });
+      });
       this.props.imService.getServices().subscribe((services) => {
         this.setState({
           services: services
         });
       });
+      this.refresh()
     }
 
     handleClickTable(service){
         this.setState({
             open: true,
             selected: service,
-        })
+        });
         console.log('service clicked')
     }
     
     handleClose(){
         this.setState({
             open: false,
-        })
+        });
+    }
+
+    changeSorting(type){
+      let serviceState = this.state.services;
+      
+      let order = this.state.sortingOrder;
+      if (this.state.lastColumn != type){
+        order = "asc"
+      }
+      
+      serviceState.sort((a,b)=> {
+        a = a[type] ? a[type] : "";
+        b = b[type] ? b[type] : "";
+        if(order != "decs"){
+          return a.localeCompare(b);
+        }
+        return b.localeCompare(a);
+      })
+        
+      this.setState({services : serviceState, lastColumn: type, sortingOrder: order != "asc" ? "asc" : "decs"});
+
+
     }
 
 
 
+    //deletes a specific service on ID
     delete(service) {
       this.props.imService.deleteService(service).subscribe(() => {
         const newState = this.state.services.slice();
@@ -78,17 +123,40 @@ export class AdminPage extends Component {
           newState.splice(newState.indexOf(service), 1);
           this.setState({services : newState, open: false});
         }
-      
       }, (err) => {
         this.setState({
           lastError: err
         });
       });
-      
     }
 
+    //deletes all services
+    deleteAll(){
+      this.props.imService.deleteAll().subscribe( () => {
+        this.refresh();
+      });
+    }
+
+    //seeds or fills database with 50 services
+    seedServices(){
+      this.props.imService.seedServices().subscribe( () => {
+        this.refresh();
+      });
+    }
+
+    //Method for refreshing page
+    refresh(){
+      this.props.imService.getServices().subscribe((services) => {
+        this.setState({
+          services: services
+        });
+      });
+    }
+
+
+
     onChange(value){
-      this.querySubject.next(value);
+      this.querySubject.next(value); // må gjøre så category funker, eget parameter eller objekt
     }
 
     clearError(){
@@ -100,39 +168,68 @@ export class AdminPage extends Component {
     render() {
       const {services} = this.state;
       const serviceElements = [];
+      const muiTheme = getMuiTheme({
+            textField: {
+                focusColor: lightGreen300,
+            },
+            raisedButton: {
+                primaryColor: lightGreen400,
+                secondaryColor: red700,
+            }
+      });
       for (let i in services){
         let e = services[i];
+        const icon = this.icons[e.state];
         serviceElements.push(
-          <TableRow onRowClick={console.log} key = {i}>
+          <TableRow className = {_s.tableRow} onRowClick={console.log} key = {i}>
           <TableRowColumn>{e.id}</TableRowColumn>
           <TableRowColumn>{e.name}</TableRowColumn>
           <TableRowColumn>{e.href}</TableRowColumn>
-          <TableRowColumn>{e.hasStarted ? 'yes' : 'no'}</TableRowColumn>
           <TableRowColumn>{e.hasStarted ? 'Yes' : 'No'}</TableRowColumn>
           <TableRowColumn>{e.category}</TableRowColumn>
-          <TableRowColumn className={_s[`state-${e.state}`]
-          }  >{e.state}</TableRowColumn>
+          <TableRowColumn style={{overflow : 'visable'}}  className={_s[`state-${e.state}`]
+          }  >{icon ? <IconButton tooltip= {e.state} iconClassName = "material-icons" > {icon} </IconButton>  : e.state}</TableRowColumn>
           </TableRow>
         )
       }
 
+      let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
       return (
         <Paper className={_s["paper-container"]}>
+          <MuiThemeProvider muiTheme={muiTheme}>
           <h1>Services</h1>
           <TextField 
             onChange = {(e, v)=> this.onChange(v)}
-            hintText="Search"
+            hintText="Search on Name"
           />
+
+          <RaisedButton className={_s.deleteAll} onClick={ () => {
+            this.deleteAll()
+          }} label="Delete all" secondary={true}/>
+
+          <RaisedButton className={_s.deleteAll} onClick={ () => {
+            this.seedServices()
+          }} label="Example data" primary={true}/>
+
           <br />
           <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
             <TableHeader>
-                <TableRow>
+              <TableRow  onCellClick={(event,_,idx) => {
+                const columns = {
+                  [6]: "state",
+                  [5]: "category",                   
+                }
+                if(idx in columns){
+                  this.changeSorting(columns[idx]);
+                }
+              }}>
                     <TableHeaderColumn>ID</TableHeaderColumn>
                     <TableHeaderColumn>Name</TableHeaderColumn>
                     <TableHeaderColumn>href</TableHeaderColumn>
                     <TableHeaderColumn>Has started</TableHeaderColumn>
-                    <TableHeaderColumn>Category</TableHeaderColumn>
-                    <TableHeaderColumn>State</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader}>Category</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader}>State</TableHeaderColumn>
                 </TableRow>
             </TableHeader>
             
@@ -163,11 +260,12 @@ export class AdminPage extends Component {
           
           >
             Description: {this.state.selected.description} <br/>
-            Order date: {this.state.selected.orderDate}<br/>
-            Start date: {this.state.selected.startDate}<br/>
-            End date: {this.state.selected.endDate}<br/>
+            Order date: {this.state.selected.orderDate ? this.state.selected.orderDate.toLocaleDateString('en-US', options) : "None"}<br/>
+            Start date: {this.state.selected.startDate ? this.state.selected.startDate.toLocaleDateString('en-US', options) : "None"}<br/>
+            End date: {this.state.selected.endDate ? this.state.selected.endDate.toLocaleDateString('en-US', options): "None"}<br/>
             Start mode: {this.state.selected.startMode}<br/>
-            Is stateful: {this.state.selected.isStateFul}<br/>
+            Is stateful: {this.state.selected.isStateful ? 'Yes' : 'No'}<br/>
+            Is service enabled: {this.state.selected.isServiceEnabled ? 'Yes' : 'No'} <br/>
             Category: {this.state.selected.category}<br/><br/>
             Status: {this.state.selected.state}
 
@@ -178,7 +276,7 @@ export class AdminPage extends Component {
           :
           null
           }
-
+        </MuiThemeProvider>
         </Paper>
       );
     }

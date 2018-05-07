@@ -9,6 +9,7 @@ import {lightGreen600,lightGreen400, lightGreen300, lightGreen900, grey50} from 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import _s from 'assets/css/Header.css';
+import IconButton from "material-ui/IconButton";
 
 export default class Header extends Component {
 
@@ -31,15 +32,16 @@ export default class Header extends Component {
         <Link key={1} to="/services">
         {path == "/services" ? 
           <RaisedButton secondary={true} label="Services" /> :
-          <FlatButton hoverColor='transparent' rippleColor='transparent' label="Services" />}
+          <FlatButton hoverColor={lightGreen400} rippleColor='transparent' label="Services" />}
         </Link>
         <Link key={3} to="/services/new">
           {path == "/services/new" ?
             <RaisedButton secondary={true} label="New Service" /> :
-            <FlatButton hoverColor='transparent' rippleColor='transparent' label="New Service" />}
+            <FlatButton hoverColor={lightGreen400} rippleColor='transparent' label="New Service" />}
         </Link>
         <Link key={4} to="/login">
-          <FlatButton hoverColor='transparent' rippleColor='transparent' label="Exit"/>
+          <IconButton hoverColor={lightGreen400} iconClassName = "material-icons" 
+          rippleColor='transparent' tooltip="Exit">exit_to_app</IconButton>
         </Link>
       </MuiThemeProvider>
     ];

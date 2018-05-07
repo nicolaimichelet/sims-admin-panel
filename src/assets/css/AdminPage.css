@@ -3,7 +3,7 @@
 
 .paper-container{
   padding: 2em !important;
-  background-color: #fcffe4 !important;
+  background-color: #fbfff0 !important;
 }
 
 
@@ -15,12 +15,18 @@ h1{
   margin-top: 1%;
 }
 
+.deleteAll {
+  display: inline-block;
+  float: right;
+  margin-right: 6%;
+}
+
 table{
   width: 70%;
   background-color: rgba(0, 0, 0, 0.075);
   border-bottom: 1px solid white;
   margin-left: 0.6%;
-  background-color: #fcffe4 !important;
+  background-color: #fbfff0 !important;
 }
 
 
@@ -207,28 +213,41 @@ table{
   padding: 0.5%;
 }
 
-.state-active{
-  color: #9ddb48;
+.state-active *{
+  color: #9ddb48 !important;
   font-weight: bold;
-  -webkit-text-stroke: 0.2px #3f572a;
+
   letter-spacing: 1px;
+
 }
 
-.state-inactive{
+.state-inactive *{
   
-  color: #ffe541;
+  color: #ffe541 !important;
   font-weight: bold;
-  -webkit-text-stroke: 0.1px #7e6d18;
+
   letter-spacing: 1px;
 }
 
-.state-terminated{
- color: #ff6651;
+.state-terminated *{
+ color: #ff6651 !important;
  font-weight: bold;
-  -webkit-text-stroke: 0.2px #772f26;
+
   letter-spacing: 1px;
 }
 
-.state-feasibilityChecked, .state-designed, .state-reserved{
-  background-color: #0A72CC;
+.state-feasibilityChecked *, .state-designed *, .state-reserved *{
+color: lightblue !important;
+}
+
+.tableRow:hover{
+  background-color: lightgray; 
+}
+
+.tableHeader{
+  cursor: pointer;
+}
+
+.tableHeader:hover{
+  color: blue !important;
 }
