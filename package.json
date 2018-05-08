@@ -83,8 +83,13 @@
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
     ],
     "moduleNameMapper": {
-      "^react-native$": "react-native-web"
+      "^react-native$": "react-native-web",
+      "\\.(css|less|scss)$": "identity-obj-proxy"
     },
+    "moduleDirectories": [
+      "node_modules",
+      "<rootDir>/src"
+    ],
     "moduleFileExtensions": [
       "web.js",
       "mjs",
