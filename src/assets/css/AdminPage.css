@@ -13,6 +13,7 @@
 h1{
   margin-left: 0.6%;
   margin-top: 1%;
+  font-weight: lighter;
 }
 
 .deleteAll {
@@ -241,13 +242,16 @@ color: lightblue !important;
 }
 
 .tableRow:hover{
-  background-color: lightgray; 
+  background-color: lightgray;
 }
 
 .tableHeader{
   cursor: pointer;
+  background-color: #DCEDC8;
 }
 
 .tableHeader:hover{
-  color: blue !important;
+  color: #17570d !important;
+  font-size: 90% !important;
+  font-weight: 500 !important;
 }
