@@ -156,6 +156,12 @@ export class AdminPage extends Component {
 
     render() {
       const {services} = this.state;
+      const CategoryStyle = {
+          arrow:{
+              fontWeight: 'bold',
+              textDecoration: 'none',
+          },
+      }
       const ModuleStyle = {
           title:{
               fontSize: 25,
@@ -221,7 +227,7 @@ export class AdminPage extends Component {
 
           <br />
           <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
-            <TableHeader>
+            <TableHeader className = {_s.tableHeader}>
               <TableRow  onCellClick={(event,_,idx) => {
                 const columns = {
                   [6]: "state",
@@ -232,11 +238,11 @@ export class AdminPage extends Component {
                 }
               }}>
                     <TableHeaderColumn>ID</TableHeaderColumn>
-                    <TableHeaderColumn>Name</TableHeaderColumn>
-                    <TableHeaderColumn>href</TableHeaderColumn>
-                    <TableHeaderColumn>Has started</TableHeaderColumn>
-                    <TableHeaderColumn className = {_s.tableHeader}>Category</TableHeaderColumn>
-                    <TableHeaderColumn className = {_s.tableHeader}>State</TableHeaderColumn>
+                    <TableHeaderColumn>NAME</TableHeaderColumn>
+                    <TableHeaderColumn>HREF</TableHeaderColumn>
+                    <TableHeaderColumn>HAS STARTED</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader}>CATEGORY ↓</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader}>STATE ↓</TableHeaderColumn>
                 </TableRow>
             </TableHeader>
             

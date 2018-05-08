@@ -246,8 +246,11 @@ table{
 
 .tableHeader{
   cursor: pointer;
+  background-color: #DCEDC8;
 }
 
 .tableHeader:hover{
-  color: blue !important;
+  color: #17570d !important;
+  font-size: 90% !important;
+  font-weight: 500 !important;
 }
