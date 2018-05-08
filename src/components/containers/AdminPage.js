@@ -190,7 +190,8 @@ export class AdminPage extends Component {
               textDecoration: 'none',
           },
           button: {
-              paddingRight: 12,
+              marginRight: 12,
+            
           }
         }
 
@@ -275,7 +276,7 @@ export class AdminPage extends Component {
           <Dialog title = {this.state.selected.name} titleStyle={ModuleStyle.title} contentStyle={ModuleStyle.content}
           open = {this.state.open}
           onRequestClose = {() => this.handleClose()}
-          actions = {[<Link to = {`/services/edit/${this.state.selected.id}`} style={ModuleStyle.button}>
+          actions = {[<Link to = {`/services/edit/${this.state.selected.id}`} style={ModuleStyle.button}  >
             <RaisedButton
               label = 'edit'
               primary = {true}
@@ -283,22 +284,31 @@ export class AdminPage extends Component {
             /></Link>,
           <RaisedButton
             label = "delete"
-            onClick = { () => this.delete(this.state.selected)}
-          />]}
+            onClick = { () => this.delete(this.state.selected)} 
+            style={ModuleStyle.button} 
+          />,
+          <Link to = {`/services/${this.state.selected.id}`} style={ModuleStyle.button}>
+            <RaisedButton
+              label = 'details'
+              primary = {true}
+            
+            /></Link>
+        ]}
 
           >
-
+          
           <hr></hr>
-          Description: <u style={ModuleStyle.rest}> {this.state.selected.description}</u> <br/>
-          Order date: <u style={ModuleStyle.rest}>{this.state.selected.orderDate ? this.state.selected.orderDate.toLocaleDateString('en-US', options) : "None"}</u><br/>
-          Start date: <u style={ModuleStyle.rest}>{this.state.selected.startDate ? this.state.selected.startDate.toLocaleDateString('en-US', options) : "None"}</u><br/>
-          End date: <u style={ModuleStyle.rest}>{this.state.selected.endDate ? this.state.selected.endDate.toLocaleDateString('en-US', options): "None"}</u><br/>
-          Start mode: <u style={ModuleStyle.rest}>{this.state.selected.startMode}</u><br/>
-          Is stateful: <u style={ModuleStyle.rest}>{this.state.selected.isStateful ? 'Yes' : 'No'}</u><br/>
-          Is service enabled: <u style={ModuleStyle.rest}>{this.state.selected.isServiceEnabled ? 'Yes' : 'No'} </u><br/>
-          Category: <u style={ModuleStyle.rest}>{this.state.selected.category}</u><br/><br/>
-          Status: <u style={ModuleStyle.rest}>{this.state.selected.state}</u>
-
+          <ul>
+          <li>Description: <u style={ModuleStyle.rest}> {this.state.selected.description}</u> </li>
+          <li>Order date: <u style={ModuleStyle.rest}>{this.state.selected.orderDate ? this.state.selected.orderDate.toLocaleDateString('en-US', options) : "None"}</u></li>
+          <li>Start date: <u style={ModuleStyle.rest}>{this.state.selected.startDate ? this.state.selected.startDate.toLocaleDateString('en-US', options) : "None"}</u></li>
+          <li>End date: <u style={ModuleStyle.rest}>{this.state.selected.endDate ? this.state.selected.endDate.toLocaleDateString('en-US', options): "None"}</u></li>
+          <li>Start mode: <u style={ModuleStyle.rest}>{this.state.selected.startMode}</u></li>
+          <li>Is stateful: <u style={ModuleStyle.rest}>{this.state.selected.isStateful ? 'Yes' : 'No'}</u></li>
+          <li>Is service enabled: <u style={ModuleStyle.rest}>{this.state.selected.isServiceEnabled ? 'Yes' : 'No'} </u></li>
+          <li>Category: <u style={ModuleStyle.rest}>{this.state.selected.category}</u></li>
+          <li>Status: <u style={ModuleStyle.rest}>{this.state.selected.state}</u></li>
+          </ul>
             
           </Dialog>
           :
