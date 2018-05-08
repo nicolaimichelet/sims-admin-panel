@@ -156,11 +156,14 @@ export class AdminPage extends Component {
 
     render() {
       const {services} = this.state;
-      const CategoryStyle = {
+      const TableStyle = {
           arrow:{
               fontWeight: 'bold',
               textDecoration: 'none',
           },
+          header: {
+              textAlign: 'left',
+          }
       }
       const ModuleStyle = {
           title:{
@@ -226,8 +229,8 @@ export class AdminPage extends Component {
           }} label="Example data" primary={true}/>
 
           <br />
-          <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
-            <TableHeader className = {_s.tableHeader}>
+          <Table allRowsSelected = {false}  onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
+            <TableHeader className = {_s.tableHeader} enableSelectAll = {false} displaySelectAll = {false} style = {TableStyle.header}>
               <TableRow  onCellClick={(event,_,idx) => {
                 const columns = {
                   [6]: "state",
@@ -246,7 +249,7 @@ export class AdminPage extends Component {
                 </TableRow>
             </TableHeader>
             
-            <TableBody>
+            <TableBody displayRowCheckbox = {false}>
                 {serviceElements}
             </TableBody>
           </Table>
