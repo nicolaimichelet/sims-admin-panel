@@ -40,10 +40,10 @@ export class ObjectInput extends Component{
       return true;
     }
 
-
+    /*
     for(let key of allKeys){
 
-    }
+    }*/
   }
 
   isControlled(){
