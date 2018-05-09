@@ -184,6 +184,33 @@ export class AdminPage extends Component {
 
     render() {
       const {services} = this.state;
+      const TableStyle = {
+          arrow:{
+              fontWeight: 'bold',
+              textDecoration: 'none',
+          },
+          header: {
+              textAlign: 'left',
+          }
+      }
+      const ModuleStyle = {
+          title:{
+              fontSize: 25,
+              fontWeight: 'normal',
+          },
+          content:{
+              fontWeight: 'bold',
+              width: '40%',
+          },
+          rest:{
+              fontWeight: 'normal',
+              textDecoration: 'none',
+          },
+          button: {
+              paddingRight: 12,
+          }
+        }
+
       const serviceElements = [];
       const muiTheme = getMuiTheme({
             textField: {
@@ -192,7 +219,8 @@ export class AdminPage extends Component {
             raisedButton: {
                 primaryColor: lightGreen400,
                 secondaryColor: red700,
-            }
+            },
+
       });
       for (let i in services){
         let e = services[i];
@@ -230,8 +258,8 @@ export class AdminPage extends Component {
           }} label="Example data" primary={true}/>
 
           <br />
-          <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
-            <TableHeader>
+          <Table allRowsSelected = {false}  onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
+            <TableHeader className = {_s.tableHeader} adjustForCheckbox = {false} displaySelectAll = {false} style = {TableStyle.header}>
               <TableRow  onCellClick={(event,_,idx) => {
                 const columns = {
                   [6]: "state",
@@ -242,15 +270,15 @@ export class AdminPage extends Component {
                 }
               }}>
                     <TableHeaderColumn>ID</TableHeaderColumn>
-                    <TableHeaderColumn>Name</TableHeaderColumn>
-                    <TableHeaderColumn>href</TableHeaderColumn>
-                    <TableHeaderColumn>Has started</TableHeaderColumn>
-                    <TableHeaderColumn className = {_s.tableHeader}>Category</TableHeaderColumn>
-                    <TableHeaderColumn className = {_s.tableHeader}>State</TableHeaderColumn>
+                    <TableHeaderColumn>NAME</TableHeaderColumn>
+                    <TableHeaderColumn>HREF</TableHeaderColumn>
+                    <TableHeaderColumn>HAS STARTED</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader}>CATEGORY ↓</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader}>STATE ↓</TableHeaderColumn>
                 </TableRow>
             </TableHeader>
             
-            <TableBody>
+            <TableBody displayRowCheckbox = {false}>
                 {serviceElements}
             </TableBody>
           </Table>
@@ -261,10 +289,10 @@ export class AdminPage extends Component {
             onRequestClose={() => this.clearError()}
           />
           {this.state.selected != null ? 
-          <Dialog title = {this.state.selected.name}
+          <Dialog title = {this.state.selected.name} titleStyle={ModuleStyle.title} contentStyle={ModuleStyle.content}
           open = {this.state.tableDialog}
           onRequestClose = {() => this.handleTableClose()}
-          actions = {[<Link to = {`/services/edit/${this.state.selected.id}`}>
+          actions = {[<Link to = {`/services/edit/${this.state.selected.id}`} style={ModuleStyle.button}>
             <RaisedButton
               label = 'edit'
               primary = {true}
@@ -274,20 +302,20 @@ export class AdminPage extends Component {
             label = "delete"
             onClick = { () => this.delete(this.state.selected)}
           />]}
-          
-          >
-            Description: {this.state.selected.description} <br/>
-            Order date: {this.state.selected.orderDate ? this.state.selected.orderDate.toLocaleDateString('en-US', options) : "None"}<br/>
-            Start date: {this.state.selected.startDate ? this.state.selected.startDate.toLocaleDateString('en-US', options) : "None"}<br/>
-            End date: {this.state.selected.endDate ? this.state.selected.endDate.toLocaleDateString('en-US', options): "None"}<br/>
-            Start mode: {this.state.selected.startMode}<br/>
-            Is stateful: {this.state.selected.isStateful ? 'Yes' : 'No'}<br/>
-            Is service enabled: {this.state.selected.isServiceEnabled ? 'Yes' : 'No'} <br/>
-            Category: {this.state.selected.category}<br/><br/>
-            Status: {this.state.selected.state}
 
-         
-            
+          >
+
+          <hr></hr>
+          Description: <u style={ModuleStyle.rest}> {this.state.selected.description}</u> <br/>
+          Order date: <u style={ModuleStyle.rest}>{this.state.selected.orderDate ? this.state.selected.orderDate.toLocaleDateString('en-US', options) : "None"}</u><br/>
+          Start date: <u style={ModuleStyle.rest}>{this.state.selected.startDate ? this.state.selected.startDate.toLocaleDateString('en-US', options) : "None"}</u><br/>
+          End date: <u style={ModuleStyle.rest}>{this.state.selected.endDate ? this.state.selected.endDate.toLocaleDateString('en-US', options): "None"}</u><br/>
+          Start mode: <u style={ModuleStyle.rest}>{this.state.selected.startMode}</u><br/>
+          Is stateful: <u style={ModuleStyle.rest}>{this.state.selected.isStateful ? 'Yes' : 'No'}</u><br/>
+          Is service enabled: <u style={ModuleStyle.rest}>{this.state.selected.isServiceEnabled ? 'Yes' : 'No'} </u><br/>
+          Category: <u style={ModuleStyle.rest}>{this.state.selected.category}</u><br/><br/>
+          Status: <u style={ModuleStyle.rest}>{this.state.selected.state}</u>
+
             
           </Dialog>
           :
