@@ -316,7 +316,7 @@ export class AdminPage extends Component {
 
           >
           <hr></hr>
-          <ul>
+          <ul style = {{listStyleType: "none"}}>
             <li>ID: <u style={ModuleStyle.rest}>{this.state.selected.id}</u></li>
             <li>Description: <u style={ModuleStyle.rest}> {this.state.selected.description}</u> </li>
             <li>Status: <u style={ModuleStyle.rest}>{this.state.selected.state}</u></li>
