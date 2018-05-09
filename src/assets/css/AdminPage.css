@@ -245,14 +245,16 @@ color: lightblue !important;
   background-color: lightgray;
 }
 .tableHead{
-  background-color: #DCEDC8; 
+  color: black !important;
 }
 .tableHeader{
   cursor: pointer;
 }
-
+.tableHeader th{
+  color: #000 !important;
+}
 .tableHeader:hover{
-  color: #17570d !important;
+  color: #70b13d !important;
   font-size: 90% !important;
   font-weight: 500 !important;
 }

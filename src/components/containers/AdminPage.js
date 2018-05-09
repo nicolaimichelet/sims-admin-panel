@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _s from 'assets/css/AdminPage.css';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
-import {lightGreen300, lightGreen400, red700} from 'material-ui/styles/colors';
+import {lightGreen300, lightGreen400, red700, black} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -172,9 +172,11 @@ export class AdminPage extends Component {
               fontWeight: 'bold',
               textDecoration: 'none',
           },
-          header: {
-              textAlign: 'left',
+          header:{
+              backgroundColor:'#DCEDC8',
+              color: black,
           }
+
       }
       const ModuleStyle = {
           title:{
@@ -241,9 +243,9 @@ export class AdminPage extends Component {
           }} label="Example data" primary={true}/>
 
           <br />
-          <Table allRowsSelected = {false}  onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
-            <TableHeader className = {_s.tableHead} adjustForCheckbox = {false} displaySelectAll = {false} style = {TableStyle.header}>
-              <TableRow  onCellClick={(event,_,idx) => {
+          <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
+            <TableHeader adjustForCheckbox = {false} displaySelectAll = {false} style = {TableStyle.header}>
+              <TableRow style={TableStyle.header} onCellClick={(event,_,idx) => {
                 const columns = {
                   [6]: "state",
                   [5]: "category",                   
@@ -252,12 +254,12 @@ export class AdminPage extends Component {
                   this.changeSorting(columns[idx]);
                 }
               }}>
-                    <TableHeaderColumn>ID</TableHeaderColumn>
-                    <TableHeaderColumn>NAME</TableHeaderColumn>
-                    <TableHeaderColumn>HREF</TableHeaderColumn>
-                    <TableHeaderColumn>HAS STARTED</TableHeaderColumn>
-                    <TableHeaderColumn className = {_s.tableHeader}>CATEGORY ↓</TableHeaderColumn>
-                    <TableHeaderColumn className = {_s.tableHeader}>STATE ↓</TableHeaderColumn>
+                    <TableHeaderColumn style={TableStyle.header}>ID</TableHeaderColumn>
+                    <TableHeaderColumn style={TableStyle.header}>NAME</TableHeaderColumn>
+                    <TableHeaderColumn style={TableStyle.header}>HREF</TableHeaderColumn>
+                    <TableHeaderColumn style={TableStyle.header}>HAS STARTED</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader} style={TableStyle.header}>CATEGORY ↓</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader} style={TableStyle.header}>STATE ↓</TableHeaderColumn>
                 </TableRow>
             </TableHeader>
             
