@@ -7,6 +7,7 @@ import AdminPage from './AdminPage';
 import LoginView from './LoginView';
 import ServiceForm from 'components/containers/ServiceForm/ServiceForm';
 import ServiceEditForm from 'components/containers/ServiceForm/ServiceEditForm';
+import DetailView from './DetailView';
 
 
 export default class App extends Component {
@@ -27,6 +28,7 @@ export default class App extends Component {
                 <Route path='/services' exact={true} render={(props) => <AdminPage {...props} />}/>
                 <Route path= '/services/new' exact={true} render={(props) => <ServiceForm {...props} />}/>
                 <Route path= '/services/edit/:id' exact={true} render={(props) => <ServiceEditForm {...props} />}/>
+                <Route path= '/services/:id' exact={true} render={(props) => <DetailView {...props} />}/>
               </Switch>
             </div>
           );
