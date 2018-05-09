@@ -279,8 +279,8 @@ export class AdminPage extends Component {
                     <TableHeaderColumn>NAME</TableHeaderColumn>
                     <TableHeaderColumn>HREF</TableHeaderColumn>
                     <TableHeaderColumn>HAS STARTED</TableHeaderColumn>
-                    <TableHeaderColumn className = {_s.tableHeader}>CATEGORY ↓</TableHeaderColumn>
-                    <TableHeaderColumn className = {_s.tableHeader}>STATE ↓</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader}>CATEGORY ↑↓</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader}>STATE ↑↓</TableHeaderColumn>
                 </TableRow>
             </TableHeader>
             
