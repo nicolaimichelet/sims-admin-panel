@@ -46,22 +46,22 @@ export class DetailView extends Component {
                     <Paper>
                         <h4>Basic:</h4>
                         <ul style = {{listStyleType: "none"}}>
-                        <li>ID: {this.state.service.id}</li>
-                        <li>Description: {this.state.service.description} </li>
-                        <li>Order date: {this.state.service.orderDate ? this.state.service.orderDate.toLocaleDateString('en-US', options) : "None"}</li>
-                        <li>Start date: {this.state.service.startDate ? this.state.service.startDate.toLocaleDateString('en-US', options) : "None"}</li>
-                        <li>End date: {this.state.service.endDate ? this.state.service.endDate.toLocaleDateString('en-US', options): "None"}</li>
-                        <li>Start mode: {this.state.service.startMode}</li>
-                        <li>Is stateful: {this.state.service.isStateful ? 'Yes' : 'No'}</li>
-                        <li>Is service enabled: {this.state.service.isServiceEnabled ? 'Yes' : 'No'} </li>
-                        <li>Category: {this.state.service.category}</li>
-                        <li>Status: {this.state.service.state}</li>
+                            <li>ID: {this.state.service.id}</li>
+                            <li>Description: {this.state.service.description} </li>
+                            <li>Status: {this.state.service.state}</li>
+                            <li>Is service enabled: {this.state.service.isServiceEnabled ? 'Yes' : 'No'} </li>
+                            <li>Category: {this.state.service.category}</li>
+                            <li>Order date: {this.state.service.orderDate ? this.state.service.orderDate.toLocaleDateString('en-US', options) : "None"}</li>
+                            <li>Start date: {this.state.service.startDate ? this.state.service.startDate.toLocaleDateString('en-US', options) : "None"}</li>
+                            <li>End date: {this.state.service.endDate ? this.state.service.endDate.toLocaleDateString('en-US', options): "None"}</li>
+                            <li>Start mode: {this.state.service.startMode}</li>
+                            <li>Is stateful: {this.state.service.isStateful ? 'Yes' : 'No'}</li>
                         </ul>
                     </Paper>
                     <Paper>
                     <h4>Service specification</h4>
                         <ul style = {{listStyleType: "none"}}>
-                        <li>{this.state.service.getServiceSpecification().name}</li>
+                            <li>{this.state.service.getServiceSpecification().name}</li>
                         </ul>
                     </Paper>
                     <Paper>
@@ -71,18 +71,18 @@ export class DetailView extends Component {
                     <Paper>
                     <h4>Supporting service:</h4>
                     <ul style = {{listStyleType: "none"}}>
-                    <li>ID: </li>
-                    <li>HREF: </li>
-                    <li>Name: </li>
-                    <li>Category: </li>
+                        <li>ID: </li>
+                        <li>HREF: </li>
+                        <li>Name: </li>
+                        <li>Category: </li>
                     </ul>
                     </Paper>
                     <Paper>
                     <h4>Supporting resource:</h4>
                     <ul style = {{listStyleType: "none"}}>
-                    <li>ID:</li>
-                    <li>HREF: </li>
-                    <li>Name: </li>
+                        <li>ID:</li>
+                        <li>HREF: </li>
+                        <li>Name: </li>
                     </ul>
                     </Paper>
                 </Paper>
