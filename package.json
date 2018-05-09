@@ -68,6 +68,7 @@
       "src/**/*.{js,jsx,mjs}"
     ],
     "setupFiles": [
+      "<rootDir>/config/jest/enzyme.js",
       "<rootDir>/config/polyfills.js"
     ],
     "testMatch": [
@@ -111,6 +112,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "electron-packager": "^11.1.0"
+    "electron-packager": "^11.1.0",
+    "enzyme-adapter-react-16": "^1.1.1"
   }
 }
