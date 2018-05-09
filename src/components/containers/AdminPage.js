@@ -239,6 +239,11 @@ export class AdminPage extends Component {
         )
       }
 
+      let icon;
+      if (this.state.selected) {
+        icon = this.icons[this.state.selected.state];
+      }
+
       let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
       return (
@@ -316,13 +321,21 @@ export class AdminPage extends Component {
 
           >
           <hr></hr>
-          <ul style = {{listStyleType: "none"}}>
+
+
+          <ul style = {{listStyleType: "none"}} className={_s.modalList}>
             <li>ID: <u style={ModuleStyle.rest}>{this.state.selected.id}</u></li>
             <li>Description: <u style={ModuleStyle.rest}> {this.state.selected.description}</u> </li>
-            <li>Status: <u style={ModuleStyle.rest}>{this.state.selected.state}</u></li>
             <li>Is service enabled: <u style={ModuleStyle.rest}>{this.state.selected.isServiceEnabled ? 'Yes' : 'No'} </u></li>
             <li>Category: <u style={ModuleStyle.rest}>{this.state.selected.category}</u></li>
           </ul>
+
+            <div className={_s.modalIcon}>
+                <div className={_s[`state-${this.state.selected.state}`]}>
+                  <FontIcon className="material-icons" style={{fontSize: '700%'}}>{icon}</FontIcon>
+                </div>
+             Status: {this.state.selected.state}
+            </div>
             
           </Dialog>
           :
