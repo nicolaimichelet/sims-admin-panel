@@ -315,18 +315,13 @@ export class AdminPage extends Component {
         ]}
 
           >
-          
           <hr></hr>
-          <ul>
-          <li>Description: <u style={ModuleStyle.rest}> {this.state.selected.description}</u> </li>
-          <li>Order date: <u style={ModuleStyle.rest}>{this.state.selected.orderDate ? this.state.selected.orderDate.toLocaleDateString('en-US', options) : "None"}</u></li>
-          <li>Start date: <u style={ModuleStyle.rest}>{this.state.selected.startDate ? this.state.selected.startDate.toLocaleDateString('en-US', options) : "None"}</u></li>
-          <li>End date: <u style={ModuleStyle.rest}>{this.state.selected.endDate ? this.state.selected.endDate.toLocaleDateString('en-US', options): "None"}</u></li>
-          <li>Start mode: <u style={ModuleStyle.rest}>{this.state.selected.startMode}</u></li>
-          <li>Is stateful: <u style={ModuleStyle.rest}>{this.state.selected.isStateful ? 'Yes' : 'No'}</u></li>
-          <li>Is service enabled: <u style={ModuleStyle.rest}>{this.state.selected.isServiceEnabled ? 'Yes' : 'No'} </u></li>
-          <li>Category: <u style={ModuleStyle.rest}>{this.state.selected.category}</u></li>
-          <li>Status: <u style={ModuleStyle.rest}>{this.state.selected.state}</u></li>
+          <ul style = {{listStyleType: "none"}}>
+            <li>ID: <u style={ModuleStyle.rest}>{this.state.selected.id}</u></li>
+            <li>Description: <u style={ModuleStyle.rest}> {this.state.selected.description}</u> </li>
+            <li>Status: <u style={ModuleStyle.rest}>{this.state.selected.state}</u></li>
+            <li>Is service enabled: <u style={ModuleStyle.rest}>{this.state.selected.isServiceEnabled ? 'Yes' : 'No'} </u></li>
+            <li>Category: <u style={ModuleStyle.rest}>{this.state.selected.category}</u></li>
           </ul>
             
           </Dialog>
