@@ -91,7 +91,7 @@ export class ListInput extends Component{
     }
     return (
       <div>
-        <ul>
+        <ul style={{ listStyleType: "none" }}>
           {fields}
         </ul>
         <RaisedButton onClick={() => this.onCountChange(this.state.count + 1)}>New</RaisedButton>
