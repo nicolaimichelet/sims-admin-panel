@@ -30,6 +30,19 @@ table{
   background-color: #fbfff0 !important;
 }
 
+.modalIcon {
+  float:right !important;
+  display: inline-block !important;
+  margin-right: 15%;
+  font-size: 100% !important;
+}
+
+.modalList{
+  display: inline-block;
+}
+
+
+
 
 
 /********* Delete button styling, shape and size **********/
