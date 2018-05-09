@@ -48,7 +48,8 @@ export class AdminPage extends Component {
         services: [],
         lastError: null,
         selected: null,
-        open: false,
+        tableDialog: false,
+        deleteDialog: false,
         sortingOrder: "none",
       };
       this.icons = {
@@ -77,18 +78,35 @@ export class AdminPage extends Component {
       this.refresh()
     }
 
+    //open Table dialog
     handleClickTable(service){
         this.setState({
-            open: true,
+            tableDialog: true,
             selected: service,
         });
         console.log('service clicked')
     }
-    
-    handleClose(){
+
+    //opens Delete Dialog
+    handleClickDelete(){
+      this.setState({
+        deleteDialog: true
+      });
+      console.log('delete all clicked')
+    }
+
+    //Handles table dialog, closes it.
+    handleTableClose(){
         this.setState({
-            open: false,
+            tableDialog: false,
         });
+    }
+
+    //Handles delete Dialog, closes it.
+    handleDeleteClose(){
+      this.setState({
+            deleteDialog: false,
+      })
     }
 
     changeSorting(type){
@@ -121,7 +139,7 @@ export class AdminPage extends Component {
         const newState = this.state.services.slice();
         if (newState.indexOf(service) > -1){
           newState.splice(newState.indexOf(service), 1);
-          this.setState({services : newState, open: false});
+          this.setState({services : newState, tableDialog: false});
         }
       }, (err) => {
         this.setState({
@@ -135,6 +153,7 @@ export class AdminPage extends Component {
       this.props.imService.deleteAll().subscribe( () => {
         this.refresh();
       });
+      this.setState({deleteDialog: false})
     }
 
     //seeds or fills database with 50 services
@@ -152,8 +171,6 @@ export class AdminPage extends Component {
         });
       });
     }
-
-
 
     onChange(value){
       this.querySubject.next(value); // må gjøre så category funker, eget parameter eller objekt
@@ -233,7 +250,7 @@ export class AdminPage extends Component {
           />
 
           <RaisedButton className={_s.deleteAll} onClick={ () => {
-            this.deleteAll()
+            this.handleClickDelete()
           }} label="Delete all" secondary={true}/>
 
           <RaisedButton className={_s.deleteAll} onClick={ () => {
@@ -273,8 +290,8 @@ export class AdminPage extends Component {
           />
           {this.state.selected != null ? 
           <Dialog title = {this.state.selected.name} titleStyle={ModuleStyle.title} contentStyle={ModuleStyle.content}
-          open = {this.state.open}
-          onRequestClose = {() => this.handleClose()}
+          open = {this.state.tableDialog}
+          onRequestClose = {() => this.handleTableClose()}
           actions = {[<Link to = {`/services/edit/${this.state.selected.id}`} style={ModuleStyle.button}>
             <RaisedButton
               label = 'edit'
@@ -304,6 +321,21 @@ export class AdminPage extends Component {
           :
           null
           }
+            <Dialog title="Are you sure you want to delete all services?"
+                    open={this.state.deleteDialog}
+                    onRequestClose = {() => this.handleDeleteClose()}>
+              <RaisedButton
+                label = "Delete all"
+                onClick = { () => this.deleteAll()}
+              />
+              <RaisedButton
+                label = "Cancel"
+                onClick = { () => this.handleDeleteClose()}
+              />
+
+            </Dialog>
+
+
         </MuiThemeProvider>
         </Paper>
       );

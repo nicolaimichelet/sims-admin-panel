@@ -25,9 +25,46 @@ import { ServiceSpecification } from 'services/sims/ManagedService';
 function RelatedPartyList(props){
   return (
     <ObjectInput {...props}>
-      <TextField className={_s.objectTextField} type="text" name="name" floatingLabelFixed={true} floatingLabelText="name of the related party" />
-      <TextField className={_s.objectTextField} type="text" name="role" floatingLabelFixed={true} floatingLabelText="role of the related party" />
-      <TextField className={_s.objectTextField} type="text" name="href" floatingLabelFixed={true} floatingLabelText="href of the related party" />
+      <TextField className={_s.objectTextField} type="text" name="name" hintText="Name of the related party..." floatingLabelText="Name" />
+      <TextField className={_s.objectTextField} type="text" name="role" hintText="Role of the related party..." floatingLabelText="Role" />
+      <TextField className={_s.objectTextField} type="text" name="href" hintText="Href of the related party" floatingLabelText="HREF" />
+    </ObjectInput>
+  );
+}
+
+function ServiceCharacteristicList(props){
+  return (
+    <ObjectInput {...props}>
+      <TextField className={_s.objectTextField} type="text" name="name" hintText="Name of service characteristic..." floatingLabelText="Name"/>
+      <TextField className={_s.objectTextField} type="text" name="value" hintText="Value of service characteristic..." floatingLabelText="Value"/>
+    </ObjectInput>
+  );
+}
+
+function ServiceRelationshipList(props){
+  return (
+    <ObjectInput {...props}>
+      <TextField className={_s.objectTextField} type="text" name="type" hintText="Type of service relationship..." floatingLabelText="Type" />
+      <TextField className={_s.objectTextField} type="text" name="service.href" hintText="Href of service relationship..." floatingLabelText="HREF" />
+      <TextField className={_s.objectTextField} type="text" name="service.id" hintText="ID of service relationship..." floatingLabelText="ID" />
+    </ObjectInput>
+  );
+}
+
+function SupportingServiceList(props){
+  return (
+    <ObjectInput {...props}>
+      <TextField className={_s.objectTextField} type="text" name="id" hintText="ID of supporting service..." floatingLabelText="ID" />
+      <TextField className={_s.objectTextField} type="text" name="href" hintText="Href of supporting service..." floatingLabelText="HREF" />
+    </ObjectInput>
+  );
+}
+
+function SupportingResourceList(props){
+  return (
+    <ObjectInput {...props}>
+      <TextField className={_s.objectTextField} type="text" name="id" hintText="ID of supporting resource..." floatingLabelText="ID" />
+      <TextField className={_s.objectTextField} type="text" name="href" hintText="Href of supporting resource..." floatingLabelText="HREF" />
     </ObjectInput>
   );
 }
@@ -84,12 +121,6 @@ export class ServiceForm extends Component {
       }
     }
 
-    onClick(){
-      this.setState({
-        showAdvanced: !this.state.showAdvanced
-      });
-    }
-
 
     /*When a text field changes, we assign the value in the field.*/
     onFieldChange (field, value){
@@ -100,8 +131,7 @@ export class ServiceForm extends Component {
       },() => this.validate())
     }
 
-
-
+    //validates fields
     validate() {
       const errors = {};
       errors.nameError = this.state.formValues.name === "" ? "Name is a required field" : null;
@@ -262,9 +292,9 @@ export class ServiceForm extends Component {
               <div>
                 <h3>Service Specification</h3>
                 <ObjectInput value={this.state.formValues.serviceSpecification} onChange={(v) => this.onFieldChange("serviceSpecification", v)}>
-                  <TextField className={_s.objectTextField} type="name" name="name" hintText="name of the service specification" />
-                  <TextField className={_s.objectTextField} name="href" hintText="href of the service specification" />
-                  <TextField className={_s.objectTextField} name="version" hintText="version of the service specification" />
+                  <TextField className={_s.objectTextField} type="name" name="name" hintText="Name of the service specification..." floatingLabelText="Name" />
+                  <TextField className={_s.objectTextField} name="href" hintText="Href of the service specification..." floatingLabelText="HREF"/>
+                  <TextField className={_s.objectTextField} name="version" hintText="Version of service specification..." floatingLabelText="Version" />
                 </ObjectInput>
               </div>
               <Divider className={_s.divider} />
@@ -273,7 +303,33 @@ export class ServiceForm extends Component {
                 <ListInput min={1} onChange={(v) => {this.onFieldChange("relatedParty", v)}} count={this.state.formValues.relatedParty.length} values={this.state.formValues.relatedParty} component={RelatedPartyList} />
               </div>
               <Divider className={_s.divider} />
-            {/*Submit button, redirects to services page*/}
+
+              <div>
+                <h3>Service Characteristic</h3>
+                <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceCharacteristic", v)}} count={this.state.formValues.serviceCharacteristic.length} values={this.state.formValues.serviceCharacteristic} component={ServiceCharacteristicList} />
+              </div>
+              <Divider className={_s.divider} />
+
+              <div>
+                <h3>Service Relationship</h3>
+                <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceRelationship", v)}} count={this.state.formValues.serviceRelationship.length} values={this.state.formValues.serviceRelationship} component={ServiceRelationshipList} />
+              </div>
+
+              <Divider className={_s.divider} />
+              <div>
+                <h3>Supporting Service</h3>
+                <ListInput min={0} onChange={(v) => {this.onFieldChange("supportingService", v)}} count={this.state.formValues.supportingService.length} values={this.state.formValues.supportingService} component={SupportingServiceList} />
+              </div>
+
+              <Divider className={_s.divider} />
+
+              <div>
+                <h3>Supporting Resource</h3>
+                <ListInput min={0} onChange={(v) => {this.onFieldChange("supportingResource", v)}} count={this.state.formValues.supportingResource.length} values={this.state.formValues.supportingResource} component={SupportingResourceList} />
+              </div>
+              <Divider className={_s.divider} />
+
+              {/*Submit button, redirects to services page*/}
               <div className={_s.submit}>
                 <RaisedButton onClick={()=> {
                   this.submitService();
