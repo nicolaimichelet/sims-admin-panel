@@ -4,7 +4,9 @@ exports[`ObjectInput renders with inputs 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <ObjectInput>
+  Symbol(enzyme.__unrendered__): <ObjectInput
+    mapValues={[Function]}
+>
     <input
         name="name"
         type="text"
@@ -28,14 +30,18 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <input
+          checked={undefined}
           name="name"
           onChange={[Function]}
+          onCheck={[Function]}
           type="text"
           value={undefined}
 />,
         <input
+          checked={undefined}
           name="href"
           onChange={[Function]}
+          onCheck={[Function]}
           type="text"
           value={undefined}
 />,
@@ -51,8 +57,10 @@ ShallowWrapper {
         "key": "0/.0",
         "nodeType": "host",
         "props": Object {
+          "checked": undefined,
           "name": "name",
           "onChange": [Function],
+          "onCheck": [Function],
           "type": "text",
           "value": undefined,
         },
@@ -65,8 +73,10 @@ ShallowWrapper {
         "key": "1/.1",
         "nodeType": "host",
         "props": Object {
+          "checked": undefined,
           "name": "href",
           "onChange": [Function],
+          "onCheck": [Function],
           "type": "text",
           "value": undefined,
         },
@@ -85,14 +95,18 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <input
+            checked={undefined}
             name="name"
             onChange={[Function]}
+            onCheck={[Function]}
             type="text"
             value={undefined}
 />,
           <input
+            checked={undefined}
             name="href"
             onChange={[Function]}
+            onCheck={[Function]}
             type="text"
             value={undefined}
 />,
@@ -108,8 +122,10 @@ ShallowWrapper {
           "key": "0/.0",
           "nodeType": "host",
           "props": Object {
+            "checked": undefined,
             "name": "name",
             "onChange": [Function],
+            "onCheck": [Function],
             "type": "text",
             "value": undefined,
           },
@@ -122,8 +138,10 @@ ShallowWrapper {
           "key": "1/.1",
           "nodeType": "host",
           "props": Object {
+            "checked": undefined,
             "name": "href",
             "onChange": [Function],
+            "onCheck": [Function],
             "type": "text",
             "value": undefined,
           },
@@ -149,7 +167,9 @@ exports[`ObjectInput renders with no props 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <ObjectInput />,
+  Symbol(enzyme.__unrendered__): <ObjectInput
+    mapValues={[Function]}
+/>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
