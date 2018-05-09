@@ -244,10 +244,11 @@ color: lightblue !important;
 .tableRow:hover{
   background-color: lightgray;
 }
-
+.tableHead{
+  background-color: #DCEDC8; 
+}
 .tableHeader{
   cursor: pointer;
-  background-color: #DCEDC8;
 }
 
 .tableHeader:hover{

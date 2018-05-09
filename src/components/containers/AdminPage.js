@@ -242,7 +242,7 @@ export class AdminPage extends Component {
 
           <br />
           <Table allRowsSelected = {false}  onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
-            <TableHeader className = {_s.tableHeader} adjustForCheckbox = {false} displaySelectAll = {false} style = {TableStyle.header}>
+            <TableHeader className = {_s.tableHead} adjustForCheckbox = {false} displaySelectAll = {false} style = {TableStyle.header}>
               <TableRow  onCellClick={(event,_,idx) => {
                 const columns = {
                   [6]: "state",
