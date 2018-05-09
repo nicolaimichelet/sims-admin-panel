@@ -13,6 +13,8 @@ import MenuItem from 'material-ui/MenuItem';
 import { get, set, has, cloneDeep } from 'lodash';
 import { paths } from 'common/utils';
 
+import { assign, keys } from 'lodash';
+
 export class ObjectInput extends Component{
   constructor(props){
     super(props);
@@ -28,6 +30,20 @@ export class ObjectInput extends Component{
 
   componentWillReceiveProps(nextProps){
     this._updateFields(nextProps);
+  }
+
+  shouldComponentUpdate(nextProps, nextState){
+    let newKeys = assign({}, keys(nextProps.value || {}), keys(nextState.value || {}));
+    let oldKeys = assign({}, keys(this.props.value || {}), keys(this.state.value || {}));
+
+    if(newKeys.length != oldKeys.length){
+      return true;
+    }
+
+
+    for(let key of allKeys){
+
+    }
   }
 
   isControlled(){
