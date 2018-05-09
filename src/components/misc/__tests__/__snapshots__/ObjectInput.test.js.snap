@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ObjectInput renders with inputs 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ObjectInput>
+    <input
+        name="name"
+        type="text"
+    />
+    <input
+        name="href"
+        type="text"
+    />
+</ObjectInput>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <input
+          name="name"
+          onChange={[Function]}
+          type="text"
+          value={undefined}
+/>,
+        <input
+          name="href"
+          onChange={[Function]}
+          type="text"
+          value={undefined}
+/>,
+      ],
+      "style": Object {
+        "display": "inline-block",
+      },
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": "0/.0",
+        "nodeType": "host",
+        "props": Object {
+          "name": "name",
+          "onChange": [Function],
+          "type": "text",
+          "value": undefined,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "input",
+      },
+      Object {
+        "instance": null,
+        "key": "1/.1",
+        "nodeType": "host",
+        "props": Object {
+          "name": "href",
+          "onChange": [Function],
+          "type": "text",
+          "value": undefined,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "input",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <input
+            name="name"
+            onChange={[Function]}
+            type="text"
+            value={undefined}
+/>,
+          <input
+            name="href"
+            onChange={[Function]}
+            type="text"
+            value={undefined}
+/>,
+        ],
+        "style": Object {
+          "display": "inline-block",
+        },
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": "0/.0",
+          "nodeType": "host",
+          "props": Object {
+            "name": "name",
+            "onChange": [Function],
+            "type": "text",
+            "value": undefined,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "input",
+        },
+        Object {
+          "instance": null,
+          "key": "1/.1",
+          "nodeType": "host",
+          "props": Object {
+            "name": "href",
+            "onChange": [Function],
+            "type": "text",
+            "value": undefined,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "input",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`ObjectInput renders with no props 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ObjectInput />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": undefined,
+      "style": Object {
+        "display": "inline-block",
+      },
+    },
+    "ref": null,
+    "rendered": null,
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": undefined,
+        "style": Object {
+          "display": "inline-block",
+        },
+      },
+      "ref": null,
+      "rendered": null,
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

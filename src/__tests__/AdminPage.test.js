@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AdminPage from 'components/containers/AdminPage';
 
-import { mount, shallow } from 'enyzme';
+import { mount, shallow } from 'enzyme';
 
 
 it('renders without crashing', () => {
