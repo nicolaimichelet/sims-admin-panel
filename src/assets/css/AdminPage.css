@@ -260,6 +260,12 @@ table{
   float: left;
 }
 
+.header{
+  border-left: 8px solid #7CB342;
+  padding-left: 0.6%;
+  margin-left: 1.4%;
+}
+
 .state-feasibilityChecked *, .state-designed *, .state-reserved *{
 color: lightblue !important;
 }

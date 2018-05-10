@@ -250,7 +250,7 @@ export class AdminPage extends Component {
       return (
         <Paper className={_s["paper-container"]}>
           <MuiThemeProvider muiTheme={muiTheme}>
-          <h1>Services</h1>
+          <h1 className={_s.header}>Services</h1>
             <div className={_s.search}>
               <FontIcon className="material-icons" style={{ fontSize: '160%'}}>search</FontIcon>
             </div>
