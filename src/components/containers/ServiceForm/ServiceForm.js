@@ -17,8 +17,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Paper from 'material-ui/Paper';
 
-import { ObjectInput } from './ObjectInput';
-import { ListInput } from './ListInput';
+import { ObjectInput } from 'components/misc/ObjectInput';
+import { ListInput } from 'components/misc/ListInput';
 import { ServiceSpecification } from 'services/sims/ManagedService';
 
 

@@ -17,6 +17,8 @@
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
     "electron": "^1.8.3",
+    "enzyme": "^3.3.0",
+    "enzyme-to-json": "^3.3.3",
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.1.0",
     "eslint-loader": "1.9.0",
@@ -67,6 +69,7 @@
       "src/**/*.{js,jsx,mjs}"
     ],
     "setupFiles": [
+      "<rootDir>/config/jest/enzyme.js",
       "<rootDir>/config/polyfills.js"
     ],
     "testMatch": [
@@ -84,8 +87,13 @@
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
     ],
     "moduleNameMapper": {
-      "^react-native$": "react-native-web"
+      "^react-native$": "react-native-web",
+      "\\.(css|less|scss)$": "identity-obj-proxy"
     },
+    "moduleDirectories": [
+      "node_modules",
+      "<rootDir>/src"
+    ],
     "moduleFileExtensions": [
       "web.js",
       "mjs",
@@ -105,6 +113,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "electron-packager": "^11.1.0"
+    "electron-packager": "^11.1.0",
+    "enzyme-adapter-react-16": "^1.1.1"
   }
 }
