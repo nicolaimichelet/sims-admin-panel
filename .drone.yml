@@ -1,0 +1,39 @@
+pipeline:
+
+
+  restore-cache:
+    image: drillster/drone-volume-cache
+    pull: true
+    when:
+      event: [push, pull_request, tag, deployment]
+    restore: true
+    mount:
+      - ./node_modules
+    volumes:
+      - /tmp/cache:/cache
+  test:
+    image: node:8-alpine
+    when:
+      event: 
+        - pull_request
+        - push
+        - tag
+
+    commands:
+      - yarn
+      - yarn test
+
+
+
+
+
+  rebuild-cache:
+    image: drillster/drone-volume-cache
+    pull: true
+    when:
+      event: [push, pull_request, tag, deployment]
+    rebuild: true
+    mount:
+      - ./node_modules
+    volumes:
+      - /tmp/cache:/cache

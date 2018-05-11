@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { ObjectInput } from './ObjectInput';
 import { FlatButton } from 'material-ui';
 import RaisedButton from 'material-ui/RaisedButton/RaisedButton';
 import IconButton from 'material-ui/IconButton';
