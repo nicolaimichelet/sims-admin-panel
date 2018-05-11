@@ -8,11 +8,34 @@ import LoginView from './LoginView';
 import ServiceForm from 'components/containers/ServiceForm/ServiceForm';
 import ServiceEditForm from 'components/containers/ServiceForm/ServiceEditForm';
 import DetailView from './DetailView';
+import { IAuthService, mapAndConnect } from 'services';
 
 
-export default class App extends Component {
+export class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      redirect: null
+    }
+    this.doRedirect = false;
+  }
+
+  componentDidMount(){
+    this.props.auth.onUserChange().subscribe(user => {
+      console.log(user);
+      this.setState({
+        redirect: user ? "/services" : "/login" 
+      });
+      this.doRedirect = true;
+    })
+  }
+
   render() {
+
+    let redirect = this.doRedirect ? <Redirect to={this.state.redirect} /> : null;
+    this.doRedirect = false;
     return (
+      <div>
       <Switch>
         <Route path="/login" exact={true} render={(props) => {
           return (
@@ -34,6 +57,13 @@ export default class App extends Component {
           );
         }}/>
       </Switch>
+      {redirect}
+      </div>
     )
   }
 }
+
+
+export default mapAndConnect(App, {
+  auth: IAuthService
+})

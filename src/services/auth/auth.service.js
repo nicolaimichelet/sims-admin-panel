@@ -1,14 +1,16 @@
 import { UserManager, Log } from 'oidc-client';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
 
+import { IAuthService } from './auth.interface';
 
 import { User } from './user';
 
 Log.logger = console;
 Log.level = Log.DEBUG;
 
-export class AuthServiceProvider{
+export class AuthServiceProvider extends IAuthService{
   constructor(serviceManager,settings){
+    super();
     this.userManager = new UserManager(Object.assign({
       popupWindowFeatures: 'location=no,toolbar=no,width=900,height=700,left=100,top=100'
     }, settings));
@@ -32,14 +34,14 @@ export class AuthServiceProvider{
     });
 
     Observable.from(this.userManager.signinPopupCallback()).subscribe((user) => {
-      if(user)
-        location.href = "/";
+      /*if(user)
+        location.href = "/";*/
     });
   }
   
   setUser(user,push){
     this._loginState = 0;
-    this.services.getService("http").setToken(user && user.access_token);
+    /*this.services.getService("http").setToken(user && user.access_token);*/
     
     if(user && user.profile){
       this._user = new User(user.access_token,user.scope,user.profile);
@@ -55,12 +57,23 @@ export class AuthServiceProvider{
   }
 
   //Login
-  login(){
+  login(method){
     this._loginState = 1;
-    Observable.from(this.userManager.signinPopup()).subscribe(()=> {
-    }, (err) => {
-      console.log(`Error happened regarding SSO signin popup: ${err.message}`);
-    });
+    
+    if(method == "openid"){
+      Observable.from(this.userManager.signinPopup()).subscribe(()=> {
+      }, (err) => {
+        console.log(`Error happened regarding SSO signin popup: ${err.message}`);
+      });
+    }else if(method == "guest"){
+      this.setUser({profile: {
+        admin: false
+      }}, true);
+    }else{
+      this.setUser({profile: {
+        admin: true
+      }}, true);
+    }
     return this.getUser();
   }
   

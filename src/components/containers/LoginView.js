@@ -9,7 +9,7 @@ import { DEFAULT_API } from 'common/constants';
 
 import {Router, Switch, Route, Redirect} from 'react-router';
 
-import { mapAndConnect, IManagedService, ConfigServiceInterface } from 'services';
+import { mapAndConnect, IManagedService, ConfigServiceInterface, IAuthService } from 'services';
 
 import _s from 'assets/css/LoginView.css';
 
@@ -36,7 +36,7 @@ export class LoginView extends Component{
     this.props.config.setItem("SIMS-BASE", baseUrl);
     // Try to fetch services to see if endpoint exists
     // Temp solution
-    this.props.imService.getServices().subscribe(() => {
+    /*this.props.imService.getServices().subscribe(() => {
       // Success
       this.setState({
         success: true
@@ -47,7 +47,8 @@ export class LoginView extends Component{
       this.setState({
         errorText: err instanceof Response ? `HTTP ERROR: ${err.status} - ${err.statusText}` : "Connection failed!" 
       });
-    }); 
+    });*/
+    this.props.auth.login("none");
   }
 
   render(){
@@ -70,5 +71,6 @@ export class LoginView extends Component{
 
 export default mapAndConnect(LoginView, {
   imService: IManagedService,
-  config: ConfigServiceInterface
+  config: ConfigServiceInterface,
+  auth: IAuthService
 })

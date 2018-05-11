@@ -9,6 +9,7 @@ export class User{
         last_name: "User",
         admin: false
       };
+      this._admin = userdata.admin || false;
     }
     
     
@@ -20,23 +21,7 @@ export class User{
       return this._userdata.username;
     }
     
-    get firstname(){
-      return this._userdata.given_name;
-    }
-  
-    get lastname(){
-      return this._userdata.family_name;
-    }
-  
-    get fullname(){
-      return `${this.firstname} ${this.lastname}`
-    }
-  
-    get name(){
-      return this._userdata.name;
-    }
-  
-    get email(){
-      return  this._userdata.email;
+    isAdmin(){
+      return this._admin;
     }
   }
