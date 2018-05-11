@@ -19,7 +19,7 @@ h1{
 .deleteAll {
   display: inline-block;
   float: right;
-  margin-right: 6%;
+  margin-right: 7.1%;
 }
 
 table{
@@ -29,6 +29,19 @@ table{
   margin-left: 0.6%;
   background-color: #fbfff0 !important;
 }
+
+.modalIcon {
+  float:right !important;
+  display: inline-block !important;
+  margin-right: 15%;
+  font-size: 100% !important;
+}
+
+.modalList{
+  display: inline-block;
+}
+
+
 
 
 
@@ -235,6 +248,22 @@ table{
  font-weight: bold;
 
   letter-spacing: 1px;
+}
+
+.search *{
+  color: #7CB342 !important;
+  font-weight: bold;
+  margin-left: 1% !important;
+  display: inline-block;
+  margin-right: 0.5%;
+  margin-top: 0.8%;
+  float: left;
+}
+
+.header{
+  border-left: 8px solid #7CB342;
+  padding-left: 0.6%;
+  margin-left: 1.4%;
 }
 
 .state-feasibilityChecked *, .state-designed *, .state-reserved *{

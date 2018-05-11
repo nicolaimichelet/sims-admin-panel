@@ -54,11 +54,12 @@ export class AdminPage extends Component {
         sortingOrder: "none",
       };
       this.icons = {
-        active: "lightbulb_outline",
+        active: "check_circle_outline",
         inactive: "pause_circle_outline",
         terminated: "highlight_off",
         designed: "announcement",
         reserved: "phone",
+        search: "search"
       }
     }
 
@@ -257,13 +258,21 @@ export class AdminPage extends Component {
         )
       }
 
+      let icon;
+      if (this.state.selected) {
+        icon = this.icons[this.state.selected.state];
+      }
+
       let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
       return (
         <Paper className={_s["paper-container"]}>
           <MuiThemeProvider muiTheme={muiTheme}>
-          <h1 style={HeaderStyle.text}>Services</h1>
-          <TextField 
+          <h1 className={_s.header} style={HeaderStyle.text}>Services</h1>
+            <div className={_s.search}>
+              <FontIcon className="material-icons" style={{ fontSize: '160%'}}>search</FontIcon>
+            </div>
+          <TextField
             onChange = {(e, v)=> this.onChange(v)}
             hintText="Search on Name"
           />
@@ -292,8 +301,9 @@ export class AdminPage extends Component {
                     <TableHeaderColumn style={TableStyle.header}>NAME</TableHeaderColumn>
                     <TableHeaderColumn style={TableStyle.header}>HREF</TableHeaderColumn>
                     <TableHeaderColumn style={TableStyle.header}>HAS STARTED</TableHeaderColumn>
-                    <TableHeaderColumn className = {_s.tableHeader} style={TableStyle.header}>CATEGORY ↓</TableHeaderColumn>
-                    <TableHeaderColumn className = {_s.tableHeader} style={TableStyle.header}>STATE ↓</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader} style={TableStyle.header}>CATEGORY ↑↓</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader} style={TableStyle.header}>STATE ↑↓</TableHeaderColumn>
+
                 </TableRow>
             </TableHeader>
             
@@ -325,23 +335,32 @@ export class AdminPage extends Component {
               primary = {true}
             
             /></Link>,
-          <RaisedButton
+
+            <RaisedButton
               label = "delete"
               onClick = { () => this.delete(this.state.selected)}
-              secondary={true}
               style={ModuleStyle.button}
-          />
+              secondary={true}
+            />
         ]}
 
           >
           <hr></hr>
-          <ul style = {{listStyleType: "none"}}>
+
+
+          <ul style = {{listStyleType: "none"}} className={_s.modalList}>
             <li>ID: <u style={ModuleStyle.rest}>{this.state.selected.id}</u></li>
             <li>Description: <u style={ModuleStyle.rest}> {this.state.selected.description}</u> </li>
-            <li>Status: <u style={ModuleStyle.rest}>{this.state.selected.state}</u></li>
             <li>Is service enabled: <u style={ModuleStyle.rest}>{this.state.selected.isServiceEnabled ? 'Yes' : 'No'} </u></li>
             <li>Category: <u style={ModuleStyle.rest}>{this.state.selected.category}</u></li>
           </ul>
+
+            <div className={_s.modalIcon}>
+                <div className={_s[`state-${this.state.selected.state}`]}>
+                  <FontIcon className="material-icons" style={{fontSize: '700%'}}>{icon}</FontIcon>
+                </div>
+             Status: {this.state.selected.state}
+            </div>
             
           </Dialog>
           :
