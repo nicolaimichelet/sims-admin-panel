@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
 import { Paper } from 'material-ui';
 import { mapAndConnect, IManagedService } from 'services';
-import {lightGreen100, lightGreen600,lightGreen400} from 'material-ui/styles/colors';
+import {lightGreen100, lightGreen600,lightGreen400, red700} from 'material-ui/styles/colors';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import RaisedButton from 'material-ui/RaisedButton';
 import 'typeface-roboto';
 
+import { Link } from 'react-router-dom';
 
 
 export class DetailView extends Component {
     constructor(props){
         super(props);
-        this.state = {service: null}
+        this.state = {
+            service: null,
+            selected: null,
+            tableDialog: false,
+            deleteDialog: false
+        }
     }
 
     componentDidMount(){
@@ -17,7 +26,8 @@ export class DetailView extends Component {
         const id = this.props.match.params.id;
         this.props.imService.getService(id).subscribe((service) => {
           this.setState({
-            service: service
+              service: service,
+              selected: id,
           })
         }, (err) => {
           this.setState({
@@ -25,6 +35,19 @@ export class DetailView extends Component {
           })
         });
       }
+    delete(service) {
+        this.props.imService.deleteService(service).subscribe(() => {
+            const newState = this.state.services.slice();
+            if (newState.indexOf(service) > -1){
+                newState.splice(newState.indexOf(service), 1);
+                this.setState({services : newState, tableDialog: false});
+            }
+        }, (err) => {
+            this.setState({
+                lastError: err
+            });
+        });
+    }
 
     render(){
         if (!this.state.service){
@@ -106,12 +129,47 @@ export class DetailView extends Component {
                 fontWeight: '200',
                 fontFamily: 'roboto',
                 textDecoration: 'none',
-            }
+            },
+            button: {
+                marginRight: 12,
+                fontFamily: 'roboto',
+                fontWeight: '300',
 
+            },
+            bothButtons: {
+                display: 'inline-block',
+                float: 'right',
+                marginTop: '0',
+            }
         }
+        const muiTheme = getMuiTheme({
+            raisedButton: {
+                primaryColor: lightGreen400,
+                secondaryColor: red700,
+                fontFamily: 'roboto',
+                fontWeight: '300',
+            },
+
+        });
 
         return(
             <Paper style={detailStyle.page}>
+                <MuiThemeProvider muiTheme={muiTheme}>
+                <div style={detailStyle.bothButtons}>
+                    {[<Link to = {`/services/edit/${this.state.selected}`} style={detailStyle.button}>
+                        <RaisedButton
+                            label = 'edit'
+                            primary = {true}
+
+                        /></Link>,
+                        <RaisedButton
+                            label = "delete"
+                            onClick = { () => this.delete(this.state.selected)}
+                            style={detailStyle.button}
+                            secondary={true}
+                        />
+                    ]}
+                </div>
                 <h1 style={detailStyle.headerText}>{this.state.service.name}</h1>
                 <div><Paper style={detailStyle.basic} zDepth={1}>
                     <h4 style={detailStyle.headerCaptions}>BASIC:</h4>
@@ -158,6 +216,7 @@ export class DetailView extends Component {
                 </ul>
                 </Paper>
                 </div>
+                </MuiThemeProvider>
             </Paper>
         );
     }
