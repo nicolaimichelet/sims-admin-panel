@@ -53,11 +53,12 @@ export class AdminPage extends Component {
         sortingOrder: "none",
       };
       this.icons = {
-        active: "lightbulb_outline",
+        active: "check_circle_outline",
         inactive: "pause_circle_outline",
         terminated: "highlight_off",
         designed: "announcement",
         reserved: "phone",
+        search: "search"
       }
     }
 
@@ -249,8 +250,11 @@ export class AdminPage extends Component {
       return (
         <Paper className={_s["paper-container"]}>
           <MuiThemeProvider muiTheme={muiTheme}>
-          <h1>Services</h1>
-          <TextField 
+          <h1 className={_s.header}>Services</h1>
+            <div className={_s.search}>
+              <FontIcon className="material-icons" style={{ fontSize: '160%'}}>search</FontIcon>
+            </div>
+          <TextField
             onChange = {(e, v)=> this.onChange(v)}
             hintText="Search on Name"
           />
@@ -306,17 +310,18 @@ export class AdminPage extends Component {
               primary = {true}
             
             /></Link>,
-          <RaisedButton
-            label = "delete"
-            onClick = { () => this.delete(this.state.selected)} 
-            style={ModuleStyle.button} 
-          />,
           <Link to = {`/services/${this.state.selected.id}`} style={ModuleStyle.button}>
             <RaisedButton
               label = 'details'
               primary = {true}
             
-            /></Link>
+            /></Link>,
+            <RaisedButton
+              label = "delete"
+              onClick = { () => this.delete(this.state.selected)}
+              style={ModuleStyle.button}
+              secondary={true}
+            />
         ]}
 
           >
