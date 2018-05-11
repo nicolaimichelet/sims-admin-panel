@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import _s from 'assets/css/AdminPage.css';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
-import {lightGreen300, lightGreen400, red700} from 'material-ui/styles/colors';
+import {lightGreen300, lightGreen400, red700, black} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {Subject} from 'rxjs';
 import Snackbar from 'material-ui/Snackbar';
+import 'typeface-roboto';
 
 
 
@@ -185,32 +186,47 @@ export class AdminPage extends Component {
 
     render() {
       const {services} = this.state;
-      const TableStyle = {
-          arrow:{
-              fontWeight: 'bold',
-              textDecoration: 'none',
-          },
-          header: {
-              textAlign: 'left',
+      const HeaderStyle = {
+          text:{
+              fontWeight: '300',
+              fontFamily: 'roboto',
           }
+      }
+      const TableStyle = {
+          header:{
+              backgroundColor:'#DCEDC8',
+              color: black,
+              fontFamily: 'roboto',
+              fontWeight: '500',
+          },
+          rows:{
+              fontFamily: 'roboto',
+              fontWeight: '300',
+          }
+
       }
       const ModuleStyle = {
           title:{
+              fontFamily: 'roboto',
               fontSize: 25,
-              fontWeight: 'normal',
+              fontWeight: '200',
           },
           content:{
-              fontWeight: 'bold',
+              fontFamily: 'roboto',
+              fontWeight: '400',
               width: '40%',
           },
           rest:{
-              fontWeight: 'normal',
+              fontWeight: '200',
+              fontFamily: 'roboto',
               textDecoration: 'none',
           },
           button: {
               marginRight: 12,
+              fontFamily: 'roboto',
+              fontWeight: '300',
             
-          }
+          },
         }
 
       const serviceElements = [];
@@ -221,6 +237,8 @@ export class AdminPage extends Component {
             raisedButton: {
                 primaryColor: lightGreen400,
                 secondaryColor: red700,
+                fontFamily: 'roboto',
+                fontWeight: '300',
             },
 
       });
@@ -250,7 +268,7 @@ export class AdminPage extends Component {
       return (
         <Paper className={_s["paper-container"]}>
           <MuiThemeProvider muiTheme={muiTheme}>
-          <h1 className={_s.header}>Services</h1>
+          <h1 className={_s.header} style={HeaderStyle.text}>Services</h1>
             <div className={_s.search}>
               <FontIcon className="material-icons" style={{ fontSize: '160%'}}>search</FontIcon>
             </div>
@@ -268,9 +286,9 @@ export class AdminPage extends Component {
           }} label="Example data" primary={true}/>
 
           <br />
-          <Table allRowsSelected = {false}  onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
-            <TableHeader className = {_s.tableHeader} adjustForCheckbox = {false} displaySelectAll = {false} style = {TableStyle.header}>
-              <TableRow  onCellClick={(event,_,idx) => {
+          <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
+            <TableHeader adjustForCheckbox = {false} displaySelectAll = {false} style = {TableStyle.header}>
+              <TableRow style={TableStyle.header} onCellClick={(event,_,idx) => {
                 const columns = {
                   [6]: "state",
                   [5]: "category",                   
@@ -279,16 +297,17 @@ export class AdminPage extends Component {
                   this.changeSorting(columns[idx]);
                 }
               }}>
-                    <TableHeaderColumn>ID</TableHeaderColumn>
-                    <TableHeaderColumn>NAME</TableHeaderColumn>
-                    <TableHeaderColumn>HREF</TableHeaderColumn>
-                    <TableHeaderColumn>HAS STARTED</TableHeaderColumn>
-                    <TableHeaderColumn className = {_s.tableHeader}>CATEGORY ↑↓</TableHeaderColumn>
-                    <TableHeaderColumn className = {_s.tableHeader}>STATE ↑↓</TableHeaderColumn>
+                    <TableHeaderColumn style={TableStyle.header}>ID</TableHeaderColumn>
+                    <TableHeaderColumn style={TableStyle.header}>NAME</TableHeaderColumn>
+                    <TableHeaderColumn style={TableStyle.header}>HREF</TableHeaderColumn>
+                    <TableHeaderColumn style={TableStyle.header}>HAS STARTED</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader} style={TableStyle.header}>CATEGORY ↑↓</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader} style={TableStyle.header}>STATE ↑↓</TableHeaderColumn>
+
                 </TableRow>
             </TableHeader>
             
-            <TableBody displayRowCheckbox = {false}>
+            <TableBody style={TableStyle.rows} displayRowCheckbox = {false}>
                 {serviceElements}
             </TableBody>
           </Table>
@@ -316,6 +335,7 @@ export class AdminPage extends Component {
               primary = {true}
             
             /></Link>,
+
             <RaisedButton
               label = "delete"
               onClick = { () => this.delete(this.state.selected)}
@@ -346,14 +366,14 @@ export class AdminPage extends Component {
           :
           null
           }
-            <Dialog title="Are you sure you want to delete all services?"
+            <Dialog titleStyle={ModuleStyle.title} title="Are you sure you want to delete all services?"
                     open={this.state.deleteDialog}
                     onRequestClose = {() => this.handleDeleteClose()}>
-              <RaisedButton
+              <RaisedButton secondary={true} style={ModuleStyle.button}
                 label = "Delete all"
                 onClick = { () => this.deleteAll()}
               />
-              <RaisedButton
+              <RaisedButton primary={true}
                 label = "Cancel"
                 onClick = { () => this.handleDeleteClose()}
               />
