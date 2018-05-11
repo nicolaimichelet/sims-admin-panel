@@ -6,6 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
 import 'typeface-roboto';
+import {Redirect} from 'react-router'
 
 import { Link } from 'react-router-dom';
 
@@ -14,10 +15,11 @@ export class DetailView extends Component {
     constructor(props){
         super(props);
         this.state = {
+            lastError: null,
             service: null,
             selected: null,
             tableDialog: false,
-            deleteDialog: false
+            redirect: false
         }
     }
 
@@ -35,24 +37,28 @@ export class DetailView extends Component {
           })
         });
       }
-    delete(service) {
-        this.props.imService.deleteService(service).subscribe(() => {
-            const newState = this.state.services.slice();
-            if (newState.indexOf(service) > -1){
-                newState.splice(newState.indexOf(service), 1);
-                this.setState({services : newState, tableDialog: false});
-            }
-        }, (err) => {
-            this.setState({
-                lastError: err
-            });
-        });
-    }
+      delete(service) {
+          this.props.imService.deleteService(service).subscribe(() => {
+              this.setState({
+                  redirect: true,
+                  tableDialog: false,
+              });
+          },
+              (err) => {
+              this.setState({
+                  lastError: err
+              });
+          });
+      }
 
     render(){
         if (!this.state.service){
             return <div/>;
         }
+        if (this.state.redirect) {
+            return <Redirect to='/services'/>;
+        }
+
         let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         const partyList =[];
         for (let party of this.state.service.getRelatedParty()){
@@ -164,7 +170,8 @@ export class DetailView extends Component {
                         /></Link>,
                         <RaisedButton
                             label = "delete"
-                            onClick = { () => this.delete(this.state.selected)}
+                            onClick = { () => this.delete(this.state.service) }
+
                             style={detailStyle.button}
                             secondary={true}
                         />
