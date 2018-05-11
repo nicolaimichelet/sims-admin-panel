@@ -9,6 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {Subject} from 'rxjs';
 import Snackbar from 'material-ui/Snackbar';
+import 'typeface-roboto';
 
 
 
@@ -184,32 +185,45 @@ export class AdminPage extends Component {
 
     render() {
       const {services} = this.state;
+      const HeaderStyle = {
+          text:{
+              fontWeight: '300',
+              fontFamily: 'roboto',
+          }
+      }
       const TableStyle = {
-          arrow:{
-              fontWeight: 'bold',
-              textDecoration: 'none',
-          },
           header:{
               backgroundColor:'#DCEDC8',
               color: black,
+              fontFamily: 'roboto',
+              fontWeight: '400',
+          },
+          rows:{
+              fontFamily: 'roboto',
+              fontWeight: '300',
           }
 
       }
       const ModuleStyle = {
           title:{
+              fontFamily: 'roboto',
               fontSize: 25,
-              fontWeight: 'normal',
+              fontWeight: '200',
           },
           content:{
-              fontWeight: 'bold',
+              fontFamily: 'roboto',
+              fontWeight: '300',
               width: '40%',
           },
           rest:{
-              fontWeight: 'normal',
+              fontWeight: '300',
+              fontFamily: 'roboto',
               textDecoration: 'none',
           },
           button: {
               marginRight: 12,
+              fontFamily: 'roboto',
+              fontWeight: '300',
             
           }
         }
@@ -222,6 +236,8 @@ export class AdminPage extends Component {
             raisedButton: {
                 primaryColor: lightGreen400,
                 secondaryColor: red700,
+                fontFamily: 'roboto',
+                fontWeight: '300',
             },
 
       });
@@ -246,7 +262,7 @@ export class AdminPage extends Component {
       return (
         <Paper className={_s["paper-container"]}>
           <MuiThemeProvider muiTheme={muiTheme}>
-          <h1>Services</h1>
+          <h1 style={HeaderStyle.text}>Services</h1>
           <TextField 
             onChange = {(e, v)=> this.onChange(v)}
             hintText="Search on Name"
@@ -281,7 +297,7 @@ export class AdminPage extends Component {
                 </TableRow>
             </TableHeader>
             
-            <TableBody displayRowCheckbox = {false}>
+            <TableBody style={TableStyle.rows} displayRowCheckbox = {false}>
                 {serviceElements}
             </TableBody>
           </Table>
