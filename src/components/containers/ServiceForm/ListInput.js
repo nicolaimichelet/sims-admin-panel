@@ -45,6 +45,13 @@ export class ListInput extends Component{
     });
   }
 
+  /*
+  shouldComponentUpdate(nextProps, nextState){
+    return false;
+  }
+  */
+
+
   removeField(idx){
     let values = this.state.values.slice();
     values.splice(idx, 1);
@@ -84,7 +91,7 @@ export class ListInput extends Component{
     for(let i = 0; i < this.state.count; i++){
       fields.push(
         <li key={i}>
-          <FieldType key={i} value={/*this.isControlled() ?*/ this.state.values[i] /*: null */} onChange={(...a) => {this.onInputChange(i, ...a)}}/>
+          <FieldType key={i} value={this.state.values[i]} onChange={(...a) => {this.onInputChange(i, ...a)}}/>
           <IconButton iconClassName="material-icons" onClick={() => this.removeField(i)}>remove_circle</IconButton>
         </li>
       );
