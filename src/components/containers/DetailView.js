@@ -112,7 +112,7 @@ export class DetailView extends Component {
 
         return(
             <Paper style={detailStyle.page}>
-                <h2 style={detailStyle.headerText}>{this.state.service.name}</h2>
+                <h1 style={detailStyle.headerText}>{this.state.service.name}</h1>
                 <div><Paper style={detailStyle.basic} zDepth={1}>
                     <h4 style={detailStyle.headerCaptions}>BASIC:</h4>
                     <ul style = {{listStyleType: "none"}}>
