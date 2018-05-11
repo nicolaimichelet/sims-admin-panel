@@ -250,9 +250,10 @@ export class AdminPage extends Component {
             hintText="Search on Name"
           />
 
+            {this.props.user && this.props.user.isAdmin() ?
           <RaisedButton className={_s.deleteAll} onClick={ () => {
             this.handleClickDelete()
-          }} label="Delete all" secondary={true}/>
+          }} label="Delete all" secondary={true}/> : null}
 
           <RaisedButton className={_s.deleteAll} onClick={ () => {
             this.seedServices()
@@ -294,7 +295,8 @@ export class AdminPage extends Component {
 
           open = {this.state.tableDialog}
           onRequestClose = {() => this.handleTableClose()}
-          actions = {[<Link to = {`/services/edit/${this.state.selected.id}`} style={ModuleStyle.button}>
+
+                  actions = {[<Link to = {`/services/edit/${this.state.selected.id}`} style={ModuleStyle.button}>
 
             <RaisedButton
               label = 'edit'
@@ -306,6 +308,7 @@ export class AdminPage extends Component {
             onClick = { () => this.delete(this.state.selected)} 
             style={ModuleStyle.button} 
           />,
+
           <Link to = {`/services/${this.state.selected.id}`} style={ModuleStyle.button}>
             <RaisedButton
               label = 'details'

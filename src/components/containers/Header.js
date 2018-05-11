@@ -35,11 +35,12 @@ export class Header extends Component {
           <RaisedButton secondary={true} label="Services" /> :
           <FlatButton hoverColor={lightGreen400} rippleColor='transparent' label="Services" />}
         </Link>
+        {this.props.user && this.props.user.isAdmin() ?
         <Link key={3} to="/services/new">
           {path == "/services/new" ?
             <RaisedButton secondary={true} label="New Service" /> :
             <FlatButton hoverColor={lightGreen400} rippleColor='transparent' label="New Service" />}
-        </Link>
+        </Link> : null}
         {/*<Link key={4} to="/login">*/}
           <IconButton onClick={() => this.props.auth.logout()} hoverColor={lightGreen400} iconClassName = "material-icons" 
           rippleColor='transparent' tooltip="Exit">exit_to_app</IconButton>
