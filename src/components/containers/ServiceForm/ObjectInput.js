@@ -13,12 +13,11 @@ import MenuItem from 'material-ui/MenuItem';
 import { get, set, has, cloneDeep } from 'lodash';
 import { paths } from 'common/utils';
 
-import { assign, keys } from 'lodash';
+import { assign, keys, union } from 'lodash';
 
 export class ObjectInput extends Component{
   constructor(props){
     super(props);
-
     this.state = {
       value: {}
     }
@@ -33,17 +32,34 @@ export class ObjectInput extends Component{
   }
 
   shouldComponentUpdate(nextProps, nextState){
-    let newKeys = assign({}, keys(nextProps.value || {}), keys(nextState.value || {}));
-    let oldKeys = assign({}, keys(this.props.value || {}), keys(this.state.value || {}));
+    let nextPropVal = nextProps.value || {};
+    let oldPropVal = this.props.value || {};
+    let newKeys = union(paths(nextPropVal), paths(nextState.value || {}));
+    let oldKeys = union(paths(oldPropVal), paths(this.state.value || {}));
+
+    
 
     if(newKeys.length != oldKeys.length){
       return true;
     }
 
-    /*
-    for(let key of allKeys){
+    let allKeys = union(newKeys, oldKeys);
 
-    }*/
+    for(let key of allKeys){
+      if(get(nextState.value, key) !== get(this.state.value, key)){
+        return true;
+      }
+    }
+
+    for(let key of allKeys){
+      if(get(nextPropVal, key) !== get(oldPropVal, key)){
+        return true;
+      }
+    }
+
+
+
+    return false;
   }
 
   isControlled(){
@@ -56,26 +72,30 @@ export class ObjectInput extends Component{
       for(let atr of paths(props.value) ){
         set(nmap, atr, get(props.value, atr));
       }
+      this.setState({
+        value: nmap
+      });
     }
-    this.setState({
-      value: nmap
-    })
   }
 
   onFieldChange(name, nval){
-    set(this.state.value, name, nval);
     let object = cloneDeep(this.state.value);
-    this.setState({
-      value: object
-    });
-    
+    set(object, name, nval);
     if(this.props.map) {
       object = this.props.map(object);
     }
 
-    if(this.props.onChange){
-      this.props.onChange(object);
-    }
+    this.setState({
+      value: object
+    }, () => {
+      if(this.props.onChange){
+        this.props.onChange(object);
+      }
+    });
+    
+    
+
+
   }
 
 
