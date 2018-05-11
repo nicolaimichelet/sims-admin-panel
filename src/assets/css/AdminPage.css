@@ -23,7 +23,7 @@ h1{
 }
 
 table{
-  width: 70%;
+  width: 100% !important;
   background-color: rgba(0, 0, 0, 0.075);
   border-bottom: 1px solid white;
   margin-left: 0.6%;

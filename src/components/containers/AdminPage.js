@@ -196,7 +196,7 @@ export class AdminPage extends Component {
               backgroundColor:'#DCEDC8',
               color: black,
               fontFamily: 'roboto',
-              fontWeight: '400',
+              fontWeight: '500',
           },
           rows:{
               fontFamily: 'roboto',
@@ -212,11 +212,11 @@ export class AdminPage extends Component {
           },
           content:{
               fontFamily: 'roboto',
-              fontWeight: '300',
+              fontWeight: '400',
               width: '40%',
           },
           rest:{
-              fontWeight: '300',
+              fontWeight: '200',
               fontFamily: 'roboto',
               textDecoration: 'none',
           },
@@ -225,7 +225,7 @@ export class AdminPage extends Component {
               fontFamily: 'roboto',
               fontWeight: '300',
             
-          }
+          },
         }
 
       const serviceElements = [];
@@ -319,17 +319,18 @@ export class AdminPage extends Component {
               primary = {true}
             
             /></Link>,
-          <RaisedButton
-            label = "delete"
-            onClick = { () => this.delete(this.state.selected)} 
-            style={ModuleStyle.button} 
-          />,
           <Link to = {`/services/${this.state.selected.id}`} style={ModuleStyle.button}>
             <RaisedButton
               label = 'details'
               primary = {true}
             
-            /></Link>
+            /></Link>,
+          <RaisedButton
+              label = "delete"
+              onClick = { () => this.delete(this.state.selected)}
+              secondary={true}
+              style={ModuleStyle.button}
+          />
         ]}
 
           >
@@ -346,14 +347,14 @@ export class AdminPage extends Component {
           :
           null
           }
-            <Dialog title="Are you sure you want to delete all services?"
+            <Dialog titleStyle={ModuleStyle.title} title="Are you sure you want to delete all services?"
                     open={this.state.deleteDialog}
                     onRequestClose = {() => this.handleDeleteClose()}>
-              <RaisedButton
+              <RaisedButton secondary={true} style={ModuleStyle.button}
                 label = "Delete all"
                 onClick = { () => this.deleteAll()}
               />
-              <RaisedButton
+              <RaisedButton primary={true}
                 label = "Cancel"
                 onClick = { () => this.handleDeleteClose()}
               />
