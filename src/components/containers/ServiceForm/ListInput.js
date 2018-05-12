@@ -41,15 +41,8 @@ export class ListInput extends Component{
       count: Math.min(Math.max(count, min), max)
     }, () => {
       this._updateList(this.props);
-      //this.props.onCountChange(this.state.count);
     });
   }
-
-  /*
-  shouldComponentUpdate(nextProps, nextState){
-    return false;
-  }
-  */
 
 
   removeField(idx){
