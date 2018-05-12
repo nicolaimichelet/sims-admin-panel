@@ -12,12 +12,14 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import App from 'components/containers/App';
 import { ServiceProvider, ConfigServiceProvider } from 'services';
 import { ServiceManager, HttpServiceInterface,HttpServiceProvider, ManagedServiceServiceProvider } from 'services';
+import { AuthServiceProvider } from './services';
 
 
 const serviceManager = new ServiceManager();
 
 serviceManager.registerService(ConfigServiceProvider, null, localStorage);
 serviceManager.registerService(HttpServiceProvider);
+serviceManager.registerService(AuthServiceProvider);
 serviceManager.registerService(ManagedServiceServiceProvider);
 
 let history;
@@ -27,7 +29,8 @@ if(process.env.ELECTRON){
 }else{
   history = createBrowserHistory();
 }
-console.log(history, process.env, process.env.ELECTRON);
+
+
 
 ReactDOM.render(
   <ServiceProvider serviceManager={serviceManager}>

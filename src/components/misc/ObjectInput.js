@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import _s from 'assets/css/ServiceForm.css';
-import TextField from 'material-ui/TextField';
-import DatePicker from 'material-ui/DatePicker';
+import PropTypes from 'prop-types';
 import Toggle from 'material-ui/Toggle';
 import { mapAndConnect, IManagedService, ManagedService} from "services";
 import {Redirect} from "react-router";
@@ -103,17 +101,29 @@ export class ObjectInput extends Component{
 
     const inputs = React.Children.map(this.props.children, (field, idx) => {
       if(field.props.name){
-        
         let onChange = (...a) => {
-          this.onFieldChange(field.props.name, a[1]);
+          let value = a[1];
+          if(field.props.mapValue){
+            value = field.props.mapValue(...a);
+          }else if(this.props.mapValues){
+            value = this.props.mapValues(...a);
+          }
+
+          this.onFieldChange(field.props.name, value);
           if(field.props.onChange){
             field.props.onChange(...a);
           }
-        }
+          
+          if(field.props.onCheck){
+            field.props.onCheck(...a);
+          }
 
+        }
         return React.cloneElement(field, {
           onChange: onChange,
+          onCheck: onChange,
           value: this.isControlled() ? get(this.state.value, field.props.name) : undefined,
+          checked: this.isControlled() ? get(this.state.value, field.props.name) : undefined,
           key: field.key || field.props.key || idx
         });
       }
@@ -127,3 +137,17 @@ export class ObjectInput extends Component{
     );
   }
 }
+
+
+ObjectInput.defaultProps = {
+  mapValues: (event, v) => {
+    if(v != null){return v;}
+    return event.target.value || event.target.checked;
+  }
+}
+
+ObjectInput.propTypes = {
+  value: PropTypes.object,
+  mapValues: PropTypes.func
+}
+

@@ -19,11 +19,11 @@ h1{
 .deleteAll {
   display: inline-block;
   float: right;
-  margin-right: 6%;
+  margin-right: 7.1%;
 }
 
 table{
-  width: 70%;
+  width: 100% !important;
   background-color: rgba(0, 0, 0, 0.075);
   border-bottom: 1px solid white;
   margin-left: 0.6%;
@@ -250,6 +250,22 @@ table{
   letter-spacing: 1px;
 }
 
+.search *{
+  color: #7CB342 !important;
+  font-weight: bold;
+  margin-left: 1% !important;
+  display: inline-block;
+  margin-right: 0.5%;
+  margin-top: 0.8%;
+  float: left;
+}
+
+.header{
+  border-left: 8px solid #7CB342;
+  padding-left: 0.6%;
+  margin-left: 1.4%;
+}
+
 .state-feasibilityChecked *, .state-designed *, .state-reserved *{
 color: lightblue !important;
 }
@@ -257,14 +273,17 @@ color: lightblue !important;
 .tableRow:hover{
   background-color: lightgray;
 }
-
+.tableHead{
+  color: black !important;
+}
 .tableHeader{
   cursor: pointer;
-  background-color: #DCEDC8;
 }
-
+.tableHeader th{
+  color: #000 !important;
+}
 .tableHeader:hover{
-  color: #17570d !important;
+  color: #70b13d !important;
   font-size: 90% !important;
   font-weight: 500 !important;
 }
