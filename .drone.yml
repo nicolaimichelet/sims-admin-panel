@@ -1,6 +1,4 @@
 pipeline:
-
-
   restore-cache:
     image: drillster/drone-volume-cache
     pull: true
@@ -9,8 +7,11 @@ pipeline:
     restore: true
     mount:
       - ./node_modules
+      - ./package-lock.json
+      - ./yarn.lock
     volumes:
       - /tmp/cache:/cache
+
   test:
     image: node:8-alpine
     when:
@@ -21,10 +22,14 @@ pipeline:
 
     commands:
       - yarn
-      - yarn test
+      - yarn test -- --coverage
 
 
-
+  code-cov:
+    image: robertstettner/drone-codecov
+    secrets: [ codecov_token ]
+    files:
+      - ./coverage/lcov.info
 
 
   rebuild-cache:
@@ -35,5 +40,8 @@ pipeline:
     rebuild: true
     mount:
       - ./node_modules
+      - ./package-lock.json
+      - ./yarn.lock
+
     volumes:
       - /tmp/cache:/cache
