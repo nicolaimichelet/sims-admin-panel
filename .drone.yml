@@ -7,30 +7,35 @@ pipeline:
     restore: true
     mount:
       - ./node_modules
-      - ./package-lock.json
-      - ./yarn.lock
     volumes:
       - /tmp/cache:/cache
 
   test:
-    image: node:8-alpine
+    image: node
+    pull: true
     when:
       event: 
-        - pull_request
         - push
+        - pull_request
         - tag
 
     commands:
-      - yarn
-      - yarn test -- --coverage
+      - npm install
+      - npm test -- --coverage
 
-
-  code-cov:
-    image: robertstettner/drone-codecov
+  upload-cov:
+    image: node
+    pull: true
     secrets: [ codecov_token ]
-    files:
-      - ./coverage/lcov.info
+    when:
+      event: 
+        - push
+        - pull_request
+        - tag
 
+    commands:
+      - npm install -g codecov
+      - codecov -t $${CODECOV_TOKEN}
 
   rebuild-cache:
     image: drillster/drone-volume-cache
@@ -40,8 +45,6 @@ pipeline:
     rebuild: true
     mount:
       - ./node_modules
-      - ./package-lock.json
-      - ./yarn.lock
 
     volumes:
       - /tmp/cache:/cache
