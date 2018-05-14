@@ -1,15 +1,4 @@
 pipeline:
-  restore-cache:
-    image: drillster/drone-volume-cache
-    pull: true
-    when:
-      event: [push, pull_request, tag, deployment]
-    restore: true
-    mount:
-      - ./node_modules
-    volumes:
-      - /tmp/cache:/cache
-
   test:
     image: node
     pull: true
@@ -36,15 +25,3 @@ pipeline:
     commands:
       - npm install -g codecov
       - codecov -t $${CODECOV_TOKEN}
-
-  rebuild-cache:
-    image: drillster/drone-volume-cache
-    pull: true
-    when:
-      event: [push, pull_request, tag, deployment]
-    rebuild: true
-    mount:
-      - ./node_modules
-
-    volumes:
-      - /tmp/cache:/cache
