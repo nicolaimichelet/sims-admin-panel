@@ -13,6 +13,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import { Link } from 'react-router-dom';
 import _s from 'assets/css/LoginForm.css';
+import logo from 'assets/logo/logo.png';
 
 export default class LoginForm extends Component{
   constructor(props){
@@ -66,7 +67,7 @@ export default class LoginForm extends Component{
         zDepth={4}
       >
         <Paper className={_s["login-header"]} zDepth={0}>
-          <h1>SIMS</h1>
+          <img src={logo} style={{height: '60px',   marginLeft: 'auto', marginRight: 'auto', display: 'block'}} alt='logo' />
         </Paper>
         <Paper className={_s["login-body"]} zDepth={0}>
           <TextField 
