@@ -30,8 +30,9 @@ export class DetailView extends Component {
               selected: id,
           })
         }, (err) => {
+            let errorMessage = `HTTP ERROR: ${err.status} - ${err.statusText}`
           this.setState({
-            errorText: err instanceof Response ? `HTTP ERROR: ${err.status} - ${err.statusText}` : "Could not load service"
+            errorText: err instanceof Response ? errorMessage : "Could not load service"
           })
         });
       }
@@ -58,9 +59,11 @@ export class DetailView extends Component {
         }
 
         let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
         const partyList =[];
         for (let party of this.state.service.getRelatedParty()){
-                partyList.push(<ul style = {{listStyleType: "none"}}>
+                partyList.push(
+                <ul style = {{listStyleType: "none"}}>
                 <li>NAME: {party.name}</li>
                 <li>ROLE: {party.role}</li>
                 <li>HREF: {party.href}</li>
@@ -147,6 +150,31 @@ export class DetailView extends Component {
             }
         }
 
+        let serviceSpec = this.state.service.getServiceSpecification();
+
+
+
+        const supportingServices = [];
+        for (let supp in this.state.service.getSupportingService()){
+            supportingServices.push(
+                <ul style = {{listStyleType: "none"}}>
+                <li>ID:{supportingServices.id}</li>
+                <li>HREF:{supportingServices.href}</li>
+                <li>Name: {supportingServices.name}</li> 
+                <li>Category: {supportingServices.category}</li></ul>           
+            )
+        }
+
+        const supportingResources = [];
+        for (let res in this.state.service.getSupportingResource()){
+            supportingResources.push(
+                <ul style = {{listStyleType: "none"}}>
+                <li>ID:{supportingResources.id}</li>
+                <li>HREF:{supportingResources.href}</li>
+                <li>Name: {supportingResources.name}</li>
+                </ul>
+            )
+        }
 
         return(
             <Paper style={detailStyle.page}>
@@ -182,37 +210,35 @@ export class DetailView extends Component {
                         <li>IS STATEFUL: <u style={detailStyle.contentText}>{this.state.service.isStateful ? 'Yes' : 'No'}</u></li>
                     </ul>
                 </Paper>
+                
+
+                {serviceSpec ? 
                 <Paper style={detailStyle.serviceSpec} zDepth={1}>
                     <h4 style={detailStyle.headerCaptions}>SERVICE SPECIFICATION:</h4>
                     <ul style = {{listStyleType: "none"}}>
-                        <li>Name: <u style={detailStyle.contentText}>{this.state.service.getServiceSpecification().name}</u></li>
-                        <li>ID: <u style={detailStyle.contentText}>{this.state.service.getServiceSpecification().id}</u></li>
-                        <li>HREF: <u style={detailStyle.contentText}>{this.state.service.getServiceSpecification().href}</u></li>
-                        <li>VERSION: <u style={detailStyle.contentText}>{this.state.service.getServiceSpecification().version}</u></li>
+
+                        <li>Name: <u style={detailStyle.contentText}>{serviceSpec.name}</u></li>
+                        <li>ID: <u style={detailStyle.contentText}>{serviceSpec.id}</u></li>
+                        <li>HREF: <u style={detailStyle.contentText}>{serviceSpec.href}</u></li>
+                        <li>VERSION: <u style={detailStyle.contentText}>{serviceSpec.version}</u></li>
                     </ul>
-                </Paper>
+                </Paper>: null}
+
                 <Paper style={detailStyle.relatedParty} zDepth={1}>
                     <h4 style={detailStyle.headerCaptions}>RELATED PARTY:</h4>
-                    <u style={detailStyle.contentText}>{partyList}</u>
+                    {partyList}
                 </Paper>
                 </div>
+
                 <div>
                 <Paper style={detailStyle.supportService}>
                 <h4 style={detailStyle.headerCaptions}>SUPPORTING SERVICE:</h4>
-                <ul style = {{listStyleType: "none"}}>
-                    <li>ID <u style={detailStyle.contentText}>{this.state.service.getSupportingService().id}</u></li>
-                    <li>HREF: <u style={detailStyle.contentText}>{this.state.service.getSupportingService().href}</u></li>
-                    <li>NAME: <u style={detailStyle.contentText}>{this.state.service.getSupportingService().name}</u></li>
-                    <li>CATEGORY: <u style={detailStyle.contentText}>{this.state.service.getSupportingService().category}</u></li>
-                </ul>
+                {supportingServices}
                 </Paper>
+
                 <Paper style={detailStyle.supportResource}>
                 <h4 style={detailStyle.headerCaptions}>SUPPORTING RESOURCE:</h4>
-                <ul style = {{listStyleType: "none"}}>
-                    <li>ID: <u style={detailStyle.contentText}>{this.state.service.getSupportingResource().id}</u></li>
-                    <li>HREF: <u style={detailStyle.contentText}>{this.state.service.getSupportingResource().href}</u></li>
-                    <li>NAME: <u style={detailStyle.contentText}>{this.state.service.getSupportingResource().name}</u></li>
-                </ul>
+                {supportingResources}
                 </Paper>
                 </div>
             </Paper>
