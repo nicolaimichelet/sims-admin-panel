@@ -32,7 +32,7 @@ export class LoginView extends Component{
   }
 
 
-  onConnect(baseUrl, authType){
+  onConnect(baseUrl, authType, settings){
     this.props.config.setItem("SIMS-BASE", baseUrl);
     // Try to fetch services to see if endpoint exists
     // Temp solution
@@ -48,7 +48,7 @@ export class LoginView extends Component{
         errorText: err instanceof Response ? `HTTP ERROR: ${err.status} - ${err.statusText}` : "Connection failed!" 
       });
     });*/
-    this.props.auth.login(authType);
+    this.props.auth.login(authType, settings);
   }
 
   render(){

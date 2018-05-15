@@ -7,10 +7,6 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
-import {lightGreen600, lightGreen400, lightGreen300} from 'material-ui/styles/colors';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
 import { Link } from 'react-router-dom';
 import _s from 'assets/css/LoginForm.css';
 
@@ -27,6 +23,7 @@ export default class LoginForm extends Component{
       password: "",
     },
     this.possibleAuth = ["None", "BasicAuth", "Guest"];
+    this.mapMethod = ["none", "basic_auth", "guest"];
   }
 
   onInputChange(href){
@@ -63,13 +60,22 @@ export default class LoginForm extends Component{
   }
 
 
-  render(){
+  submit(){
 
-    const muiTheme = getMuiTheme({
-        raisedButton: {
-          primaryColor: lightGreen400,
-        }
-      });
+    let settings = {
+      username: this.state.username,
+      password: this.state.password
+    };
+    let href = this.state.href || this.props.defaultValue || "";
+    let method = this.mapMethod[this.state.auth];
+
+
+
+    console.log("Submitting!");
+    this.props.onSubmit(href, method, settings); 
+  }
+
+  render(){
 
     const popOverElements = [];
     const options = this.props.options || [
@@ -117,30 +123,30 @@ export default class LoginForm extends Component{
               }
             }
           />
-          <MuiThemeProvider muiTheme={muiTheme}>
-
-            <div>
-              <SelectField onChange={(e,v) => this.onSetAuth(v)} value={this.state.auth} hintText="Choose authentication...">
-                {authItems}
-              </SelectField>
-            </div>
-
-            {this.state.auth === 1 ? <div>
-              <TextField onChange={(e,v)=> this.onSetUsername(v)} value={this.state.username}
-                            hintText="Enter username" floatingLabelText="Username"/>
-              <TextField onChange={(e,v)=> this.onSetPassword(v)} value={this.state.password} type="password"
-                         hintText="Enter password" floatingLabelText="Password"/>
-            </div> : null}
 
 
+          <div>
+            <SelectField onChange={(e,v) => this.onSetAuth(v)} value={this.state.auth} hintText="Choose authentication...">
+              {authItems}
+            </SelectField>
+          </div>
+
+          {this.state.auth === 1 ? <div>
+            <TextField onChange={(e,v)=> this.onSetUsername(v)} value={this.state.username}
+                          hintText="Enter username" floatingLabelText="Username"/>
+            <TextField onChange={(e,v)=> this.onSetPassword(v)} value={this.state.password} type="password"
+                        hintText="Enter password" floatingLabelText="Password"/>
+          </div> : null}
 
 
-          <RaisedButton
-            primary={true}
-            label="Connect"
-            onClick={() => this.props.onSubmit(this.state.href || this.props.defaultValue || "", this.possibleAuth[this.state.auth].toLowerCase())}
-          />
-          </MuiThemeProvider>
+
+
+        <RaisedButton
+          primary={true}
+          label="Connect"
+          onClick={() => this.submit()}
+        />
+
 
           <Popover
             open={this.state.popoverEnabled}
