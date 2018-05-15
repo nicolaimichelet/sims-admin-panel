@@ -13,6 +13,10 @@ import { mapAndConnect, IManagedService, ConfigServiceInterface, IAuthService } 
 
 import _s from 'assets/css/LoginView.css';
 
+import {lightGreen300} from 'material-ui/styles/colors';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
 
 
 /* Simple login page for the admin panel */
@@ -48,10 +52,18 @@ export class LoginView extends Component{
   }
 
   render(){
+      const muiTheme = getMuiTheme({
+          textField: {
+              focusColor: lightGreen300,
+              fontFamily: 'roboto',
+              fontWeight: '300',
+          }
+      })
 
 
     return (
       <div className={_s["form-container"]}>
+        <MuiThemeProvider muiTheme={muiTheme}>
         {
           !this.state.success ? <LoginForm 
             onSubmit={(...a) => this.onConnect(...a)}
@@ -60,6 +72,7 @@ export class LoginView extends Component{
             errorText={this.state.errorText}
           /> : <Redirect to="/services" />
         }
+        </MuiThemeProvider>
       </div>
     );
   }

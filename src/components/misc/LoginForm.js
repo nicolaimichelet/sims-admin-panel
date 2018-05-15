@@ -120,7 +120,7 @@ export default class LoginForm extends Component{
         color: "#FFFFFF"
       },
     };
-
+    
     const popOverElements = [];
     const options = this.props.options || [
 

@@ -8,8 +8,12 @@ import { mapAndConnect, IManagedService, ManagedService} from "services";
 import {Redirect} from "react-router";
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import 'typeface-roboto';
 
 import Divider from 'material-ui/Divider';
+
+
+import {lightGreen600, lightGreen400, lightGreen300, lightGreen700} from 'material-ui/styles/colors';
 
 import Paper from 'material-ui/Paper';
 
@@ -188,7 +192,6 @@ export class ServiceForm extends Component {
 
     render() {
 
-
       const isEnabled = this.canBeSubmitted();
 
       const stateMenuItems = this.possibleStates.map((t, number) => {
@@ -202,6 +205,7 @@ export class ServiceForm extends Component {
       return (
         <Paper className={_s.paperContainer}>
           <div className={_s.form}>
+
             <h1 className={_s.header}> Add New Service</h1>
 
             <div className={_s.formtext}>
@@ -234,15 +238,15 @@ export class ServiceForm extends Component {
 
             <Divider className={_s.divider} />
 
-            <div className={_s.dropdown1}>
-              <h3>Start Mode</h3>
+            <div className={_s.dropDownMenu}>
+              <h3 className={_s.subTitle>Start Mode</h3>
                 <SelectField onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode} hintText="Start mode...">
                   {startModeItems}
                 </SelectField>
             </div>
 
-            <div className={_s.dropdown2}>
-              <h3>State</h3>
+            <div className={_s.dropDownMenu2}>
+              <h3 className={_s.subTitle}>State</h3>
                 <SelectField onChange={(e,v) => this.onFieldChange("state", v)} value={this.state.formValues.state} hintText={"State of the service..."}>
                   {stateMenuItems}
                 </SelectField>
@@ -251,7 +255,7 @@ export class ServiceForm extends Component {
             <Divider className={_s.divider} />
 
             <div className={_s.dates}>
-              <h3>Order date</h3>
+              <h3 className={_s.subTitle}>Order date</h3>
               <DatePicker
                 hintText={"Order Date"}
                 onChange={(e,date) => {this.onFieldChange("orderDate",date)}}
@@ -259,7 +263,7 @@ export class ServiceForm extends Component {
               />
             </div>
             <div className={_s.dates}>
-              <h3>Start date</h3>
+              <h3 className={_s.subTitle}>Start date</h3>
               <DatePicker
                 hintText={"Start Date"}
                 onChange={(e,date) => {this.onFieldChange("startDate",date)}}
@@ -276,7 +280,7 @@ export class ServiceForm extends Component {
             </div>
             <Divider className={_s.divider} />
             <div>
-              <h3>Service Specification</h3>
+              <h3 className={_s.subTitle}>Service Specification</h3>
               <ObjectInput value={this.state.formValues.serviceSpecification} onChange={(v) => this.onFieldChange("serviceSpecification", v)}>
                 <DebounceTextField className={_s.objectTextField} type="name" name="name" hintText="Name of the service specification..." floatingLabelText="Name" />
                 <DebounceTextField className={_s.objectTextField} name="href" hintText="Href of the service specification..." floatingLabelText="HREF"/>
@@ -285,32 +289,32 @@ export class ServiceForm extends Component {
             </div>
             <Divider className={_s.divider} />
             <div>
-              <h3>Related Parties</h3>
+              <h3 className={_s.subTitle}>Related Parties</h3>
               <ListInput min={1} onChange={(v) => {this.onFieldChange("relatedParty", v)}} count={this.state.formValues.relatedParty.length} values={this.state.formValues.relatedParty} component={RelatedPartyList} />
             </div>
             <Divider className={_s.divider} />
 
             <div>
-              <h3>Service Characteristic</h3>
+              <h3 className={_s.subTitle}>Service Characteristic</h3>
               <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceCharacteristic", v)}} count={this.state.formValues.serviceCharacteristic.length} values={this.state.formValues.serviceCharacteristic} component={ServiceCharacteristicList} />
             </div>
             <Divider className={_s.divider} />
 
             <div>
-              <h3>Service Relationship</h3>
+              <h3 className={_s.subTitle}>Service Relationship</h3>
               <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceRelationship", v)}} count={this.state.formValues.serviceRelationship.length} values={this.state.formValues.serviceRelationship} component={ServiceRelationshipList} />
             </div>
 
             <Divider className={_s.divider} />
             <div>
-              <h3>Supporting Service</h3>
+              <h3 className={_s.subTitle}>Supporting Service</h3>
               <ListInput min={0} onChange={(v) => {this.onFieldChange("supportingService", v)}} count={this.state.formValues.supportingService.length} values={this.state.formValues.supportingService} component={SupportingServiceList} />
             </div>
 
             <Divider className={_s.divider} />
 
             <div>
-              <h3>Supporting Resource</h3>
+              <h3 className={_s.subTitle}>Supporting Resource</h3>
               <ListInput min={0} onChange={(v) => {this.onFieldChange("supportingResource", v)}} count={this.state.formValues.supportingResource.length} values={this.state.formValues.supportingResource} component={SupportingResourceList} />
             </div>
             <Divider className={_s.divider} />
