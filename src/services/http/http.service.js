@@ -38,8 +38,12 @@ export class HttpServiceProvider extends HttpServiceInterface{
   }
 
   setToken(token) {
-    this.auth_token = token;
-    this.token_type = "Bearer"; 
+    /*this.auth_token = token;
+    this.token_type = "Bearer";*/
+  }
+
+  setAuthMethod(authenticator) {
+    this.authenticator = authenticator;
   }
 
   handleResponse(r) {
@@ -56,8 +60,9 @@ export class HttpServiceProvider extends HttpServiceInterface{
    */
   request(request) {
     // Add token to request
-    if(this.auth_token){
-      request.headers.set('Authorization', `${this.token_type} ${this.auth_token}`);
+    if(this.authenticator){
+      request = this.authenticator(request);
+      //request.headers.set('Authorization', `${this.token_type} ${this.auth_token}`);
     }
     const resolver = new Subject();
     // Push request into request 'stream'/queue
