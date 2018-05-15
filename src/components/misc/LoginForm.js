@@ -206,7 +206,7 @@ export default class LoginForm extends Component{
               <ul style={{listStyleType: "none"}}>
                 <li>None: <u style={ModuleStyle.rest}>No form of authentication. This gives you full access to everything</u> </li>
                 <li>BasicAuth: <u style={ModuleStyle.rest}>Prompts for username and password. Secure login with basic authentication</u> </li>
-                <li>Guest: <u style={ModuleStyle.rest}>Certain features like adding, editing or deleting services are unavailable. No authentication</u></li>
+                <li>Guest: <u style={ModuleStyle.rest}>Certain features like adding, editing or deleting services are unavailable.</u></li>
               </ul>
 
             </Dialog>
