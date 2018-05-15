@@ -324,13 +324,16 @@ export class AdminPage extends Component {
           open = {this.state.tableDialog}
           onRequestClose = {() => this.handleTableClose()}
 
-                  actions = {[<Link to = {`/services/edit/${this.state.selected.id}`} style={ModuleStyle.button}>
+                  actions = {
+                    [<Link to = {`/services/edit/${this.state.selected.id}`} style={ModuleStyle.button}>
+
+            {this.props.user && this.props.user.isAdmin() ?
 
             <RaisedButton
               label = 'edit'
               primary = {true}
             
-            /></Link>,
+            /> : null} </Link>,
 
           <Link to = {`/services/${this.state.selected.id}`} style={ModuleStyle.button}>
             <RaisedButton
@@ -339,12 +342,15 @@ export class AdminPage extends Component {
             
             /></Link>,
 
+
+            <div className={_s.deleteButtonPlacement}>
+              {this.props.user && this.props.user.isAdmin() ?
             <RaisedButton
               label = "delete"
               onClick = { () => this.delete(this.state.selected)}
               style={ModuleStyle.button}
               secondary={true}
-            />
+            />  : null} </div>
         ]}
 
           >
