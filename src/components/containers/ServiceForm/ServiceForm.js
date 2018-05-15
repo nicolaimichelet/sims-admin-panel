@@ -239,7 +239,7 @@ export class ServiceForm extends Component {
             <Divider className={_s.divider} />
 
             <div className={_s.dropDownMenu}>
-              <h3 className={_s.subTitle>Start Mode</h3>
+              <h3 className={_s.subTitle}>Start Mode</h3>
                 <SelectField onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode} hintText="Start mode...">
                   {startModeItems}
                 </SelectField>
