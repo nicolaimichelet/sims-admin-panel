@@ -56,9 +56,10 @@ export class AdminPage extends Component {
         active: "check_circle_outline",
         inactive: "pause_circle_outline",
         terminated: "highlight_off",
-        designed: "announcement",
-        reserved: "phone",
-        search: "search"
+        designed: "blur_circular",
+        reserved: "query_builder",
+        search: "search",
+        feasibilityChecked: "donut_large"
       }
     }
 

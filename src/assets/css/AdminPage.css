@@ -275,8 +275,20 @@ table{
   background-color: #9CCC65 !important;
 }
 
-.state-feasibilityChecked *, .state-designed *, .state-reserved *{
-color: lightblue !important;
+.state-reserved *{
+  color: lightskyblue !important;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.state-feasibilityChecked *{
+  color: #ffa64c !important;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.state-designed *{
+  color: #c270ff !important;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .tableRow:hover{
