@@ -27,28 +27,24 @@ export class LoginView extends Component{
     }
   }
 
-  componentDidMount(){
-    console.log(this.props);
-  }
 
-
-  onConnect(baseUrl, authType){
+  onConnect(baseUrl, authType, settings){
     this.props.config.setItem("SIMS-BASE", baseUrl);
     // Try to fetch services to see if endpoint exists
     // Temp solution
-    /*this.props.imService.getServices().subscribe(() => {
-      // Success
-      this.setState({
-        success: true
+    this.props.auth.login(authType, settings).subscribe(() => {
+      this.props.imService.getServices().subscribe(() => {
+        // Success
+        this.setState({
+          success: true
+        });
+      }, (err) => {
+        // Fail
+        this.setState({
+          errorText: err instanceof Response ? `HTTP ERROR: ${err.status} - ${err.statusText}` : "Connection failed!" 
+        });
       });
-    }, (err) => {
-      // Fail
-      console.log(err);
-      this.setState({
-        errorText: err instanceof Response ? `HTTP ERROR: ${err.status} - ${err.statusText}` : "Connection failed!" 
-      });
-    });*/
-    this.props.auth.login(authType);
+    });
   }
 
   render(){
