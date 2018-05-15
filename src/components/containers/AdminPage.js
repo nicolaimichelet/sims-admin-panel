@@ -64,19 +64,27 @@ export class AdminPage extends Component {
 
 
     componentDidMount(){
-      this.querySubject.debounceTime(300).distinctUntilChanged().subscribe((a)=> {
-        this.props.imService.search({name : a}).subscribe((services) => {
+      this.subs=[
+        this.querySubject.debounceTime(300).distinctUntilChanged().subscribe((a)=> {
+          this.props.imService.search({name : a}).subscribe((services) => {
+            this.setState({
+              services: services
+            });
+          });
+        }),
+        this.props.imService.getServices().subscribe((services) => {
           this.setState({
             services: services
           });
-        });
-      });
-      this.props.imService.getServices().subscribe((services) => {
-        this.setState({
-          services: services
-        });
-      });
+        }),
+      ];
       this.refresh()
+    }
+
+    componentWillUnmount(){
+      for(let sub of this.subs){
+        sub.unsubscribe();
+      }
     }
 
     //open Table dialog
@@ -85,7 +93,6 @@ export class AdminPage extends Component {
             tableDialog: true,
             selected: service,
         });
-        console.log('service clicked')
     }
 
     //opens Delete Dialog
@@ -93,7 +100,6 @@ export class AdminPage extends Component {
       this.setState({
         deleteDialog: true
       });
-      console.log('delete all clicked')
     }
 
     //Handles table dialog, closes it.
@@ -234,7 +240,7 @@ export class AdminPage extends Component {
         let e = services[i];
         const icon = this.icons[e.state];
         serviceElements.push(
-          <TableRow className = {_s.tableRow} onRowClick={console.log} key = {i}>
+          <TableRow className = {_s.tableRow} key = {i}>
           <TableRowColumn>{e.id}</TableRowColumn>
           <TableRowColumn>{e.name}</TableRowColumn>
           <TableRowColumn>{e.href}</TableRowColumn>
@@ -268,10 +274,10 @@ export class AdminPage extends Component {
           <RaisedButton className={_s.deleteAll} onClick={ () => {
             this.handleClickDelete()
           }} label="Delete all" secondary={true}/> : null}
-
+          {this.props.user && this.props.user.isAdmin() ?
           <RaisedButton className={_s.deleteAll} onClick={ () => {
             this.seedServices()
-          }} label="Example data" primary={true}/>
+          }} label="Example data" primary={true}/> : null}
 
           <br />
           <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>

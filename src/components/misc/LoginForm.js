@@ -36,7 +36,6 @@ export default class LoginForm extends Component{
     this.setState({
       auth: value,
     });
-    console.log(value);
   }
 
   onSetUsername(value){
@@ -52,7 +51,6 @@ export default class LoginForm extends Component{
   }
 
   setPopover(enable, target){
-    console.log("Popover change", enable, target);
     this.setState({
       popoverEnabled: enable,
       popoverTarget: target
@@ -69,9 +67,6 @@ export default class LoginForm extends Component{
     let href = this.state.href || this.props.defaultValue || "";
     let method = this.mapMethod[this.state.auth];
 
-
-
-    console.log("Submitting!");
     this.props.onSubmit(href, method, settings); 
   }
 
@@ -83,7 +78,6 @@ export default class LoginForm extends Component{
     ]
     for(let i in options){
       let e = options[i];
-      console.log(e.href);
       popOverElements.push(
         <MenuItem key={i} primaryText={e.href} />
       );

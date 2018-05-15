@@ -2,17 +2,15 @@ import { UserManager, Log } from 'oidc-client';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
 
 import { IAuthService } from './auth.interface';
-import { HttpServiceInterface } from 'services';
+import { HttpServiceInterface, ConfigServiceInterface } from 'services';
 import { User } from './user';
 
 Log.logger = console;
 Log.level = Log.DEBUG;
 
-function basicAuthFactory(username, password){
+function basicAuthFactory(encoded){
   return function(request){
-    /*request.url = nurl.toString();*/
-    let encoded = new Buffer(`${username}:${password}`).toString("base64");
-    request.headers.set("Authorization",`Basic ${encoded}`)
+    request.headers.set("Authorization",`Basic ${encoded}`);
     return request;
   }
 }
@@ -23,13 +21,22 @@ function basicAuthFactory(username, password){
 export class AuthServiceProvider extends IAuthService{
   constructor(serviceManager,settings){
     super();
+    
     this._user = null;  
     this.userSubject = new Subject();
     this.userReplay = new ReplaySubject(1);
     this._loginState = 0;
     this.services = serviceManager;
     this.http = serviceManager.getService(HttpServiceInterface);
+    this.config = serviceManager.getService(ConfigServiceInterface);
     this.method = "none";
+
+    this.savedState = this.config.getObject("AUTH_DATA") || {};
+    if(this.savedState.loggedIn){
+      this.login(this.savedState.method, this.savedState.settings);
+    }else{
+      this.setUser(null, true);
+    }
     //this._initBindings();
   }
 
@@ -80,7 +87,6 @@ export class AuthServiceProvider extends IAuthService{
     this._loginState = 1;
     this.method = method;
     this.settings = options;
-    console.log(method);
     if(method == "openid"){
 
       this.userManager = new UserManager(Object.assign({
@@ -97,23 +103,35 @@ export class AuthServiceProvider extends IAuthService{
         admin: false
       }}, true);
     }else if(method == "basic_auth"){
-      console.log("BASIC!");
-      let {username, password} = options;
-      this.http.setAuthMethod(basicAuthFactory(username, password));
+      let {username, password, encoded} = options;
+      if(encoded == null){
+        encoded = new Buffer(`${username}:${password}`).toString("base64");
+      }
+      this.http.setAuthMethod(basicAuthFactory(encoded));
       this.setUser({profile: {
         admin: true
       }}, true);
+
+      this.savedState.settings = {
+        encoded: encoded
+      };
 
     }else{
       this.setUser({profile: {
         admin: true
       }}, true);
     }
+    this.savedState.method = method;
+    this.savedState.loggedIn = true;
+    this.config.setObject("AUTH_DATA", this.savedState);
     return this.getUser();
   }
   
   logout(){
     this._loginState = 2;
+    this.savedState = {
+      loggedIn: false
+    }
     this.http.setAuthMethod(null);
     sessionStorage.clear();
     this.setUser(null,true);
@@ -121,6 +139,7 @@ export class AuthServiceProvider extends IAuthService{
     Observable.from(this.userManager.signoutPopup()).subscribe((user)=> {
     });*/
     this._clearBindings();
+    this.config.setObject("AUTH_DATA", this.savedState);
     return this.getUser();
   
   }

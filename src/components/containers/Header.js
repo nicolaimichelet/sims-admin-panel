@@ -53,7 +53,7 @@ export class Header extends Component {
     ];
 
     return(
-          <AppBar
+        <AppBar
             title="SIMS"
             titleStyle={textStyle.appBar}
             style={{backgroundColor: lightGreen600}}
@@ -62,7 +62,7 @@ export class Header extends Component {
               <ToolbarGroup>
               {toolbar}
               </ToolbarGroup>
-          </AppBar>
+        </AppBar>
     );
   }
 }

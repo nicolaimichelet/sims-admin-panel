@@ -21,14 +21,17 @@ export class App extends Component {
   }
 
   componentDidMount(){
-    this.props.auth.onUserChange().subscribe(user => {
-      console.log(user);
+    let authSub = this.props.auth.onUserChange().subscribe(user => {
       this.setState({
         redirect: user ? "/services" : "/login",
         user: user
       });
       this.doRedirect = true;
     })
+  }
+
+  componentWillUnmount(){
+    this.authSub.unsubscribe();
   }
 
   render() {
