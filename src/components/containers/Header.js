@@ -56,7 +56,7 @@ export class Header extends Component {
 
     return(
           <AppBar
-              title={<div><img src={logo} style={{height: '60px', align: 'right', marginTop: '2px'}} alt="logo"/><img src={logoname} style={{height: '30px', margin: '15px'}} alt="logo"/></div>}
+              title={<Link to='/services'><img src={logo} style={{height: '60px', align: 'right', marginTop: '2px'}} alt="logo"/><img src={logoname} style={{height: '30px', margin: '15px'}} alt="logo"/></Link>}
             titleStyle={textStyle.appBar}
             style={{backgroundColor: lightGreen600}}
             iconElementLeft={<div/>}
