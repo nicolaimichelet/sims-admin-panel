@@ -11,6 +11,8 @@ import { IAuthService, mapAndConnect } from 'services';
 import 'typeface-roboto';
 import {lightGreen600,lightGreen400, lightGreen300, lightGreen900, grey50} from 'material-ui/styles/colors';
 
+import logo from 'assets/logo/logo.png';
+import logoname from 'assets/logo/logoname.png';
 
 export class Header extends Component {
 
@@ -53,8 +55,8 @@ export class Header extends Component {
     ];
 
     return(
-        <AppBar
-            title="SIMS"
+          <AppBar
+              title={<div><img src={logo} style={{height: '60px', align: 'right', marginTop: '2px'}} alt="logo"/><img src={logoname} style={{height: '30px', margin: '15px'}} alt="logo"/></div>}
             titleStyle={textStyle.appBar}
             style={{backgroundColor: lightGreen600}}
             iconElementLeft={<div/>}
