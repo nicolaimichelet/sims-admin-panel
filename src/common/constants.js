@@ -1,5 +1,5 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { lightGreen600, lightGreen400, lightGreen300, lightGreen200, lightGreen900, lightGreen700, red700, grey300, grey500} from 'material-ui/styles/colors';
+import { lightGreen600, lightGreen400, lightGreen300, lightGreen200, lightGreen900, lightGreen700, red700, grey300, grey500, white} from 'material-ui/styles/colors';
 
 export const DEFAULT_API="http://localhost:3000/api/";
 
@@ -15,6 +15,7 @@ export const THEME = getMuiTheme({
     secondaryColor: red700,
     fontFamily: 'roboto',
     fontWeight: '300',
+    color: white,
   },
   textField: {
     focusColor: lightGreen300,

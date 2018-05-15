@@ -9,7 +9,7 @@ import _s from 'assets/css/Header.css';
 import IconButton from "material-ui/IconButton";
 import { IAuthService, mapAndConnect } from 'services';
 import 'typeface-roboto';
-import {lightGreen600,lightGreen400, lightGreen300, lightGreen900, grey50} from 'material-ui/styles/colors';
+import {lightGreen600,lightGreen400} from 'material-ui/styles/colors';
 
 import logo from 'assets/logo/logo.png';
 import logoname from 'assets/logo/logoname.png';
