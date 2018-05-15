@@ -208,19 +208,19 @@ export class ServiceForm extends Component {
 
             <h1 className={_s.title}>Add New Service</h1>
 
-            <div className={_s.formtext}>
+            <div className={_s.objectTextField}>
               <DebounceTextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} hintText="Reference of the service..." floatingLabelText="HREF"/>
             </div>
 
-            <div className={_s.formtext}>
+            <div className={_s.objectTextField}>
               <DebounceTextField onChange={(e,v)=> this.onFieldChange("category", v)} value={this.state.formValues.category} hintText="Enter category..." floatingLabelText="Category"/>
             </div>
 
-            <div className={_s.formtext}>
+            <div className={_s.objectTextField}>
               <DebounceTextField onChange={(e,v)=> this.onFieldChange("name", v)} value={this.state.formValues.name} errorText={this.state.formValues.nameError} hintText="Enter name..." floatingLabelText="Name"/>
             </div>
 
-            <div className={_s.formtext}>
+            <div className={_s.objectTextField}>
               <DebounceTextField onChange={(e,v)=> this.onFieldChange("description", v)} value={this.state.formValues.description} hintText="Description of the service..." floatingLabelText="Description" multiLine={true} rows={1}/>
             </div>
 
