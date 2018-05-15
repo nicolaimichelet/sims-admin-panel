@@ -162,25 +162,25 @@ export class DetailView extends Component {
         let serviceSpec = this.state.service.getServiceSpecification();
 
 
-
         const supportingServices = [];
-        for (let supp in this.state.service.getSupportingService()){
+        for (let supp of this.state.service.getSupportingService()){
             supportingServices.push(
                 <ul style = {{listStyleType: "none"}}>
-                <li>ID:{supportingServices.id}</li>
-                <li>HREF:{supportingServices.href}</li>
-                <li>Name: {supportingServices.name}</li> 
-                <li>Category: {supportingServices.category}</li></ul>           
+                <li>ID: {supp.id}</li>
+                <li>HREF: {supp.href}</li>
+                <li>Name: {supp.name}</li> 
+                <li>Category: {supp.category}</li>
+                </ul>           
             )
         }
 
         const supportingResources = [];
-        for (let res in this.state.service.getSupportingResource()){
+        for (let res of this.state.service.getSupportingResource()){
             supportingResources.push(
                 <ul style = {{listStyleType: "none"}}>
-                <li>ID:{supportingResources.id}</li>
-                <li>HREF:{supportingResources.href}</li>
-                <li>Name: {supportingResources.name}</li>
+                <li>ID:{res.id}</li>
+                <li>HREF:{res.href}</li>
+                <li>Name: {res.name}</li>
                 </ul>
             )
         }

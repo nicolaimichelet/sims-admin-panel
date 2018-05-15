@@ -81,12 +81,10 @@ function ServiceRelationshipList(props){
 function SupportingServiceList(props){
   return (
     <ObjectInput {...props}>
-      <DebounceTextField className={_s.objectTextField} type="text" name="id"
-                         hintText="ID of supporting service..."
-                         floatingLabelText="ID" />
-      <DebounceTextField className={_s.objectTextField} type="text" name="href"
-                         hintText="Href of supporting service..."
-                         floatingLabelText="HREF" />
+
+      <DebounceTextField className={_s.objectTextField} type="text" name="href" hintText="Href of supporting service..." floatingLabelText="HREF" />
+      <DebounceTextField className={_s.objectTextField} type="text" name="name" hintText="Name of supporting service..." floatingLabelText="Name" />
+      <DebounceTextField className={_s.objectTextField} type="text" name="category" hintText="Category of supporting service..." floatingLabelText="Category" />
     </ObjectInput>
   );
 }
@@ -94,13 +92,9 @@ function SupportingServiceList(props){
 function SupportingResourceList(props){
   return (
     <ObjectInput {...props}>
-      <DebounceTextField className={_s.objectTextField}
-                         type="text" name="id"
-                         hintText="ID of supporting resource..."
-                         floatingLabelText="ID" />
-      <DebounceTextField className={_s.objectTextField} type="text" name="href"
-                         hintText="Href of supporting resource..."
-                         floatingLabelText="HREF" />
+
+      <DebounceTextField className={_s.objectTextField} type="text" name="href" hintText="Href of supporting resource..." floatingLabelText="HREF" />
+
     </ObjectInput>
   );
 }
@@ -365,15 +359,12 @@ export class ServiceForm extends Component {
             </div>
             <Divider className={_s.divider} />
 
-            <div>
+            {/*<div>
               <h3 className={_s.subTitle}>Service Relationship</h3>
-              <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceRelationship", v)}}
-                         count={this.state.formValues.serviceRelationship.length}
-                         values={this.state.formValues.serviceRelationship}
-                         component={ServiceRelationshipList} />
-            </div>
+              <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceRelationship", v)}} count={this.state.formValues.serviceRelationship.length} values={this.state.formValues.serviceRelationship} component={ServiceRelationshipList} />
+            </div>*/}
 
-            <Divider className={_s.divider} />
+            {/*<Divider className={_s.divider} />*/}
             <div>
               <h3 className={_s.subTitle}>Supporting Service</h3>
               <ListInput min={0} onChange={(v) => {this.onFieldChange("supportingService", v)}}

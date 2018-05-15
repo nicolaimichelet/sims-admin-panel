@@ -57,6 +57,10 @@ export class ManagedService{
       service.addServiceRelationship(new ServiceRelationship(e.type, e.service));
     });
 
+    data.supportingService.forEach((e) => {
+      service.addSupportingService(new SupportingService(e.id, e.href, e.name, e.category));
+    })
+
     data.supportingResource.forEach((e) => {
       service.addSupportingResource(new SupportingResource(e.id, e.href));
     });
@@ -113,6 +117,10 @@ export class ManagedService{
   addSupportingResource(resource){
     this.supportingResource.push(resource);
   }
+  
+  addSupportingService(service){
+    this.supportingService.push(service);
+  }
 
   setServiceSpecification(spec){
     this.serviceSpecification = spec;
@@ -159,14 +167,14 @@ export class ManagedService{
     return this.supportingResource;
   }
 
-  getServiceSpecification(){
-    return this.serviceSpecification;
-  }
-  
   getSupportingService(){
     return this.supportingService;
   }
 
+  getServiceSpecification(){
+    return this.serviceSpecification;
+  }
+  
   static fromObject(data){
     return new ManagedService(data);
   }
