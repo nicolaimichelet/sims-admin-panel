@@ -94,6 +94,7 @@ export class ManagedService{
       serviceRelationship: this.serviceRelationship.map((e) => e.toData()),
       serviceSpecification: this.serviceSpecification && this.serviceSpecification.toData(),
       supportingResource: this.supportingResource.map((e) => e.toData()),
+      supportingService: this.supportingService.map((e) => e.toData()),
     }
   }
 
@@ -160,6 +161,10 @@ export class ManagedService{
 
   getServiceSpecification(){
     return this.serviceSpecification;
+  }
+  
+  getSupportingService(){
+    return this.supportingService;
   }
 
   static fromObject(data){
@@ -233,6 +238,24 @@ export class SupportingResource{
       href: this.href,
       version: this.version,
       name: this.name
+    }
+  }
+}
+
+export class SupportingService{
+  constructor(id,href,name,category){
+    this.id = id;
+    this.href = href;
+    this.name = name;
+    this.category = category;
+  }
+
+  toData(){
+    return{
+      id: this.id,
+      href: this.href,
+      name: this.name,
+      category: this.category
     }
   }
 }
