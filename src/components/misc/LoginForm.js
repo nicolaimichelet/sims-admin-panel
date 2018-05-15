@@ -210,8 +210,6 @@ export default class LoginForm extends Component{
               </ul>
 
             </Dialog>
-         
-        />
 
 
           <Popover
