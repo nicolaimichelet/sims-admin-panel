@@ -1,0 +1,27 @@
+pipeline:
+  test:
+    image: node
+    pull: true
+    when:
+      event: 
+        - push
+        - pull_request
+        - tag
+
+    commands:
+      - npm install
+      - npm test -- --coverage
+
+  upload-cov:
+    image: node
+    pull: true
+    secrets: [ codecov_token ]
+    when:
+      event: 
+        - push
+        - pull_request
+        - tag
+
+    commands:
+      - npm install -g codecov
+      - codecov -t $${CODECOV_TOKEN}

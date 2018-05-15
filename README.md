@@ -1,3 +1,7 @@
+
+[![Build Status](https://drone.faavne.no/api/badges/ServiceInventoryManagementSystem/sims-admin-panel/status.svg)](https://drone.faavne.no/ServiceInventoryManagementSystem/sims-admin-panel)
+[![codecov](https://codecov.io/gh/ServiceInventoryManagementSystem/sims-admin-panel/branch/master/graph/badge.svg)](https://codecov.io/gh/ServiceInventoryManagementSystem/sims-admin-panel)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
