@@ -266,6 +266,10 @@ table{
   margin-left: 1.4%;
 }
 
+.dialogColor > div:first-child {
+  background-color: #9CCC65 !important;
+}
+
 .state-feasibilityChecked *, .state-designed *, .state-reserved *{
 color: lightblue !important;
 }

@@ -10,6 +10,7 @@ import SelectField from 'material-ui/SelectField';
 import {lightGreen600, lightGreen400, lightGreen300} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Dialog from 'material-ui/Dialog'
 
 import { Link } from 'react-router-dom';
 import _s from 'assets/css/LoginForm.css';
@@ -26,6 +27,7 @@ export default class LoginForm extends Component{
       auth: "",
       username: "",
       password: "",
+      helpDialog: false
     },
     this.possibleAuth = ["None", "BasicAuth", "Guest"];
   }
@@ -55,6 +57,21 @@ export default class LoginForm extends Component{
     })
   }
 
+  //opens Help Dialog
+  handleHelpClick(){
+    this.setState({
+      helpDialog: true
+    });
+    console.log('delete all clicked')
+  }
+
+  //Handles help dialog, closes it.
+  handleHelpClose(){
+    this.setState({
+      helpDialog: false,
+    });
+  }
+
   setPopover(enable, target){
     console.log("Popover change", enable, target);
     this.setState({
@@ -71,6 +88,32 @@ export default class LoginForm extends Component{
 
 
   render(){
+
+    const ModuleStyle = {
+      dialogTitle:{
+        fontFamily: 'roboto',
+        fontSize: 25,
+        fontWeight: '200',
+        color: "#FFFFFF"
+      },
+      content:{
+        fontFamily: 'roboto',
+        fontWeight: '400',
+        width: '40%',
+        color: "#FFFFFF"
+      },
+      button: {
+        marginLeft:'52%',
+        fontFamily: 'roboto',
+        fontWeight: '300',
+      },
+      rest:{
+        fontWeight: '200',
+        fontFamily: 'roboto',
+        textDecoration: 'none',
+        color: "#FFFFFF"
+      },
+    };
 
     const muiTheme = getMuiTheme({
         raisedButton: {
@@ -143,13 +186,33 @@ export default class LoginForm extends Component{
 
 
 
-
           <RaisedButton
             primary={true}
             label="Connect"
             onClick={() => this.props.onSubmit(this.state.href || this.props.defaultValue || "", this.possibleAuth[this.state.auth].toLowerCase())}
             disabled={!isAuth}
           />
+
+
+          <RaisedButton style={ModuleStyle.button}
+            primary = {true}
+            label="Help"
+            onClick={() => this.handleHelpClick()}
+          />
+
+
+
+            <Dialog contentClassName={_s.dialogHelpColor} title="Information about authentication" titleStyle={ModuleStyle.dialogTitle} contentStyle={ModuleStyle.content}
+                    open={this.state.helpDialog}
+                    onRequestClose = {() => this.handleHelpClose()}>
+
+              <ul style={{listStyleType: "none"}}>
+                <li>None: <u style={ModuleStyle.rest}>No form of authentication. This gives you full access to everything</u> </li>
+                <li>BasicAuth: <u style={ModuleStyle.rest}>Prompts for username and password. Secure login with basic authentication</u> </li>
+                <li>Guest: <u style={ModuleStyle.rest}>Certain features like adding, editing or deleting services are unavailable. No authentication</u></li>
+              </ul>
+
+            </Dialog>
           </MuiThemeProvider>
 
           <Popover

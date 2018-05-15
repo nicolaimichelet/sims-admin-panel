@@ -204,12 +204,18 @@ export class AdminPage extends Component {
               fontWeight: '300',
           }
 
-      }
+      };
       const ModuleStyle = {
           title:{
               fontFamily: 'roboto',
               fontSize: 25,
               fontWeight: '200',
+          },
+          dialogTitle: {
+            fontFamily: 'roboto',
+            fontSize: 25,
+            fontWeight: '200',
+            color: "#FFFFFF"
           },
           content:{
               fontFamily: 'roboto',
@@ -227,7 +233,7 @@ export class AdminPage extends Component {
               fontWeight: '300',
             
           },
-        }
+        };
 
       const serviceElements = [];
       const muiTheme = getMuiTheme({
@@ -369,7 +375,7 @@ export class AdminPage extends Component {
           :
           null
           }
-            <Dialog titleStyle={ModuleStyle.title} title="Are you sure you want to delete all services?"
+            <Dialog contentClassName={_s.dialogColor} titleStyle={ModuleStyle.dialogTitle} title="Are you sure you want to delete all services?"
                     open={this.state.deleteDialog}
                     onRequestClose = {() => this.handleDeleteClose()}>
               <RaisedButton secondary={true} style={ModuleStyle.button}
