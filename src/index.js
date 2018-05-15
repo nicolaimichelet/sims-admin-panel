@@ -11,9 +11,9 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import App from 'components/containers/App';
 import { ServiceProvider, ConfigServiceProvider } from 'services';
-import { ServiceManager, HttpServiceInterface,HttpServiceProvider, ManagedServiceServiceProvider } from 'services';
-import { AuthServiceProvider } from './services';
+import { AuthServiceProvider, ServiceManager, HttpServiceInterface,HttpServiceProvider, ManagedServiceServiceProvider } from 'services';
 
+import { THEME } from 'common/constants';
 
 const serviceManager = new ServiceManager();
 
@@ -34,7 +34,7 @@ if(process.env.ELECTRON){
 
 ReactDOM.render(
   <ServiceProvider serviceManager={serviceManager}>
-    <MuiThemeProvider>
+    <MuiThemeProvider  muiTheme={THEME}>
       <Router history = {history}>
         <App/>
       </Router>

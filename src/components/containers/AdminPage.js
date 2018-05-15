@@ -3,8 +3,7 @@ import _s from 'assets/css/AdminPage.css';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import {lightGreen300, lightGreen400, red700, black} from 'material-ui/styles/colors';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {Subject} from 'rxjs';
@@ -65,19 +64,27 @@ export class AdminPage extends Component {
 
 
     componentDidMount(){
-      this.querySubject.debounceTime(300).distinctUntilChanged().subscribe((a)=> {
-        this.props.imService.search({name : a}).subscribe((services) => {
+      this.subs=[
+        this.querySubject.debounceTime(300).distinctUntilChanged().subscribe((a)=> {
+          this.props.imService.search({name : a}).subscribe((services) => {
+            this.setState({
+              services: services
+            });
+          });
+        }),
+        this.props.imService.getServices().subscribe((services) => {
           this.setState({
             services: services
           });
-        });
-      });
-      this.props.imService.getServices().subscribe((services) => {
-        this.setState({
-          services: services
-        });
-      });
+        }),
+      ];
       this.refresh()
+    }
+
+    componentWillUnmount(){
+      for(let sub of this.subs){
+        sub.unsubscribe();
+      }
     }
 
     //open Table dialog
@@ -86,7 +93,6 @@ export class AdminPage extends Component {
             tableDialog: true,
             selected: service,
         });
-        console.log('service clicked')
     }
 
     //opens Delete Dialog
@@ -94,7 +100,6 @@ export class AdminPage extends Component {
       this.setState({
         deleteDialog: true
       });
-      console.log('delete all clicked')
     }
 
     //Handles table dialog, closes it.
@@ -204,12 +209,18 @@ export class AdminPage extends Component {
               fontWeight: '300',
           }
 
-      }
+      };
       const ModuleStyle = {
           title:{
               fontFamily: 'roboto',
               fontSize: 25,
               fontWeight: '200',
+          },
+          dialogTitle: {
+            fontFamily: 'roboto',
+            fontSize: 25,
+            fontWeight: '200',
+            color: "#FFFFFF"
           },
           content:{
               fontFamily: 'roboto',
@@ -227,26 +238,15 @@ export class AdminPage extends Component {
               fontWeight: '300',
             
           },
-        }
+        };
 
       const serviceElements = [];
-      const muiTheme = getMuiTheme({
-            textField: {
-                focusColor: lightGreen300,
-            },
-            raisedButton: {
-                primaryColor: lightGreen400,
-                secondaryColor: red700,
-                fontFamily: 'roboto',
-                fontWeight: '300',
-            },
 
-      });
       for (let i in services){
         let e = services[i];
         const icon = this.icons[e.state];
         serviceElements.push(
-          <TableRow className = {_s.tableRow} onRowClick={console.log} key = {i}>
+          <TableRow className = {_s.tableRow} key = {i}>
           <TableRowColumn>{e.id}</TableRowColumn>
           <TableRowColumn>{e.name}</TableRowColumn>
           <TableRowColumn>{e.href}</TableRowColumn>
@@ -267,7 +267,6 @@ export class AdminPage extends Component {
 
       return (
         <Paper className={_s["paper-container"]}>
-          <MuiThemeProvider muiTheme={muiTheme}>
           <h1 className={_s.header} style={HeaderStyle.text}>Services</h1>
             <div className={_s.search}>
               <FontIcon className="material-icons" style={{ fontSize: '160%'}}>search</FontIcon>
@@ -281,10 +280,10 @@ export class AdminPage extends Component {
           <RaisedButton className={_s.deleteAll} onClick={ () => {
             this.handleClickDelete()
           }} label="Delete all" secondary={true}/> : null}
-
+          {this.props.user && this.props.user.isAdmin() ?
           <RaisedButton className={_s.deleteAll} onClick={ () => {
             this.seedServices()
-          }} label="Example data" primary={true}/>
+          }} label="Example data" primary={true}/> : null}
 
           <br />
           <Table allRowsSelected = {false} onCellClick = {(row)=> this.handleClickTable(this.state.services[row])}>
@@ -369,7 +368,7 @@ export class AdminPage extends Component {
           :
           null
           }
-            <Dialog titleStyle={ModuleStyle.title} title="Are you sure you want to delete all services?"
+            <Dialog contentClassName={_s.dialogColor} titleStyle={ModuleStyle.dialogTitle} title="Are you sure you want to delete all services?"
                     open={this.state.deleteDialog}
                     onRequestClose = {() => this.handleDeleteClose()}>
               <RaisedButton secondary={true} style={ModuleStyle.button}
@@ -382,9 +381,6 @@ export class AdminPage extends Component {
               />
 
             </Dialog>
-
-
-        </MuiThemeProvider>
         </Paper>
       );
     }

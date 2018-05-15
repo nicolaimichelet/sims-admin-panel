@@ -14,8 +14,7 @@ import Divider from 'material-ui/Divider';
 
 
 import {lightGreen600, lightGreen400, lightGreen300, lightGreen700} from 'material-ui/styles/colors';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
 import Paper from 'material-ui/Paper';
 
 import { ObjectInput } from 'components/misc/ObjectInput';
@@ -193,33 +192,6 @@ export class ServiceForm extends Component {
 
     render() {
 
-        const muiTheme = getMuiTheme({
-          toggle: {
-              thumbOnColor: lightGreen600,
-              trackOnColor: lightGreen300,
-          },
-          textField: {
-              focusColor: lightGreen300,
-              fontFamily: 'roboto',
-              fontWeight: '300',
-          },
-          datePicker: {
-              selectColor: lightGreen600,
-              color: lightGreen600,
-              headerColor: lightGreen300,
-          },
-          flatButton: {
-              primaryTextColor: lightGreen700,
-              fontFamily: 'roboto',
-              fontWeight: '300',
-          },
-          raisedButton: {
-              primaryColor: lightGreen400,
-              fontFamily: 'roboto',
-              fontWeight: '300',
-          }
-        });
-
       const isEnabled = this.canBeSubmitted();
 
       const stateMenuItems = this.possibleStates.map((t, number) => {
@@ -233,131 +205,128 @@ export class ServiceForm extends Component {
       return (
         <Paper className={_s.paperContainer}>
           <div className={_s.form}>
-            <MuiThemeProvider muiTheme={muiTheme}>
 
-              <h1 className={_s.title}> Add New Service</h1>
+            <h1 className={_s.header}> Add New Service</h1>
 
+            <div className={_s.formtext}>
+              <DebounceTextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} hintText="Reference of the service..." floatingLabelText="HREF"/>
+            </div>
 
-              <div className={_s.formtext}>
-                <DebounceTextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} hintText="Reference of the service..." floatingLabelText="HREF"/>
-              </div>
+            <div className={_s.formtext}>
+              <DebounceTextField onChange={(e,v)=> this.onFieldChange("category", v)} value={this.state.formValues.category} hintText="Enter category..." floatingLabelText="Category"/>
+            </div>
 
-              <div className={_s.formtext}>
-                <DebounceTextField onChange={(e,v)=> this.onFieldChange("category", v)} value={this.state.formValues.category} hintText="Enter category..." floatingLabelText="Category"/>
-              </div>
+            <div className={_s.formtext}>
+              <DebounceTextField onChange={(e,v)=> this.onFieldChange("name", v)} value={this.state.formValues.name} errorText={this.state.formValues.nameError} hintText="Enter name..." floatingLabelText="Name"/>
+            </div>
 
-              <div className={_s.formtext}>
-                <DebounceTextField onChange={(e,v)=> this.onFieldChange("name", v)} value={this.state.formValues.name} errorText={this.state.formValues.nameError} hintText="Enter name..." floatingLabelText="Name"/>
-              </div>
+            <div className={_s.formtext}>
+              <DebounceTextField onChange={(e,v)=> this.onFieldChange("description", v)} value={this.state.formValues.description} hintText="Description of the service..." floatingLabelText="Description" multiLine={true} rows={1}/>
+            </div>
 
-              <div className={_s.formtext}>
-                <DebounceTextField onChange={(e,v)=> this.onFieldChange("description", v)} value={this.state.formValues.description} hintText="Description of the service..." floatingLabelText="Description" multiLine={true} rows={1}/>
-              </div>
+            <Divider className={_s.divider} />
 
-              <Divider className={_s.divider} />
+            <div className={_s.toggle}>
+              <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }}  onToggle={(e,v) => this.onFieldChange("isServiceEnabled", v)} toggled={this.state.formValues.isServiceEnabled} label="Is the service enabled?" />
+            </div>
+            <div className={_s.toggle}>
+              <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onToggle={(e,v)=> this.onFieldChange("hasStarted", v)} toggled={this.state.formValues.hasStarted} label="Has the service started?" />
+            </div>
+            <div className={_s.toggle}>
+              <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onToggle={(e,v)=> this.onFieldChange("isStateful", v)} toggled={this.state.formValues.isStateful} label="Can this service be changed without affecting any other service?"/>
+            </div>
 
-              <div className={_s.toggle}>
-                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }}  onToggle={(e,v) => this.onFieldChange("isServiceEnabled", v)} toggled={this.state.formValues.isServiceEnabled} label="Is the service enabled?" />
-              </div>
-              <div className={_s.toggle}>
-                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onToggle={(e,v)=> this.onFieldChange("hasStarted", v)} toggled={this.state.formValues.hasStarted} label="Has the service started?" />
-              </div>
-              <div className={_s.toggle}>
-                <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onToggle={(e,v)=> this.onFieldChange("isStateful", v)} toggled={this.state.formValues.isStateful} label="Can this service be changed without affecting any other service?"/>
-              </div>
+            <Divider className={_s.divider} />
 
-              <Divider className={_s.divider} />
+            <div className={_s.dropDownMenu}>
+              <h3 className={_s.subTitle>Start Mode</h3>
+                <SelectField onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode} hintText="Start mode...">
+                  {startModeItems}
+                </SelectField>
+            </div>
 
-              <div className={_s.dropDownMenu}>
-                <h3 className={_s.subTitle}>Start Mode</h3>
-                  <SelectField style={{width: '90%'}} onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode} hintText="Start mode...">
-                    {startModeItems}
-                  </SelectField>
-              </div>
+            <div className={_s.dropDownMenu2}>
+              <h3 className={_s.subTitle}>State</h3>
+                <SelectField onChange={(e,v) => this.onFieldChange("state", v)} value={this.state.formValues.state} hintText={"State of the service..."}>
+                  {stateMenuItems}
+                </SelectField>
+            </div>
 
-              <div className={_s.dropDownMenu2}>
-                <h3 className={_s.subTitle}>State</h3>
-                  <SelectField onChange={(e,v) => this.onFieldChange("state", v)} value={this.state.formValues.state} hintText={"State of the service..."}>
-                    {stateMenuItems}
-                  </SelectField>
-              </div>
+            <Divider className={_s.divider} />
 
-              <Divider className={_s.divider} />
+            <div className={_s.dates}>
+              <h3 className={_s.subTitle}>Order date</h3>
+              <DatePicker
+                hintText={"Order Date"}
+                onChange={(e,date) => {this.onFieldChange("orderDate",date)}}
+                value={this.state.formValues.orderDate}
+              />
+            </div>
+            <div className={_s.dates}>
+              <h3 className={_s.subTitle}>Start date</h3>
+              <DatePicker
+                hintText={"Start Date"}
+                onChange={(e,date) => {this.onFieldChange("startDate",date)}}
+                value={this.state.formValues.startDate}
+              />
+            </div>
+            <div className={_s.dates}>
+              <h3>End date</h3>
+              <DatePicker
+                hintText={"End Date"}
+                onChange={(e,date) => {this.onFieldChange("endDate",date)}}
+                value={this.state.formValues.endDate}
+              /><br></br>
+            </div>
+            <Divider className={_s.divider} />
+            <div>
+              <h3 className={_s.subTitle}>Service Specification</h3>
+              <ObjectInput value={this.state.formValues.serviceSpecification} onChange={(v) => this.onFieldChange("serviceSpecification", v)}>
+                <DebounceTextField className={_s.objectTextField} type="name" name="name" hintText="Name of the service specification..." floatingLabelText="Name" />
+                <DebounceTextField className={_s.objectTextField} name="href" hintText="Href of the service specification..." floatingLabelText="HREF"/>
+                <DebounceTextField className={_s.objectTextField} name="version" hintText="Version of service specification..." floatingLabelText="Version" />
+              </ObjectInput>
+            </div>
+            <Divider className={_s.divider} />
+            <div>
+              <h3 className={_s.subTitle}>Related Parties</h3>
+              <ListInput min={1} onChange={(v) => {this.onFieldChange("relatedParty", v)}} count={this.state.formValues.relatedParty.length} values={this.state.formValues.relatedParty} component={RelatedPartyList} />
+            </div>
+            <Divider className={_s.divider} />
 
-              <div className={_s.dates}>
-                <h3 className={_s.subTitle}>Order date</h3>
-                <DatePicker
-                  hintText={"Order Date"}
-                  onChange={(e,date) => {this.onFieldChange("orderDate",date)}}
-                  value={this.state.formValues.orderDate}
-                />
-              </div>
-              <div className={_s.dates}>
-                <h3 className={_s.subTitle}>Start date</h3>
-                <DatePicker
-                  hintText={"Start Date"}
-                  onChange={(e,date) => {this.onFieldChange("startDate",date)}}
-                  value={this.state.formValues.startDate}
-                />
-              </div>
-              <div className={_s.dates}>
-                <h3 className={_s.subTitle}>End date</h3>
-                <DatePicker
-                  hintText={"End Date"}
-                  onChange={(e,date) => {this.onFieldChange("endDate",date)}}
-                  value={this.state.formValues.endDate}
-                /><br></br>
-              </div>
-              <Divider className={_s.divider} />
-              <div>
-                <h3 className={_s.subTitle}>Service Specification</h3>
-                <ObjectInput value={this.state.formValues.serviceSpecification} onChange={(v) => this.onFieldChange("serviceSpecification", v)}>
-                  <DebounceTextField className={_s.objectTextField} type="name" name="name" hintText="Name of the service specification..." floatingLabelText="Name" />
-                  <DebounceTextField className={_s.objectTextField} name="href" hintText="Href of the service specification..." floatingLabelText="HREF"/>
-                  <DebounceTextField className={_s.objectTextField} name="version" hintText="Version of service specification..." floatingLabelText="Version" />
-                </ObjectInput>
-              </div>
-              <Divider className={_s.divider} />
-              <div>
-                <h3 className={_s.subTitle}>Related Parties</h3>
-                <ListInput min={1} onChange={(v) => {this.onFieldChange("relatedParty", v)}} count={this.state.formValues.relatedParty.length} values={this.state.formValues.relatedParty} component={RelatedPartyList} />
-              </div>
-              <Divider className={_s.divider} />
+            <div>
+              <h3 className={_s.subTitle}>Service Characteristic</h3>
+              <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceCharacteristic", v)}} count={this.state.formValues.serviceCharacteristic.length} values={this.state.formValues.serviceCharacteristic} component={ServiceCharacteristicList} />
+            </div>
+            <Divider className={_s.divider} />
 
-              <div>
-                <h3 className={_s.subTitle}>Service Characteristic</h3>
-                <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceCharacteristic", v)}} count={this.state.formValues.serviceCharacteristic.length} values={this.state.formValues.serviceCharacteristic} component={ServiceCharacteristicList} />
-              </div>
-              <Divider className={_s.divider} />
+            <div>
+              <h3 className={_s.subTitle}>Service Relationship</h3>
+              <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceRelationship", v)}} count={this.state.formValues.serviceRelationship.length} values={this.state.formValues.serviceRelationship} component={ServiceRelationshipList} />
+            </div>
 
-              <div>
-                <h3 className={_s.subTitle}>Service Relationship</h3>
-                <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceRelationship", v)}} count={this.state.formValues.serviceRelationship.length} values={this.state.formValues.serviceRelationship} component={ServiceRelationshipList} />
-              </div>
+            <Divider className={_s.divider} />
+            <div>
+              <h3 className={_s.subTitle}>Supporting Service</h3>
+              <ListInput min={0} onChange={(v) => {this.onFieldChange("supportingService", v)}} count={this.state.formValues.supportingService.length} values={this.state.formValues.supportingService} component={SupportingServiceList} />
+            </div>
 
-              <Divider className={_s.divider} />
-              <div>
-                <h3 className={_s.subTitle}>Supporting Service</h3>
-                <ListInput min={0} onChange={(v) => {this.onFieldChange("supportingService", v)}} count={this.state.formValues.supportingService.length} values={this.state.formValues.supportingService} component={SupportingServiceList} />
-              </div>
+            <Divider className={_s.divider} />
 
-              <Divider className={_s.divider} />
+            <div>
+              <h3 className={_s.subTitle}>Supporting Resource</h3>
+              <ListInput min={0} onChange={(v) => {this.onFieldChange("supportingResource", v)}} count={this.state.formValues.supportingResource.length} values={this.state.formValues.supportingResource} component={SupportingResourceList} />
+            </div>
+            <Divider className={_s.divider} />
 
-              <div>
-                <h3 className={_s.subTitle}>Supporting Resource</h3>
-                <ListInput min={0} onChange={(v) => {this.onFieldChange("supportingResource", v)}} count={this.state.formValues.supportingResource.length} values={this.state.formValues.supportingResource} component={SupportingResourceList} />
-              </div>
-              <Divider className={_s.divider} />
+            {/*Submit button, redirects to services page*/}
+            <div className={_s.submit}>
+              <RaisedButton onClick={()=> {
+                this.submitService();
+              }}  label="Submit" primary={true} disabled={!isEnabled}/>
+              {this.state.success ? <Redirect to="/services" /> : null}
+            </div>
 
-              {/*Submit button, redirects to services page*/}
-              <div className={_s.submit}>
-                <RaisedButton onClick={()=> {
-                  this.submitService();
-                }}  label="Submit" primary={true} disabled={!isEnabled}/>
-                {this.state.success ? <Redirect to="/services" /> : null}
-              </div>
-
-            </MuiThemeProvider>
           </div>
         </Paper>
 

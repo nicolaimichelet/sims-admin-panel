@@ -10,3 +10,7 @@
   color: white !important;
   vertical-align: middle;
 }
+
+.dialogHelpColor > div:first-child {
+  background-color: #9CCC65 !important;
+}

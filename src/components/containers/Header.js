@@ -5,13 +5,12 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { Link } from 'react-router-dom';
 import {ToolbarGroup} from 'material-ui/Toolbar';
-import {lightGreen600,lightGreen400, lightGreen300, lightGreen900, grey50} from 'material-ui/styles/colors';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import _s from 'assets/css/Header.css';
 import IconButton from "material-ui/IconButton";
 import { IAuthService, mapAndConnect } from 'services';
 import 'typeface-roboto';
+import {lightGreen600,lightGreen400, lightGreen300, lightGreen900, grey50} from 'material-ui/styles/colors';
+
 import logo from 'assets/logo/logo.png';
 import logoname from 'assets/logo/logoname.png';
 
@@ -29,44 +28,30 @@ export class Header extends Component {
               fontWeight: '100',
           }
       }
-      const muiTheme = getMuiTheme({
-          palette: {
-              primaryColor: lightGreen300,
-              primary2Color: lightGreen900,
-              accent1Color: lightGreen400,
-              accent2Color: lightGreen900,
-              disabledColor: lightGreen900,
-              textColor: grey50,
-          },
-          raisedButton: {
-              fontFamily: 'roboto',
-              fontWeight: '300',
-          },
-          flatButton: {
-              fontFamily: 'roboto',
-              fontWeight: '300',
-          }
-      });
+
     const path = this.props.location.pathname;
-    const toolbar = [
-      <MuiThemeProvider muiTheme={muiTheme}>
-        <Link key={1} to="/services">
-        {path == "/services" ? 
-          <RaisedButton style={textStyle.buttons} secondary={true} label="Services" /> :
-          <FlatButton style={textStyle.buttons} hoverColor={lightGreen400} rippleColor='transparent' label="Services" />}
-        </Link>
-        {this.props.user && this.props.user.isAdmin() ?
+
+    const adminActions = this.props.user && this.props.user.isAdmin() ?
         <Link key={3} to="/services/new">
-          {path == "/services/new" ?
+            {path == "/services/new" ?
             <RaisedButton style={textStyle.buttons} secondary={true} label="New Service" /> :
             <FlatButton style={textStyle.buttons} hoverColor={lightGreen400} rippleColor='transparent' label="New Service" />}
-        </Link> : null}
-        {/*<Link key={4} to="/login">*/}
-          <IconButton onClick={() => this.props.auth.logout()} hoverColor={lightGreen400} iconClassName = "material-icons" 
+        </Link> : null;
 
-          rippleColor='transparent' tooltip="Exit">exit_to_app</IconButton>
-       {/*</Link>*/}
-      </MuiThemeProvider>
+    const toolbar = [
+        <Link key={1} to="/services">
+          {path == "/services" ? 
+          <RaisedButton style={textStyle.buttons} secondary={true} label="Services" /> :
+          <FlatButton style={textStyle.buttons} hoverColor={lightGreen400} rippleColor='transparent' label="Services" />}
+        </Link>,
+        adminActions,
+        <IconButton 
+            onClick={() => this.props.auth.logout()} 
+            hoverColor={lightGreen400} iconClassName = "material-icons" 
+            rippleColor='transparent' t
+            ooltip="Exit">
+                exit_to_app
+        </IconButton>
     ];
 
     return(
@@ -79,7 +64,7 @@ export class Header extends Component {
               <ToolbarGroup>
               {toolbar}
               </ToolbarGroup>
-          </AppBar>
+        </AppBar>
     );
   }
 }
