@@ -34,13 +34,13 @@ ShallowWrapper {
         <RaisedButton
           disabled={false}
           fullWidth={false}
+          label="New"
+          labelColor="#ffffff"
           labelPosition="after"
           onClick={[Function]}
-          primary={false}
+          primary={true}
           secondary={false}
->
-          New
-</RaisedButton>,
+/>,
       ],
     },
     "ref": null,
@@ -64,16 +64,17 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
-          "children": "New",
           "disabled": false,
           "fullWidth": false,
+          "label": "New",
+          "labelColor": "#ffffff",
           "labelPosition": "after",
           "onClick": [Function],
-          "primary": false,
+          "primary": true,
           "secondary": false,
         },
         "ref": null,
-        "rendered": "New",
+        "rendered": null,
         "type": [Function],
       },
     ],
@@ -98,13 +99,13 @@ ShallowWrapper {
           <RaisedButton
             disabled={false}
             fullWidth={false}
+            label="New"
+            labelColor="#ffffff"
             labelPosition="after"
             onClick={[Function]}
-            primary={false}
+            primary={true}
             secondary={false}
->
-            New
-</RaisedButton>,
+/>,
         ],
       },
       "ref": null,
@@ -128,16 +129,17 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
-            "children": "New",
             "disabled": false,
             "fullWidth": false,
+            "label": "New",
+            "labelColor": "#ffffff",
             "labelPosition": "after",
             "onClick": [Function],
-            "primary": false,
+            "primary": true,
             "secondary": false,
           },
           "ref": null,
-          "rendered": "New",
+          "rendered": null,
           "type": [Function],
         },
       ],
