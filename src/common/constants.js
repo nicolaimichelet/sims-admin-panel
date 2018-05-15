@@ -3,7 +3,10 @@ import { lightGreen600, lightGreen400, lightGreen300, lightGreen900, grey50, lig
 
 export const DEFAULT_API="http://localhost:3000/api/";
 
-
+export const OAUTH_DEFAULT = {
+  response_type: process.env.AUTH_RESPONSE_TYPE,
+  automaticSlientRenew: true
+}
 
 
 export const THEME = getMuiTheme({
