@@ -109,7 +109,7 @@ export default class LoginForm extends Component{
         color: "#FFFFFF"
       },
       button: {
-        marginLeft:'52%',
+        marginLeft:'40%',
         fontFamily: 'roboto',
         fontWeight: '300',
       },
