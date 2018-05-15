@@ -196,7 +196,10 @@ export class DetailView extends Component {
                 <Paper style={detailStyle.serviceSpec} zDepth={1}>
                     <h4 style={detailStyle.headerCaptions}>SERVICE SPECIFICATION:</h4>
                     <ul style = {{listStyleType: "none"}}>
-                        <li><u style={detailStyle.contentText}>{this.state.service.getServiceSpecification().name}</u></li>
+                        <li>Name: <u style={detailStyle.contentText}>{this.state.service.getServiceSpecification().name}</u></li>
+                        <li>ID: <u style={detailStyle.contentText}>{this.state.service.getServiceSpecification().id}</u></li>
+                        <li>HREF: <u style={detailStyle.contentText}>{this.state.service.getServiceSpecification().href}</u></li>
+                        <li>VERSION: <u style={detailStyle.contentText}>{this.state.service.getServiceSpecification().version}</u></li>
                     </ul>
                 </Paper>
                 <Paper style={detailStyle.relatedParty} zDepth={1}>
@@ -208,18 +211,18 @@ export class DetailView extends Component {
                 <Paper style={detailStyle.supportService}>
                 <h4 style={detailStyle.headerCaptions}>SUPPORTING SERVICE:</h4>
                 <ul style = {{listStyleType: "none"}}>
-                    <li>ID: </li>
-                    <li>HREF: </li>
-                    <li>NAME: </li>
-                    <li>CATEGORY: </li>
+                    <li>ID <u style={detailStyle.contentText}>{this.state.service.getSupportingService().id}</u></li>
+                    <li>HREF: <u style={detailStyle.contentText}>{this.state.service.getSupportingService().href}</u></li>
+                    <li>NAME: <u style={detailStyle.contentText}>{this.state.service.getSupportingService().name}</u></li>
+                    <li>CATEGORY: <u style={detailStyle.contentText}>{this.state.service.getSupportingService().category}</u></li>
                 </ul>
                 </Paper>
                 <Paper style={detailStyle.supportResource}>
                 <h4 style={detailStyle.headerCaptions}>SUPPORTING RESOURCE:</h4>
                 <ul style = {{listStyleType: "none"}}>
-                    <li>ID:</li>
-                    <li>HREF: </li>
-                    <li>NAME: </li>
+                    <li>ID: <u style={detailStyle.contentText}>{this.state.service.getSupportingResource().id}</u></li>
+                    <li>HREF: <u style={detailStyle.contentText}>{this.state.service.getSupportingResource().href}</u></li>
+                    <li>NAME: <u style={detailStyle.contentText}>{this.state.service.getSupportingResource().name}</u></li>
                 </ul>
                 </Paper>
                 </div>
