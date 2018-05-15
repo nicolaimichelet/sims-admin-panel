@@ -3,8 +3,7 @@ import _s from 'assets/css/AdminPage.css';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import {lightGreen300, lightGreen400, red700, black} from 'material-ui/styles/colors';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {Subject} from 'rxjs';
@@ -230,18 +229,7 @@ export class AdminPage extends Component {
         }
 
       const serviceElements = [];
-      const muiTheme = getMuiTheme({
-            textField: {
-                focusColor: lightGreen300,
-            },
-            raisedButton: {
-                primaryColor: lightGreen400,
-                secondaryColor: red700,
-                fontFamily: 'roboto',
-                fontWeight: '300',
-            },
 
-      });
       for (let i in services){
         let e = services[i];
         const icon = this.icons[e.state];
@@ -267,7 +255,6 @@ export class AdminPage extends Component {
 
       return (
         <Paper className={_s["paper-container"]}>
-          <MuiThemeProvider muiTheme={muiTheme}>
           <h1 className={_s.header} style={HeaderStyle.text}>Services</h1>
             <div className={_s.search}>
               <FontIcon className="material-icons" style={{ fontSize: '160%'}}>search</FontIcon>
@@ -382,9 +369,6 @@ export class AdminPage extends Component {
               />
 
             </Dialog>
-
-
-        </MuiThemeProvider>
         </Paper>
       );
     }
