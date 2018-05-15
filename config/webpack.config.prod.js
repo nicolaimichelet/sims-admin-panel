@@ -332,7 +332,8 @@ module.exports = {
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new webpack.EnvironmentPlugin({
-      ELECTRON: false
+      ELECTRON: false,
+      SG_AUTH_RESPONSE_TYPE: 'id_token token',
     }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
