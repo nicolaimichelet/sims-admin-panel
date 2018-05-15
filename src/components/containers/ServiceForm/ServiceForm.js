@@ -206,7 +206,7 @@ export class ServiceForm extends Component {
         <Paper className={_s.paperContainer}>
           <div className={_s.form}>
 
-            <h1 className={_s.header}> Add New Service</h1>
+            <h1 className={_s.title}>Add New Service</h1>
 
             <div className={_s.formtext}>
               <DebounceTextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} hintText="Reference of the service..." floatingLabelText="HREF"/>
@@ -271,7 +271,7 @@ export class ServiceForm extends Component {
               />
             </div>
             <div className={_s.dates}>
-              <h3>End date</h3>
+              <h3 className={_s.subTitle}>End date</h3>
               <DatePicker
                 hintText={"End Date"}
                 onChange={(e,date) => {this.onFieldChange("endDate",date)}}
