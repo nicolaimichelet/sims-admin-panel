@@ -1,5 +1,5 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { lightGreen600, lightGreen400, lightGreen300, lightGreen900, grey50, lightGreen700, red700} from 'material-ui/styles/colors';
+import { lightGreen600, lightGreen400, lightGreen300, lightGreen900, grey500, lightGreen700, red700} from 'material-ui/styles/colors';
 
 export const DEFAULT_API="http://localhost:3000/api/";
 
@@ -38,7 +38,7 @@ export const THEME = getMuiTheme({
     primary2Color: lightGreen900,
     accent1Color: lightGreen400,
     accent2Color: lightGreen900,
-    disabledColor: lightGreen900,
+    disabledColor: grey500,
     //textColor: grey50,
   },
 });

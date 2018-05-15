@@ -94,31 +94,30 @@ export default class LoginForm extends Component{
   }
 
   render(){
-    
         const ModuleStyle = {
-      dialogTitle:{
-        fontFamily: 'roboto',
-        fontSize: 25,
-        fontWeight: '200',
-        color: "#FFFFFF"
-      },
-      content:{
-        fontFamily: 'roboto',
-        fontWeight: '400',
-        width: '40%',
-        color: "#FFFFFF"
-      },
-      button: {
-        marginLeft:'40%',
-        fontFamily: 'roboto',
-        fontWeight: '300',
-      },
-      rest:{
-        fontWeight: '200',
-        fontFamily: 'roboto',
-        textDecoration: 'none',
-        color: "#FFFFFF"
-      },
+        dialogTitle:{
+          fontFamily: 'roboto',
+          fontSize: 25,
+          fontWeight: '200',
+          color: "#FFFFFF"
+        },
+        content:{
+          fontFamily: 'roboto',
+          fontWeight: '400',
+          width: '40%',
+          color: "#FFFFFF"
+        },
+        button: {
+          marginLeft:'40%',
+          fontFamily: 'roboto',
+          fontWeight: '300',
+        },
+        rest:{
+          fontWeight: '200',
+          fontFamily: 'roboto',
+          textDecoration: 'none',
+          color: "#FFFFFF"
+        }
     };
     
     const popOverElements = [];
