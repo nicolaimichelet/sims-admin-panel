@@ -36,9 +36,15 @@ function DebounceTextField(props){
 function RelatedPartyList(props){
   return (
     <ObjectInput {...props}>
-      <DebounceTextField className={_s.objectTextField} type="text" name="name" hintText="Name of the related party..." floatingLabelText="Name" />
-      <DebounceTextField className={_s.objectTextField} type="text" name="role" hintText="Role of the related party..." floatingLabelText="Role" />
-      <DebounceTextField className={_s.objectTextField} type="text" name="href" hintText="Href of the related party" floatingLabelText="HREF" />
+      <DebounceTextField className={_s.objectTextField} type="text" name="name"
+                         hintText="Name of the related party..."
+                         floatingLabelText="Name" />
+      <DebounceTextField className={_s.objectTextField} type="text" name="role"
+                         hintText="Role of the related party..."
+                         floatingLabelText="Role" />
+      <DebounceTextField className={_s.objectTextField} type="text" name="href"
+                         hintText="Href of the related party"
+                         floatingLabelText="HREF" />
     </ObjectInput>
   );
 }
@@ -46,8 +52,12 @@ function RelatedPartyList(props){
 function ServiceCharacteristicList(props){
   return (
     <ObjectInput {...props}>
-      <DebounceTextField className={_s.objectTextField} type="text" name="name" hintText="Name of service characteristic..." floatingLabelText="Name"/>
-      <DebounceTextField className={_s.objectTextField} type="text" name="value" hintText="Value of service characteristic..." floatingLabelText="Value"/>
+      <DebounceTextField className={_s.objectTextField} type="text" name="name"
+                         hintText="Name of service characteristic..."
+                         floatingLabelText="Name"/>
+      <DebounceTextField className={_s.objectTextField} type="text" name="value"
+                         hintText="Value of service characteristic..."
+                         floatingLabelText="Value"/>
     </ObjectInput>
   );
 }
@@ -55,9 +65,15 @@ function ServiceCharacteristicList(props){
 function ServiceRelationshipList(props){
   return (
     <ObjectInput {...props}>
-      <DebounceTextField className={_s.objectTextField} type="text" name="type" hintText="Type of service relationship..." floatingLabelText="Type" />
-      <DebounceTextField className={_s.objectTextField} type="text" name="service.href" hintText="Href of service relationship..." floatingLabelText="HREF" />
-      <DebounceTextField className={_s.objectTextField} type="text" name="service.id" hintText="ID of service relationship..." floatingLabelText="ID" />
+      <DebounceTextField className={_s.objectTextField} type="text" name="type"
+                         hintText="Type of service relationship..."
+                         floatingLabelText="Type" />
+      <DebounceTextField className={_s.objectTextField} type="text" name="service.href"
+                         hintText="Href of service relationship..."
+                         floatingLabelText="HREF" />
+      <DebounceTextField className={_s.objectTextField} type="text" name="service.id"
+                         hintText="ID of service relationship..."
+                         floatingLabelText="ID" />
     </ObjectInput>
   );
 }
@@ -65,8 +81,12 @@ function ServiceRelationshipList(props){
 function SupportingServiceList(props){
   return (
     <ObjectInput {...props}>
-      <DebounceTextField className={_s.objectTextField} type="text" name="id" hintText="ID of supporting service..." floatingLabelText="ID" />
-      <DebounceTextField className={_s.objectTextField} type="text" name="href" hintText="Href of supporting service..." floatingLabelText="HREF" />
+      <DebounceTextField className={_s.objectTextField} type="text" name="id"
+                         hintText="ID of supporting service..."
+                         floatingLabelText="ID" />
+      <DebounceTextField className={_s.objectTextField} type="text" name="href"
+                         hintText="Href of supporting service..."
+                         floatingLabelText="HREF" />
     </ObjectInput>
   );
 }
@@ -74,8 +94,13 @@ function SupportingServiceList(props){
 function SupportingResourceList(props){
   return (
     <ObjectInput {...props}>
-      <DebounceTextField className={_s.objectTextField} type="text" name="id" hintText="ID of supporting resource..." floatingLabelText="ID" />
-      <DebounceTextField className={_s.objectTextField} type="text" name="href" hintText="Href of supporting resource..." floatingLabelText="HREF" />
+      <DebounceTextField className={_s.objectTextField}
+                         type="text" name="id"
+                         hintText="ID of supporting resource..."
+                         floatingLabelText="ID" />
+      <DebounceTextField className={_s.objectTextField} type="text" name="href"
+                         hintText="Href of supporting resource..."
+                         floatingLabelText="HREF" />
     </ObjectInput>
   );
 }
@@ -140,6 +165,7 @@ export class ServiceForm extends Component {
           [field]: value
         })
       },() => this.validate())
+      console.log(field, value)
     }
 
     //validates fields
@@ -209,45 +235,69 @@ export class ServiceForm extends Component {
             <h1 className={_s.header}> Add New Service</h1>
 
             <div className={_s.formtext}>
-              <DebounceTextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} hintText="Reference of the service..." floatingLabelText="HREF"/>
+              <DebounceTextField onChange={(e,v)=> this.onFieldChange("href", v)}
+                                 value={this.state.formValues.href}
+                                 hintText="Reference of the service..."
+                                 floatingLabelText="HREF"/>
             </div>
 
             <div className={_s.formtext}>
-              <DebounceTextField onChange={(e,v)=> this.onFieldChange("category", v)} value={this.state.formValues.category} hintText="Enter category..." floatingLabelText="Category"/>
+              <DebounceTextField onChange={(e,v)=> this.onFieldChange("category", v)}
+                                 value={this.state.formValues.category}
+                                 hintText="Enter category..."
+                                 floatingLabelText="Category"/>
             </div>
 
             <div className={_s.formtext}>
-              <DebounceTextField onChange={(e,v)=> this.onFieldChange("name", v)} value={this.state.formValues.name} errorText={this.state.formValues.nameError} hintText="Enter name..." floatingLabelText="Name"/>
+              <DebounceTextField onChange={(e,v)=> this.onFieldChange("name", v)}
+                                 value={this.state.formValues.name}
+                                 errorText={this.state.formValues.nameError}
+                                 hintText="Enter name..." floatingLabelText="Name"/>
             </div>
 
             <div className={_s.formtext}>
-              <DebounceTextField onChange={(e,v)=> this.onFieldChange("description", v)} value={this.state.formValues.description} hintText="Description of the service..." floatingLabelText="Description" multiLine={true} rows={1}/>
+              <DebounceTextField onChange={(e,v)=> this.onFieldChange("description", v)}
+                                 value={this.state.formValues.description}
+                                 hintText="Description of the service..."
+                                 floatingLabelText="Description" multiLine={true} rows={1}/>
             </div>
 
             <Divider className={_s.divider} />
 
             <div className={_s.toggle}>
-              <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }}  onToggle={(e,v) => this.onFieldChange("isServiceEnabled", v)} toggled={this.state.formValues.isServiceEnabled} label="Is the service enabled?" />
+              <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }}
+                      onToggle={(e,v) => this.onFieldChange("isServiceEnabled", v)}
+                      toggled={this.state.formValues.isServiceEnabled}
+                      label="Is the service enabled?" />
             </div>
             <div className={_s.toggle}>
-              <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onToggle={(e,v)=> this.onFieldChange("hasStarted", v)} toggled={this.state.formValues.hasStarted} label="Has the service started?" />
+              <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }}
+                      onToggle={(e,v)=> this.onFieldChange("hasStarted", v)}
+                      toggled={this.state.formValues.hasStarted} label="Has the service started?" />
             </div>
             <div className={_s.toggle}>
-              <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }} onToggle={(e,v)=> this.onFieldChange("isStateful", v)} toggled={this.state.formValues.isStateful} label="Can this service be changed without affecting any other service?"/>
+              <Toggle iconStyle={{marginLeft: '0px'}} labelStyle={{width: '50%' }}
+                      onToggle={(e,v)=> this.onFieldChange("isStateful", v)}
+                      toggled={this.state.formValues.isStateful}
+                      label="Can this service be changed without affecting any other service?"/>
             </div>
 
             <Divider className={_s.divider} />
 
             <div className={_s.dropDownMenu}>
               <h3 className={_s.subTitle}>Start Mode</h3>
-                <SelectField onChange={(e,v) => this.onFieldChange("startMode", v)} value={this.state.formValues.startMode} hintText="Start mode...">
+                <SelectField onChange={(e,v) => this.onFieldChange("startMode", v)}
+                             value={this.state.formValues.startMode}
+                             hintText="Start mode...">
                   {startModeItems}
                 </SelectField>
             </div>
 
             <div className={_s.dropDownMenu2}>
               <h3 className={_s.subTitle}>State</h3>
-                <SelectField onChange={(e,v) => this.onFieldChange("state", v)} value={this.state.formValues.state} hintText={"State of the service..."}>
+                <SelectField onChange={(e,v) => this.onFieldChange("state", v)}
+                             value={this.state.formValues.state}
+                             hintText={"State of the service..."}>
                   {stateMenuItems}
                 </SelectField>
             </div>
@@ -282,40 +332,64 @@ export class ServiceForm extends Component {
             <div>
               <h3 className={_s.subTitle}>Service Specification</h3>
               <ObjectInput value={this.state.formValues.serviceSpecification} onChange={(v) => this.onFieldChange("serviceSpecification", v)}>
-                <DebounceTextField className={_s.objectTextField} type="name" name="name" hintText="Name of the service specification..." floatingLabelText="Name" />
-                <DebounceTextField className={_s.objectTextField} name="href" hintText="Href of the service specification..." floatingLabelText="HREF"/>
-                <DebounceTextField className={_s.objectTextField} name="version" hintText="Version of service specification..." floatingLabelText="Version" />
+                <DebounceTextField className={_s.objectTextField}
+                                   type="name" name="name"
+                                   hintText="Name of the service specification..."
+                                   floatingLabelText="Name" />
+                <DebounceTextField className={_s.objectTextField}
+                                   name="href"
+                                   hintText="Href of the service specification..."
+                                   floatingLabelText="HREF"/>
+                <DebounceTextField className={_s.objectTextField}
+                                   name="version"
+                                   hintText="Version of service specification..."
+                                   floatingLabelText="Version" />
               </ObjectInput>
             </div>
             <Divider className={_s.divider} />
             <div>
               <h3 className={_s.subTitle}>Related Parties</h3>
-              <ListInput min={1} onChange={(v) => {this.onFieldChange("relatedParty", v)}} count={this.state.formValues.relatedParty.length} values={this.state.formValues.relatedParty} component={RelatedPartyList} />
+              <ListInput min={1} onChange={(v) => {this.onFieldChange("relatedParty", v)}}
+                         count={this.state.formValues.relatedParty.length}
+                         values={this.state.formValues.relatedParty}
+                         component={RelatedPartyList} />
             </div>
             <Divider className={_s.divider} />
 
             <div>
               <h3 className={_s.subTitle}>Service Characteristic</h3>
-              <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceCharacteristic", v)}} count={this.state.formValues.serviceCharacteristic.length} values={this.state.formValues.serviceCharacteristic} component={ServiceCharacteristicList} />
+              <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceCharacteristic", v)}}
+                         count={this.state.formValues.serviceCharacteristic.length}
+                         values={this.state.formValues.serviceCharacteristic}
+                         component={ServiceCharacteristicList} />
             </div>
             <Divider className={_s.divider} />
 
             <div>
               <h3 className={_s.subTitle}>Service Relationship</h3>
-              <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceRelationship", v)}} count={this.state.formValues.serviceRelationship.length} values={this.state.formValues.serviceRelationship} component={ServiceRelationshipList} />
+              <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceRelationship", v)}}
+                         count={this.state.formValues.serviceRelationship.length}
+                         values={this.state.formValues.serviceRelationship}
+                         component={ServiceRelationshipList} />
             </div>
 
             <Divider className={_s.divider} />
             <div>
               <h3 className={_s.subTitle}>Supporting Service</h3>
-              <ListInput min={0} onChange={(v) => {this.onFieldChange("supportingService", v)}} count={this.state.formValues.supportingService.length} values={this.state.formValues.supportingService} component={SupportingServiceList} />
+              <ListInput min={0} onChange={(v) => {this.onFieldChange("supportingService", v)}}
+                         count={this.state.formValues.supportingService.length}
+                         values={this.state.formValues.supportingService}
+                         component={SupportingServiceList} />
             </div>
 
             <Divider className={_s.divider} />
 
             <div>
               <h3 className={_s.subTitle}>Supporting Resource</h3>
-              <ListInput min={0} onChange={(v) => {this.onFieldChange("supportingResource", v)}} count={this.state.formValues.supportingResource.length} values={this.state.formValues.supportingResource} component={SupportingResourceList} />
+              <ListInput min={0} onChange={(v) => {this.onFieldChange("supportingResource", v)}}
+                         count={this.state.formValues.supportingResource.length}
+                         values={this.state.formValues.supportingResource}
+                         component={SupportingResourceList} />
             </div>
             <Divider className={_s.divider} />
 
