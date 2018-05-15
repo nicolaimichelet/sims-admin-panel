@@ -63,6 +63,12 @@ export default class LoginForm extends Component{
     });
   }
 
+  isAuthTrue (){
+    if (this.state.auth === 0 || this.state.auth === 1 || this.state.auth ===2 ) {
+      return true;
+    }
+  }
+
 
   render(){
 
@@ -84,6 +90,8 @@ export default class LoginForm extends Component{
       );
     }
 
+    const isAuth = this.isAuthTrue();
+    console.log(this.possibleAuth[this.state.auth]);
 
     const authItems = this.possibleAuth.map((t, number) => {
       return <MenuItem value={number} key={number} primaryText={t}/>
@@ -140,6 +148,7 @@ export default class LoginForm extends Component{
             primary={true}
             label="Connect"
             onClick={() => this.props.onSubmit(this.state.href || this.props.defaultValue || "", this.possibleAuth[this.state.auth].toLowerCase())}
+            disabled={!isAuth}
           />
           </MuiThemeProvider>
 
