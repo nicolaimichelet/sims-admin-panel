@@ -5,6 +5,7 @@ import {lightGreen100, lightGreen600,lightGreen400, red700} from 'material-ui/st
 import RaisedButton from 'material-ui/RaisedButton';
 import 'typeface-roboto';
 import {Redirect} from 'react-router'
+import _s from 'assets/css/DetailView.css';
 
 import { Link } from 'react-router-dom';
 
@@ -134,16 +135,24 @@ export class DetailView extends Component {
                 fontFamily: 'roboto',
                 textDecoration: 'none',
             },
-            button: {
-                marginRight: 12,
+            deleteButton: {
+                marginRight: '5%',
                 fontFamily: 'roboto',
                 fontWeight: '300',
+                float: 'left'
+
+            },
+            editButton: {
+                float: 'left',
+                marginRight: '20%',
 
             },
             bothButtons: {
                 display: 'inline-block',
                 float: 'right',
-                marginTop: '0',
+                marginTop: '1.3%',
+                width: '20%',
+                overflow: 'hidden',
             }
         }
 
@@ -152,18 +161,23 @@ export class DetailView extends Component {
             <Paper style={detailStyle.page}>
                 <div style={detailStyle.bothButtons}>
                     {[<Link to = {`/services/edit/${this.state.selected}`} style={detailStyle.button}>
+                      {this.props.user && this.props.user.isAdmin() ?
                         <RaisedButton
                             label = 'edit'
                             primary = {true}
+                            style={detailStyle.editButton}
 
-                        /></Link>,
+                        /> : null} </Link>,
+
+                      <div style={detailStyle.deleteButton}>
+                        {this.props.user && this.props.user.isAdmin() ?
                         <RaisedButton
                             label = "delete"
                             onClick = { () => this.delete(this.state.service) }
 
                             style={detailStyle.button}
                             secondary={true}
-                        />
+                        /> : null} </div>
                     ]}
                 </div>
                 <h1 style={detailStyle.headerText}>{this.state.service.name}</h1>

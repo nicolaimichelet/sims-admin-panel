@@ -227,6 +227,11 @@ table{
   padding: 0.5%;
 }
 
+.deleteButtonPlacement {
+  float: right;
+  display: inline-block;
+}
+
 .state-active *{
   color: #9ddb48 !important;
   font-weight: bold;
