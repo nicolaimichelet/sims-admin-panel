@@ -101,7 +101,7 @@ export class HttpServiceProvider extends HttpServiceInterface{
    * @param {boolean} url_encoded
    * @return Observable<{}>
    */
-  post(url, body, url_encoded) {
+  post(url, body, url_encoded, ctype) {
     let pUrl = url;
     let pBody = body;
     const headers = new Headers();
@@ -112,6 +112,10 @@ export class HttpServiceProvider extends HttpServiceInterface{
       pBody = null;
     } else {
       pBody = JSON.stringify(pBody);
+    }
+
+    if(ctype){
+      headers.set('Content-Type', ctype);
     }
     // Create request
     const request = new Request(pUrl, {
@@ -128,11 +132,15 @@ export class HttpServiceProvider extends HttpServiceInterface{
     return this.request(request);
   }
 
-  patch(url, body){
+  patch(url, body, ctype){
     const request = new Request(url, {
       method: "PATCH",
       body: JSON.stringify(body),
     });
+
+    if(ctype){
+      request.headers.set('Content-Type', ctype);
+    }
     return this.request(request);
   }
 }

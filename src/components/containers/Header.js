@@ -48,7 +48,7 @@ export class Header extends Component {
         <IconButton 
             onClick={() => this.props.auth.logout()} 
             hoverColor={lightGreen400} iconClassName = "material-icons" 
-            rippleColor='transparent' t
+            rippleColor='transparent'
             ooltip="Exit">
                 exit_to_app
         </IconButton>
