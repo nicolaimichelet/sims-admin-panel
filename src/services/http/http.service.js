@@ -132,7 +132,9 @@ export class HttpServiceProvider extends HttpServiceInterface{
     return this.request(request);
   }
 
+
   patch(url, body, ctype){
+    console.log(body);
     const request = new Request(url, {
       method: "PATCH",
       body: JSON.stringify(body),
