@@ -56,9 +56,10 @@ export class AdminPage extends Component {
         active: "check_circle_outline",
         inactive: "pause_circle_outline",
         terminated: "highlight_off",
-        designed: "announcement",
-        reserved: "phone",
-        search: "search"
+        designed: "blur_circular",
+        reserved: "query_builder",
+        search: "search",
+        feasibilityChecked: "donut_large"
       }
     }
 
@@ -209,12 +210,18 @@ export class AdminPage extends Component {
               fontWeight: '300',
           }
 
-      }
+      };
       const ModuleStyle = {
           title:{
               fontFamily: 'roboto',
               fontSize: 25,
               fontWeight: '200',
+          },
+          dialogTitle: {
+            fontFamily: 'roboto',
+            fontSize: 25,
+            fontWeight: '200',
+            color: "#FFFFFF"
           },
           content:{
               fontFamily: 'roboto',
@@ -232,7 +239,7 @@ export class AdminPage extends Component {
               fontWeight: '300',
             
           },
-        }
+        };
 
       const serviceElements = [];
 
@@ -317,13 +324,16 @@ export class AdminPage extends Component {
           open = {this.state.tableDialog}
           onRequestClose = {() => this.handleTableClose()}
 
-                  actions = {[<Link to = {`/services/edit/${this.state.selected.id}`} style={ModuleStyle.button}>
+                  actions = {
+                    [<Link to = {`/services/edit/${this.state.selected.id}`} style={ModuleStyle.button}>
+
+            {this.props.user && this.props.user.isAdmin() ?
 
             <RaisedButton
               label = 'edit'
               primary = {true}
             
-            /></Link>,
+            /> : null} </Link>,
 
           <Link to = {`/services/${this.state.selected.id}`} style={ModuleStyle.button}>
             <RaisedButton
@@ -332,12 +342,15 @@ export class AdminPage extends Component {
             
             /></Link>,
 
+
+            <div className={_s.deleteButtonPlacement}>
+              {this.props.user && this.props.user.isAdmin() ?
             <RaisedButton
               label = "delete"
               onClick = { () => this.delete(this.state.selected)}
               style={ModuleStyle.button}
               secondary={true}
-            />
+            />  : null} </div>
         ]}
 
           >
@@ -362,7 +375,7 @@ export class AdminPage extends Component {
           :
           null
           }
-            <Dialog titleStyle={ModuleStyle.title} title="Are you sure you want to delete all services?"
+            <Dialog contentClassName={_s.dialogColor} titleStyle={ModuleStyle.dialogTitle} title="Are you sure you want to delete all services?"
                     open={this.state.deleteDialog}
                     onRequestClose = {() => this.handleDeleteClose()}>
               <RaisedButton secondary={true} style={ModuleStyle.button}

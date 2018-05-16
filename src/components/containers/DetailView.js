@@ -5,6 +5,7 @@ import {lightGreen100, lightGreen600,lightGreen400, red700} from 'material-ui/st
 import RaisedButton from 'material-ui/RaisedButton';
 import 'typeface-roboto';
 import {Redirect} from 'react-router'
+import _s from 'assets/css/DetailView.css';
 
 import { Link } from 'react-router-dom';
 
@@ -30,8 +31,9 @@ export class DetailView extends Component {
               selected: id,
           })
         }, (err) => {
+            let errorMessage = `HTTP ERROR: ${err.status} - ${err.statusText}`
           this.setState({
-            errorText: err instanceof Response ? `HTTP ERROR: ${err.status} - ${err.statusText}` : "Could not load service"
+            errorText: err instanceof Response ? errorMessage : "Could not load service"
           })
         });
       }
@@ -58,9 +60,11 @@ export class DetailView extends Component {
         }
 
         let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
         const partyList =[];
         for (let party of this.state.service.getRelatedParty()){
-                partyList.push(<ul style = {{listStyleType: "none"}}>
+                partyList.push(
+                <ul style = {{listStyleType: "none"}}>
                 <li>NAME: {party.name}</li>
                 <li>ROLE: {party.role}</li>
                 <li>HREF: {party.href}</li>
@@ -134,36 +138,74 @@ export class DetailView extends Component {
                 fontFamily: 'roboto',
                 textDecoration: 'none',
             },
-            button: {
-                marginRight: 12,
+            deleteButton: {
+                marginRight: '5%',
                 fontFamily: 'roboto',
                 fontWeight: '300',
+                float: 'left'
+
+            },
+            editButton: {
+                float: 'left',
+                marginRight: '20%',
 
             },
             bothButtons: {
                 display: 'inline-block',
                 float: 'right',
-                marginTop: '0',
+                marginTop: '1.3%',
+                width: '20%',
+                overflow: 'hidden',
             }
         }
 
+        let serviceSpec = this.state.service.getServiceSpecification();
+
+
+        const supportingServices = [];
+        for (let supp of this.state.service.getSupportingService()){
+            supportingServices.push(
+                <ul style = {{listStyleType: "none"}}>
+                <li>ID: {supp.id}</li>
+                <li>HREF: {supp.href}</li>
+                <li>Name: {supp.name}</li> 
+                <li>Category: {supp.category}</li>
+                </ul>           
+            )
+        }
+
+        const supportingResources = [];
+        for (let res of this.state.service.getSupportingResource()){
+            supportingResources.push(
+                <ul style = {{listStyleType: "none"}}>
+                <li>ID:{res.id}</li>
+                <li>HREF:{res.href}</li>
+                <li>Name: {res.name}</li>
+                </ul>
+            )
+        }
 
         return(
             <Paper style={detailStyle.page}>
                 <div style={detailStyle.bothButtons}>
                     {[<Link to = {`/services/edit/${this.state.selected}`} style={detailStyle.button}>
+                      {this.props.user && this.props.user.isAdmin() ?
                         <RaisedButton
                             label = 'edit'
                             primary = {true}
+                            style={detailStyle.editButton}
 
-                        /></Link>,
+                        /> : null} </Link>,
+
+                      <div style={detailStyle.deleteButton}>
+                        {this.props.user && this.props.user.isAdmin() ?
                         <RaisedButton
                             label = "delete"
                             onClick = { () => this.delete(this.state.service) }
 
                             style={detailStyle.button}
                             secondary={true}
-                        />
+                        /> : null} </div>
                     ]}
                 </div>
                 <h1 style={detailStyle.headerText}>{this.state.service.name}</h1>
@@ -182,34 +224,35 @@ export class DetailView extends Component {
                         <li>IS STATEFUL: <u style={detailStyle.contentText}>{this.state.service.isStateful ? 'Yes' : 'No'}</u></li>
                     </ul>
                 </Paper>
+                
+
+                {serviceSpec ? 
                 <Paper style={detailStyle.serviceSpec} zDepth={1}>
                     <h4 style={detailStyle.headerCaptions}>SERVICE SPECIFICATION:</h4>
                     <ul style = {{listStyleType: "none"}}>
-                        <li><u style={detailStyle.contentText}>{this.state.service.getServiceSpecification().name}</u></li>
+
+                        <li>Name: <u style={detailStyle.contentText}>{serviceSpec.name}</u></li>
+                        <li>ID: <u style={detailStyle.contentText}>{serviceSpec.id}</u></li>
+                        <li>HREF: <u style={detailStyle.contentText}>{serviceSpec.href}</u></li>
+                        <li>VERSION: <u style={detailStyle.contentText}>{serviceSpec.version}</u></li>
                     </ul>
-                </Paper>
+                </Paper>: null}
+
                 <Paper style={detailStyle.relatedParty} zDepth={1}>
                     <h4 style={detailStyle.headerCaptions}>RELATED PARTY:</h4>
-                    <u style={detailStyle.contentText}>{partyList}</u>
+                    {partyList}
                 </Paper>
                 </div>
+
                 <div>
                 <Paper style={detailStyle.supportService}>
                 <h4 style={detailStyle.headerCaptions}>SUPPORTING SERVICE:</h4>
-                <ul style = {{listStyleType: "none"}}>
-                    <li>ID: </li>
-                    <li>HREF: </li>
-                    <li>NAME: </li>
-                    <li>CATEGORY: </li>
-                </ul>
+                {supportingServices}
                 </Paper>
+
                 <Paper style={detailStyle.supportResource}>
                 <h4 style={detailStyle.headerCaptions}>SUPPORTING RESOURCE:</h4>
-                <ul style = {{listStyleType: "none"}}>
-                    <li>ID:</li>
-                    <li>HREF: </li>
-                    <li>NAME: </li>
-                </ul>
+                {supportingResources}
                 </Paper>
                 </div>
             </Paper>

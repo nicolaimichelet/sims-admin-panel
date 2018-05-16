@@ -227,6 +227,11 @@ table{
   padding: 0.5%;
 }
 
+.deleteButtonPlacement {
+  float: right;
+  display: inline-block;
+}
+
 .state-active *{
   color: #9ddb48 !important;
   font-weight: bold;
@@ -266,8 +271,24 @@ table{
   margin-left: 1.4%;
 }
 
-.state-feasibilityChecked *, .state-designed *, .state-reserved *{
-color: lightblue !important;
+.dialogColor > div:first-child {
+  background-color: #9CCC65 !important;
+}
+
+.state-reserved *{
+  color: lightskyblue !important;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.state-feasibilityChecked *{
+  color: #ffa64c !important;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.state-designed *{
+  color: #c270ff !important;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .tableRow:hover{

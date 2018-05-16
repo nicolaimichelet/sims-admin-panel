@@ -83,10 +83,12 @@ export class AuthServiceProvider extends IAuthService{
   }
 
   //Login
+
   login(method, options){
     this._loginState = 1;
     this.method = method;
     this.settings = options;
+
     if(method == "openid"){
 
       this.userManager = new UserManager(Object.assign({

@@ -5,6 +5,7 @@ import { FlatButton } from 'material-ui';
 import RaisedButton from 'material-ui/RaisedButton/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 
+import {red700, white} from 'material-ui/styles/colors'
 
 
 export class ListInput extends Component{
@@ -77,23 +78,26 @@ export class ListInput extends Component{
 
 
 
+
   render(){
+
     let fields = [];
     let FieldType = this.props.component;
     for(let i = 0; i < this.state.count; i++){
       fields.push(
         <li key={i}>
           <FieldType key={i} value={this.state.values[i]} onChange={(...a) => {this.onInputChange(i, ...a)}}/>
-          <IconButton iconClassName="material-icons" onClick={() => this.removeField(i)}>remove_circle</IconButton>
+          <IconButton iconStyle={{color: red700}} iconClassName="material-icons" onClick={() => this.removeField(i)}>remove_circle</IconButton>
         </li>
       );
     }
+
     return (
       <div>
-        <ul style={{ listStyleType: "none" }}>
+        <ul style={{ listStyleType: "none"}}>
           {fields}
         </ul>
-        <RaisedButton onClick={() => this.onCountChange(this.state.count + 1)}>New</RaisedButton>
+        <RaisedButton label={'New'} labelColor={white} primary={true} onClick={() => this.onCountChange(this.state.count + 1)}/>
       </div>
     );
   }

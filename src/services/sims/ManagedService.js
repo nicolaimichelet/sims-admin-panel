@@ -57,6 +57,10 @@ export class ManagedService{
       service.addServiceRelationship(new ServiceRelationship(e.type, e.service));
     });
 
+    data.supportingService.forEach((e) => {
+      service.addSupportingService(new SupportingService(e.id, e.href, e.name, e.category));
+    })
+
     data.supportingResource.forEach((e) => {
       service.addSupportingResource(new SupportingResource(e.id, e.href));
     });
@@ -79,9 +83,9 @@ export class ManagedService{
       href:  this.href,
       category:  this.category,
       description:  this.description,
-      endDate:  this.endDate,
-      startDate: this.startDate,
-      orderDate: this.orderDate,
+      endDate: this.endDate ? this.endDate.toISOString() : null,
+      startDate: this.startDate ? this.startDate.toISOString() : null,
+      orderDate: this.orderDate ? this.orderDate.toISOString() : null,
       hasStarted:  this.hasStarted,
       isStateful:  this.isStateful,
       isServiceEnabled: this.isServiceEnabled,
@@ -94,6 +98,7 @@ export class ManagedService{
       serviceRelationship: this.serviceRelationship.map((e) => e.toData()),
       serviceSpecification: this.serviceSpecification && this.serviceSpecification.toData(),
       supportingResource: this.supportingResource.map((e) => e.toData()),
+      supportingService: this.supportingService.map((e) => e.toData()),
     }
   }
 
@@ -111,6 +116,10 @@ export class ManagedService{
 
   addSupportingResource(resource){
     this.supportingResource.push(resource);
+  }
+  
+  addSupportingService(service){
+    this.supportingService.push(service);
   }
 
   setServiceSpecification(spec){
@@ -158,10 +167,14 @@ export class ManagedService{
     return this.supportingResource;
   }
 
+  getSupportingService(){
+    return this.supportingService;
+  }
+
   getServiceSpecification(){
     return this.serviceSpecification;
   }
-
+  
   static fromObject(data){
     return new ManagedService(data);
   }
@@ -234,6 +247,24 @@ export class SupportingResource{
       href: this.href,
       version: this.version,
       name: this.name
+    }
+  }
+}
+
+export class SupportingService{
+  constructor(id,href,name,category){
+    this.id = id;
+    this.href = href;
+    this.name = name;
+    this.category = category;
+  }
+
+  toData(){
+    return{
+      id: this.id,
+      href: this.href,
+      name: this.name,
+      category: this.category
     }
   }
 }

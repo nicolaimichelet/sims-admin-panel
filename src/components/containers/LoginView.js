@@ -13,6 +13,7 @@ import { mapAndConnect, IManagedService, ConfigServiceInterface, IAuthService } 
 
 import _s from 'assets/css/LoginView.css';
 
+import {lightGreen300} from 'material-ui/styles/colors';
 
 
 /* Simple login page for the admin panel */
@@ -48,8 +49,6 @@ export class LoginView extends Component{
   }
 
   render(){
-
-
     return (
       <div className={_s["form-container"]}>
         {
