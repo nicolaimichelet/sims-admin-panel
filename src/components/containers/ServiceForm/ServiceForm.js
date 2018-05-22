@@ -133,7 +133,8 @@ export class ServiceForm extends Component {
         "Manually by a Customer of the Provider","Any of the above"];
       
       if (props.service){
-        let data = props.service.toData();
+        this.state.formValues = props.service.toData();
+      /*  let data = props.service.toData();
         this.state.formValues.id = props.service.id;
         this.state.formValues.href = props.service.href;
         this.state.formValues.category = props.service.category;
@@ -147,7 +148,7 @@ export class ServiceForm extends Component {
         this.state.formValues.state = props.service.state;
         let serviceSpec = props.service.getServiceSpecification();
         this.state.formValues.serviceSpecification = serviceSpec ? serviceSpec.toData() : {href: "", name: "", version: ""};
-        this.state.formValues.relatedParty = data.relatedParty;
+        this.state.formValues.relatedParty = data.relatedParty;*/
       }
     }
 
