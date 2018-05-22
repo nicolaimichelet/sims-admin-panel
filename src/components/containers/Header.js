@@ -50,6 +50,7 @@ export class Header extends Component {
         </Link>,
         adminActions,
         <IconButton 
+
             onClick={() => this.props.auth.logout()}
             iconStyle={textStyle.iconBtn}
             hoverColor={lightGreen400} iconClassName = "material-icons"

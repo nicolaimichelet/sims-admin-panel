@@ -243,6 +243,7 @@ export class SupportingResource{
 
   toData(){
     return {
+      id: this.id,
       href: this.href,
       version: this.version,
       name: this.name
