@@ -64,7 +64,7 @@ export class ManagedService{
     })
 
     data.supportingResource.forEach((e) => {
-      service.addSupportingResource(new SupportingResource(e.id, e.href));
+      service.addSupportingResource(new SupportingResource(e.id, e.href, e.name));
     });
     data.relatedParty.forEach((e) => {
       service.addRelatedParty(new RelatedParty(e.id, e.role, e.href, e.name));
@@ -171,6 +171,14 @@ export class ManagedService{
 
   getRelatedParty(){
     return this.relatedParty;
+  }
+
+  getNote(){
+    return this.note;
+  }
+
+  getPlace(){
+    return this.place;
   }
 
   getServiceCharacteristic(){

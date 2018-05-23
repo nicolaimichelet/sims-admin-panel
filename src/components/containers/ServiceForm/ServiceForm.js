@@ -108,10 +108,18 @@ function ServiceRelationshipList(props){
 function SupportingServiceList(props){
   return (
     <ObjectInput {...props}>
-
-      <DebounceTextField className={_s.objectTextField} type="text" name="href" hintText="Href of supporting service..." floatingLabelText="HREF" />
-      <DebounceTextField className={_s.objectTextField} type="text" name="name" hintText="Name of supporting service..." floatingLabelText="Name" />
-      <DebounceTextField className={_s.objectTextField} type="text" name="category" hintText="Category of supporting service..." floatingLabelText="Category" />
+      <DebounceTextField className={_s.objectTextField}
+                         type="text" name="href"
+                         hintText="Href of supporting service..."
+                         floatingLabelText="HREF" />
+      <DebounceTextField className={_s.objectTextField}
+                         type="text" name="name"
+                         hintText="Name of supporting service..."
+                         floatingLabelText="Name" />
+      <DebounceTextField className={_s.objectTextField}
+                         type="text" name="category"
+                         hintText="Category of supporting service..."
+                         floatingLabelText="Category" />
     </ObjectInput>
   );
 }
@@ -119,9 +127,16 @@ function SupportingServiceList(props){
 function SupportingResourceList(props){
   return (
     <ObjectInput {...props}>
-
-      <DebounceTextField className={_s.objectTextField} type="text" name="href" hintText="Href of supporting resource..." floatingLabelText="HREF" />
-
+      <DebounceTextField className={_s.objectTextField}
+                         type="text"
+                         name="href"
+                         hintText="Href of supporting resource..."
+                         floatingLabelText="HREF" />
+      <DebounceTextField className={_s.objectTextField}
+                         type="text"
+                         name="name"
+                         hintText="Name of supporting resource..."
+                         floatingLabelText="Name" />
     </ObjectInput>
   );
 }
@@ -448,8 +463,6 @@ export class ServiceForm extends Component {
             </div>
 
             <Divider className={_s.divider} />
-
-
 
             {/*Submit button, redirects to services page*/}
             <div className={_s.submit}>
