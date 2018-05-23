@@ -315,8 +315,7 @@ export class RelatedParty{
 }
 
 export class Note{
-  constructor(id, author, date, text){
-    this.id = id;
+  constructor(author, date, text){
     this.author = author;
     this.date = date;
     this.text = text;
@@ -324,7 +323,6 @@ export class Note{
 
   toData(){
     return {
-      id: this.id,
       author: this.author,
       date: this.date,
       text: this.text
@@ -333,15 +331,13 @@ export class Note{
 }
 
 export class Place{
-  constructor(id, href, role){
-    this.id = id;
+  constructor(href, role){
     this.href = href;
     this.role = role;
   }
 
   toData(){
     return {
-      id: this.id,
       href: this.href,
       role: this.role
     }
