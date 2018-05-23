@@ -20,9 +20,7 @@ import Paper from 'material-ui/Paper';
 import { ObjectInput } from 'components/misc/ObjectInput';
 import { ListInput } from 'components/misc/ListInput';
 import { ServiceSpecification } from 'services/sims/ManagedService';
-
 import { InputDebounce } from 'components/misc/InputDebounce';
-
 import { omit, pick } from 'lodash';
 
 function DebounceTextField(props){
@@ -30,6 +28,35 @@ function DebounceTextField(props){
     <InputDebounce debounce={50} {...pick(props, ["onChange", "value"])} >
       <TextField {...omit(props, ["onChange", "value"])}/>
     </InputDebounce>
+  );
+}
+
+function NoteList(props) {
+  return (
+    <ObjectInput {...props}>
+      <DebounceTextField className={_s.objectTextField} type="text" name="author"
+                         hintText="Author of the note..."
+                         floatingLabelText="Author" />
+      <DebounceTextField className={_s.objectTextField} type="text" name="date"
+                         hintText="Role of the related party..."
+                         floatingLabelText="Date" />
+      <DebounceTextField className={_s.objectTextField} type="text" name="text"
+                         hintText="Content..."
+                         floatingLabelText="Text" />
+    </ObjectInput>
+  );
+}
+
+function PlaceList(props) {
+  return (
+    <ObjectInput {...props}>
+      <DebounceTextField className={_s.objectTextField} type="text" name="href"
+                         hintText="Href of place..."
+                         floatingLabelText="Href" />
+      <DebounceTextField className={_s.objectTextField} type="text" name="role"
+                         hintText="Role of the place..."
+                         floatingLabelText="Role" />
+    </ObjectInput>
   );
 }
 
@@ -109,6 +136,7 @@ export class ServiceForm extends Component {
           href: "",
           category: "",
           name: "",
+          type: "",
           nameError: "",
           description: "",
           isServiceEnabled: false,
@@ -122,6 +150,8 @@ export class ServiceForm extends Component {
           relatedParty: [],
           serviceRelationship: [],
           supportingResource: [],
+          place: [],
+          note: [],
           orderDate: "",
           startDate: "",
           endDate: "",
@@ -230,19 +260,40 @@ export class ServiceForm extends Component {
             <h1 className={_s.title}>Add New Service</h1>
 
             <div className={_s.objectTextField}>
-              <DebounceTextField onChange={(e,v)=> this.onFieldChange("href", v)} value={this.state.formValues.href} hintText="Reference of the service..." floatingLabelText="HREF"/>
+              <DebounceTextField onChange={(e,v)=> this.onFieldChange("name", v)}
+                                 value={this.state.formValues.name}
+                                 errorText={this.state.formValues.nameError}
+                                 hintText="Enter name..."
+                                 floatingLabelText="Name"/>
             </div>
 
             <div className={_s.objectTextField}>
-              <DebounceTextField onChange={(e,v)=> this.onFieldChange("category", v)} value={this.state.formValues.category} hintText="Enter category..." floatingLabelText="Category"/>
+              <DebounceTextField onChange={(e,v)=> this.onFieldChange("href", v)}
+                                 value={this.state.formValues.href}
+                                 hintText="Reference of the service..."
+                                 floatingLabelText="HREF"/>
             </div>
 
             <div className={_s.objectTextField}>
-              <DebounceTextField onChange={(e,v)=> this.onFieldChange("name", v)} value={this.state.formValues.name} errorText={this.state.formValues.nameError} hintText="Enter name..." floatingLabelText="Name"/>
+              <DebounceTextField onChange={(e,v)=> this.onFieldChange("category", v)}
+                                 value={this.state.formValues.category}
+                                 hintText="Enter category..."
+                                 floatingLabelText="Category"/>
             </div>
 
             <div className={_s.objectTextField}>
-              <DebounceTextField onChange={(e,v)=> this.onFieldChange("description", v)} value={this.state.formValues.description} hintText="Description of the service..." floatingLabelText="Description" multiLine={true} rows={1}/>
+              <DebounceTextField onChange={(e,v)=> this.onFieldChange("type", v)}
+                                 value={this.state.formValues.type}
+                                 hintText="Enter type..."
+                                 floatingLabelText="Type"/>
+            </div>
+
+            <div className={_s.descriptionTextField}>
+              <DebounceTextField onChange={(e,v)=> this.onFieldChange("description", v)}
+                                 value={this.state.formValues.description}
+                                 hintText="Description of the service..."
+                                 floatingLabelText="Description"
+                                 multiLine={true} rows={1}/>
 
             </div>
 
@@ -349,12 +400,16 @@ export class ServiceForm extends Component {
             </div>
             <Divider className={_s.divider} />
 
-            {/*<div>
+            <div>
               <h3 className={_s.subTitle}>Service Relationship</h3>
-              <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceRelationship", v)}} count={this.state.formValues.serviceRelationship.length} values={this.state.formValues.serviceRelationship} component={ServiceRelationshipList} />
-            </div>*/}
+              <ListInput min={0} onChange={(v) => {this.onFieldChange("serviceRelationship", v)}}
+                         count={this.state.formValues.serviceRelationship.length}
+                         values={this.state.formValues.serviceRelationship}
+                         component={ServiceRelationshipList} />
+            </div>
 
-            {/*<Divider className={_s.divider} />*/}
+            <Divider className={_s.divider} />
+
             <div>
               <h3 className={_s.subTitle}>Supporting Service</h3>
               <ListInput min={0} onChange={(v) => {this.onFieldChange("supportingService", v)}}
@@ -373,6 +428,28 @@ export class ServiceForm extends Component {
                          component={SupportingResourceList} />
             </div>
             <Divider className={_s.divider} />
+
+            <div>
+              <h3 className={_s.subTitle}>Note</h3>
+              <ListInput min={0} onChange={(v) => {this.onFieldChange("note", v)}}
+                         count={this.state.formValues.note.length}
+                         values={this.state.formValues.note}
+                         component={NoteList} />
+            </div>
+
+            <Divider className={_s.divider} />
+
+            <div>
+              <h3 className={_s.subTitle}>Place</h3>
+              <ListInput min={0} onChange={(v) => {this.onFieldChange("place", v)}}
+                         count={this.state.formValues.place.length}
+                         values={this.state.formValues.place}
+                         component={PlaceList} />
+            </div>
+
+            <Divider className={_s.divider} />
+
+
 
             {/*Submit button, redirects to services page*/}
             <div className={_s.submit}>
