@@ -257,14 +257,14 @@ export class DetailView extends Component {
                     <h4 style={detailStyle.headerCaptions}>BASIC:</h4>
                     <ul style = {{listStyleType: "none"}}>
                         <li>ID: <u style={detailStyle.contentText}>{this.state.service.id}</u></li>
-                        <li>DESCRIPTION: <u style={detailStyle.contentText}>{this.state.service.description.split("\n").map((a) => <span>{a} <br/></span>)}</u> </li>
+                        <li>DESCRIPTION: <u style={detailStyle.contentText}> <br/>{this.state.service.description.split("\n").map((a) => <span>{a} <br/></span>)}</u> </li>
                         <li>STATUS: <u style={detailStyle.contentText}>{this.state.service.state}</u></li>
                         <li>TYPE: <u style={detailStyle.contentText}>{this.state.service.type}</u></li>
                         <li>IS SERVICE ENABLED: <u style={detailStyle.contentText}>{this.state.service.isServiceEnabled ? 'Yes' : 'No'}</u> </li>
                         <li>CATEGORY: <u style={detailStyle.contentText}>{this.state.service.category}</u></li>
-                        <li>ORDER DATE: <u style={detailStyle.contentText}>{this.state.service.orderDate ? this.state.service.orderDate.toLocaleDateString('en-US', options) : "None"}</u></li>
-                        <li>START DATE: <u style={detailStyle.contentText}>{this.state.service.startDate ? this.state.service.startDate.toLocaleDateString('en-US', options) : "None"}</u></li>
-                        <li>END DATE: <u style={detailStyle.contentText}>{this.state.service.endDate ? this.state.service.endDate.toLocaleDateString('en-US', options): "None"}</u></li>
+                        <li>ORDER DATE: <u style={detailStyle.contentText}><br/>{this.state.service.orderDate ? this.state.service.orderDate.toLocaleDateString('en-US', options) : "None"}</u></li>
+                        <li>START DATE: <u style={detailStyle.contentText}><br/>{this.state.service.startDate ? this.state.service.startDate.toLocaleDateString('en-US', options) : "None"}</u></li>
+                        <li>END DATE: <u style={detailStyle.contentText}><br/>{this.state.service.endDate ? this.state.service.endDate.toLocaleDateString('en-US', options): "None"}</u></li>
                         <li>START MODE: <u style={detailStyle.contentText}>{this.state.service.startMode}</u></li>
                         <li>IS STATEFUL: <u style={detailStyle.contentText}>{this.state.service.isStateful ? 'Yes' : 'No'}</u></li>
                     </ul>
