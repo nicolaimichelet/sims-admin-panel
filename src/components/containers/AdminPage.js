@@ -283,6 +283,7 @@ export class AdminPage extends Component {
             <TableHeader adjustForCheckbox = {false} displaySelectAll = {false} style = {TableStyle.header}>
               <TableRow style={TableStyle.header} onCellClick={(event,_,idx) => {
                 const columns = {
+                  [1]: "id",
                   [6]: "state",
                   [5]: "category",                   
                 }
@@ -290,7 +291,7 @@ export class AdminPage extends Component {
                   this.changeSorting(columns[idx]);
                 }
               }}>
-                    <TableHeaderColumn style={TableStyle.header}>ID</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader} style={TableStyle.header}>ID ↑↓</TableHeaderColumn>
                     <TableHeaderColumn style={TableStyle.header}>NAME</TableHeaderColumn>
                     <TableHeaderColumn style={TableStyle.header}>HREF</TableHeaderColumn>
                     <TableHeaderColumn style={TableStyle.header}>HAS STARTED</TableHeaderColumn>
