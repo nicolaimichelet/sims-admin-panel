@@ -232,6 +232,8 @@ export class AdminPage extends Component {
               fontWeight: '200',
               fontFamily: 'roboto',
               textDecoration: 'none',
+              overflowWrap: 'break-word',
+
           },
           button: {
               marginRight: 12,
@@ -360,7 +362,7 @@ export class AdminPage extends Component {
 
           <ul style = {{listStyleType: "none"}} className={_s.modalList}>
             <li>ID: <u style={ModuleStyle.rest}>{this.state.selected.id}</u></li>
-            <li>Description: <u style={ModuleStyle.rest}> {this.state.selected.description}</u> </li>
+            <li>Description: <u style={ModuleStyle.rest}> {this.state.selected.description.split("\n").map((a) => <span>{a} <br/></span>)}</u> </li>
             <li>Is service enabled: <u style={ModuleStyle.rest}>{this.state.selected.isServiceEnabled ? 'Yes' : 'No'} </u></li>
             <li>Category: <u style={ModuleStyle.rest}>{this.state.selected.category}</u></li>
           </ul>
