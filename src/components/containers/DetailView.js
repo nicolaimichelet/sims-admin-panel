@@ -61,16 +61,6 @@ export class DetailView extends Component {
 
         let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-        const partyList =[];
-        for (let party of this.state.service.getRelatedParty()){
-                partyList.push(
-                <ul style = {{listStyleType: "none"}}>
-                <li>NAME: {party.name}</li>
-                <li>ROLE: {party.role}</li>
-                <li>HREF: {party.href}</li>
-                </ul>
-            )
-        }
         const detailStyle = {
             page: {
                 padding: '2em',
@@ -118,6 +108,21 @@ export class DetailView extends Component {
                 display: 'inline-block',
                 backgroundColor: lightGreen100,
             },
+            note: {
+                width: '46%',
+                margin: '2%',
+                position: 'static',
+                display: 'inline-block',
+                backgroundColor: lightGreen100,
+            },
+            place: {
+                width: '47%',
+                marginTop: '2%',
+                position: 'absolute',
+                display: 'inline-block',
+                backgroundColor: lightGreen100,
+            },
+
             headerCaptions: {
                 backgroundColor: lightGreen600,
                 marginTop: '0',
@@ -161,29 +166,61 @@ export class DetailView extends Component {
 
         let serviceSpec = this.state.service.getServiceSpecification();
 
+        const partyList =[];
+        for (let party of this.state.service.getRelatedParty()){
+          partyList.push(
+            <ul style = {{listStyleType: "none"}}>
+              <li>NAME: {party.name}</li>
+              <li>ROLE: {party.role}</li>
+              <li>HREF: {party.href}</li>
+            </ul>
+          )
+        }
 
         const supportingServices = [];
         for (let supp of this.state.service.getSupportingService()){
-            supportingServices.push(
-                <ul style = {{listStyleType: "none"}}>
-                <li>ID: {supp.id}</li>
-                <li>HREF: {supp.href}</li>
-                <li>Name: {supp.name}</li> 
-                <li>Category: {supp.category}</li>
-                </ul>           
-            )
+          supportingServices.push(
+              <ul style = {{listStyleType: "none"}}>
+              <li>ID: {supp.id}</li>
+              <li>HREF: {supp.href}</li>
+              <li>Name: {supp.name}</li>
+              <li>Category: {supp.category}</li>
+              </ul>
+          )
         }
 
         const supportingResources = [];
         for (let res of this.state.service.getSupportingResource()){
-            supportingResources.push(
-                <ul style = {{listStyleType: "none"}}>
-                <li>ID:{res.id}</li>
-                <li>HREF:{res.href}</li>
-                <li>Name: {res.name}</li>
-                </ul>
-            )
+          supportingResources.push(
+              <ul style = {{listStyleType: "none"}}>
+              <li>ID:{res.id}</li>
+              <li>HREF:{res.href}</li>
+              <li>Name: {res.name}</li>
+              </ul>
+          )
         }
+
+        const note = [];
+        for (let not of this.state.service.getNote()){
+          note.push(
+            <ul style = {{listStyleType: "none"}}>
+              <li>Author:{not.author}</li>
+              <li>Date:{not.date}</li>
+              <li>Text: {not.text}</li>
+            </ul>
+          )
+        }
+
+        const place = [];
+        for (let plac of this.state.service.getPlace()){
+          place.push(
+            <ul style = {{listStyleType: "none"}}>
+              <li>HREF:{plac.href}</li>
+              <li>Role: {plac.role}</li>
+            </ul>
+          )
+        }
+
 
         return(
             <Paper style={detailStyle.page}>
@@ -215,6 +252,7 @@ export class DetailView extends Component {
                         <li>ID: <u style={detailStyle.contentText}>{this.state.service.id}</u></li>
                         <li>DESCRIPTION: <u style={detailStyle.contentText}>{this.state.service.description}</u> </li>
                         <li>STATUS: <u style={detailStyle.contentText}>{this.state.service.state}</u></li>
+                        <li>TYPE: <u style={detailStyle.contentText}>{this.state.service.type}</u></li>
                         <li>IS SERVICE ENABLED: <u style={detailStyle.contentText}>{this.state.service.isServiceEnabled ? 'Yes' : 'No'}</u> </li>
                         <li>CATEGORY: <u style={detailStyle.contentText}>{this.state.service.category}</u></li>
                         <li>ORDER DATE: <u style={detailStyle.contentText}>{this.state.service.orderDate ? this.state.service.orderDate.toLocaleDateString('en-US', options) : "None"}</u></li>
@@ -254,6 +292,19 @@ export class DetailView extends Component {
                 <h4 style={detailStyle.headerCaptions}>SUPPORTING RESOURCE:</h4>
                 {supportingResources}
                 </Paper>
+                </div>
+
+                <div>
+                  <Paper style={detailStyle.note}>
+                    <h4 style={detailStyle.headerCaptions}>Note: </h4>
+                    {note}
+                  </Paper>
+
+                  <Paper style={detailStyle.place}>
+                    <h4 style={detailStyle.headerCaptions}>Place: </h4>
+                    {place}
+                  </Paper>
+
                 </div>
             </Paper>
         );
