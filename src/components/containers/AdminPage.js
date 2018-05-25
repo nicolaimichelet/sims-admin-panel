@@ -11,11 +11,6 @@ import Snackbar from 'material-ui/Snackbar';
 import 'typeface-roboto';
 
 
-
-
-import CheckCircle from 'material-ui/svg-icons/action/check-circle'
-
-
 import {
     Table,
     TableBody,
@@ -35,8 +30,6 @@ import { FlatButton, FontIcon, IconButton } from 'material-ui';
 
 
 const DEFAULT_QUERY = 'redux';
-
-
 
 
 export class AdminPage extends Component {
@@ -138,7 +131,6 @@ export class AdminPage extends Component {
 
 
     }
-
 
 
     //deletes a specific service on ID
@@ -357,21 +349,31 @@ export class AdminPage extends Component {
           >
           <hr></hr>
 
+          <div className={_s.row}>
 
-          <ul style = {{listStyleType: "none"}} className={_s.modalList}>
-            <li>ID: <u style={ModuleStyle.rest}>{this.state.selected.id}</u></li>
-            <li>Description: <u style={ModuleStyle.rest}> {this.state.selected.description}</u> </li>
-            <li>Is service enabled: <u style={ModuleStyle.rest}>{this.state.selected.isServiceEnabled ? 'Yes' : 'No'} </u></li>
-            <li>Category: <u style={ModuleStyle.rest}>{this.state.selected.category}</u></li>
-          </ul>
+              <div className={_s.col}>
+                <ul style = {{listStyleType: "none"}} className={_s.modalList}>
+                  <li>ID: <u style={ModuleStyle.rest}>{this.state.selected.id}</u></li>
+                  <li>Description: <u style={ModuleStyle.rest}> {this.state.selected.description}</u> </li>
+                  <li>Is service enabled: <u style={ModuleStyle.rest}>{this.state.selected.isServiceEnabled ? 'Yes' : 'No'} </u></li>
+                  <li>Category: <u style={ModuleStyle.rest}>{this.state.selected.category}</u></li>
+                </ul>
+              </div>
 
-            <div className={_s.modalIcon}>
-                <div className={_s[`state-${this.state.selected.state}`]}>
-                  <FontIcon className="material-icons" style={{fontSize: '700%'}}>{icon}</FontIcon>
+              <div className={_s.modalIcon}>
+                <div className={_s.iconP}>
+                  <div className={_s[`state-${this.state.selected.state}`]}>
+                    <FontIcon className="material-icons" style={{fontSize: '700%'}}>{icon}</FontIcon>
+                  </div>
                 </div>
-             Status: {this.state.selected.state}
-            </div>
-            
+               <div className={_s.statusText}>
+                 Status: {this.state.selected.state}
+               </div>
+
+              </div>
+
+          </div>
+
           </Dialog>
           :
           null
