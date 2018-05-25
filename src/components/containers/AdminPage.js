@@ -103,6 +103,13 @@ export class AdminPage extends Component {
       });
     }
 
+    //Clear search text
+    handleClickClearSearch(){
+
+        document.getElementById('searchField').value = ''
+
+    }
+
     //Handles table dialog, closes it.
     handleTableClose(){
         this.setState({
@@ -275,14 +282,25 @@ export class AdminPage extends Component {
           <TextField
             onChange = {(e, v)=> this.onChange(v)}
             hintText="Search on Name"
+            id="searchField"
           />
+
+
+
+            <RaisedButton primary={true} style={ModuleStyle.button}
+                          label = "Clear search"
+                          className={_s.clearSearchButton}
+                          onClick = { () => this.handleClickClearSearch()}
+            />
+
+
 
             {this.props.user && this.props.user.isAdmin() ?
           <RaisedButton className={_s.deleteAll} onClick={ () => {
             this.handleClickDelete()
           }} label="Delete all" secondary={true}/> : null}
           {this.props.user && this.props.user.isAdmin() ?
-          <RaisedButton className={_s.deleteAll} onClick={ () => {
+          <RaisedButton className={_s.seedButton} onClick={ () => {
             this.seedServices()
           }} label="Example data" primary={true}/> : null}
 
