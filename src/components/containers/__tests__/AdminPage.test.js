@@ -27,13 +27,15 @@ describe('AdminPage', () => {
   it('renders AdminPage with admin user and no props', () => {
     const auth = serviceManager.getService(IAuthService);
     auth.login("none");
-    mount(
+    const wrapper = mount(
       <ServiceProvider serviceManager={serviceManager}>
         <MuiThemeProvider  muiTheme={THEME}>
           <AdminPage />
         </MuiThemeProvider>
       </ServiceProvider>,
-    );
+    ); 
+
+    expect(wrapper).toMatchSnapshot();
   });
 });
 

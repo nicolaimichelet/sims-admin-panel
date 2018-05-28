@@ -28,13 +28,14 @@ describe('AdminPage', () => {
   });
 
   it('renders ServiceForm with admin user and no props', () => {
-    mount(
+    const wrapper = mount(
       <ServiceProvider serviceManager={serviceManager}>
         <MuiThemeProvider  muiTheme={THEME}>
           <ServiceForm />
         </MuiThemeProvider>
       </ServiceProvider>,
     );
+    expect(wrapper).toMatchSnapshot();
   });
 });
 
