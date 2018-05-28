@@ -33,9 +33,9 @@ describe('AdminPage', () => {
           <AdminPage />
         </MuiThemeProvider>
       </ServiceProvider>,
-    ); 
-
-    expect(wrapper).toMatchSnapshot();
+    );
   });
 });
+
+
 

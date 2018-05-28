@@ -42,7 +42,7 @@ function NoteList(props) {
                          floatingLabelText="Date" />
       <DebounceTextField className={_s.objectTextField} type="text" name="text"
                          hintText="Content..."
-                         floatingLabelText="Text" />
+                         floatingLabelText="Text of related party" />
     </ObjectInput>
   );
 }
@@ -70,7 +70,7 @@ function RelatedPartyList(props){
                          hintText="Role of the related party..."
                          floatingLabelText="Role" />
       <DebounceTextField className={_s.objectTextField} type="text" name="href"
-                         hintText="Href of the related party"
+                         hintText="Href of the related party..."
                          floatingLabelText="HREF" />
     </ObjectInput>
   );
