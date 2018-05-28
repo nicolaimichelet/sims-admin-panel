@@ -27,10 +27,9 @@ class Storage {
 describe('Config service', () => {
   let configService;
   let storage;
-  beforeAll(() => {
+  beforeEach(() => {
     storage = new Storage();
     configService = new ConfigServiceProvider(null, storage);
-    console.log(configService);
   });
 
   it('saves a value to the storage, then clears the storage', () => {
