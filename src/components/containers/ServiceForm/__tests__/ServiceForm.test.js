@@ -12,7 +12,7 @@ import ServiceForm from 'components/containers/ServiceForm/ServiceForm';
 
 import { InputDebounce } from 'components/misc/InputDebounce';
 import { ListInput } from "components/misc/ListInput";
-
+import {TextField} from 'material-ui/TextField';
 
 describe('ServiceForm', () => {
 
@@ -46,9 +46,15 @@ describe('ServiceForm', () => {
   });
 
   describe('Form Inputs', () => {
-    it('should respond to input and change state of ServiceForm', (done) => {
+    it('should respond to text input and change state of ServiceForm', (done) => {
       const wrapper = setup();
-      const serviceHrefField = wrapper.find( {hintText: "Reference of the service..." }).filter('TextField');
+      const serviceHrefField = wrapper.find(TextField).find( {hintText: "Reference of the service..." }).filter('TextField');
+      console.log(serviceHrefField.debug())
+      serviceHrefField.instance().value = "google.com";
+      serviceHrefField.simulate('change');
+
+
+
       const categoryField = wrapper.find( {hintText: "Enter category..." }).filter('TextField');
       const nameField = wrapper.find( {hintText: "Enter name..." }).filter('TextField');
       const typeField = wrapper.find( {hintText: "Enter type..." }).filter('TextField');
