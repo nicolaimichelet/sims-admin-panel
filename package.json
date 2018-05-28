@@ -67,11 +67,15 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}", "!src/**/*.mock.{js,jsx,mjs}"
+      "src/**/*.{js,jsx,mjs}",
+      "!src/**/*.mock.{js,jsx,mjs}"
     ],
     "setupFiles": [
       "<rootDir>/config/jest/enzyme.js",
-      "<rootDir>/config/polyfills.js"
+      "<rootDir>/config/polyfills.js",
+      "<rootDir>/config/jest/cssTransform.js",
+      "<rootDir>/config/jest/fileTransform.js",
+      "<rootDir>/config/jest/fetch.js"
     ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
@@ -115,6 +119,7 @@
   },
   "devDependencies": {
     "electron-packager": "^11.1.0",
-    "enzyme-adapter-react-16": "^1.1.1"
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest-fetch-mock": "^1.6.2"
   }
 }
