@@ -6,14 +6,9 @@ import {lightGreen300, lightGreen400, red700, black} from 'material-ui/styles/co
 
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import {Subject} from 'rxjs';
+import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import Snackbar from 'material-ui/Snackbar';
 import 'typeface-roboto';
-
-
-
-
-import CheckCircle from 'material-ui/svg-icons/action/check-circle'
 
 
 import {
@@ -37,13 +32,14 @@ import { FlatButton, FontIcon, IconButton } from 'material-ui';
 const DEFAULT_QUERY = 'redux';
 
 
-
-
 export class AdminPage extends Component {
     constructor(props){
       super(props);
-      this.querySubject = new Subject();
-  
+      this.querySubject = new BehaviorSubject("");
+
+
+      this.refreshTimer = Observable.timer(5000, 5000);
+      this.refreshSub = null;
       this.state = {
         services: [],
         lastError: null,
@@ -51,7 +47,7 @@ export class AdminPage extends Component {
         tableDialog: false,
         deleteDialog: false,
         sortingOrder: "none",
-          searchValue: ""
+        searchValue: ""
       };
       this.icons = {
         active: "check_circle_outline",
@@ -68,7 +64,7 @@ export class AdminPage extends Component {
     componentDidMount(){
       this.subs=[
         this.querySubject.debounceTime(300).distinctUntilChanged().subscribe((a)=> {
-          this.props.imService.search({name : a}).subscribe((services) => {
+          this.props.imService.search({name: a}).subscribe((services) => {
             this.setState({
               services: services
             });
@@ -78,16 +74,37 @@ export class AdminPage extends Component {
           this.setState({
             services: services
           });
-        }),
+        })
       ];
-      this.refresh()
+      this._refreshSubunsub();
+      
+      this.refresh();
+    }
+
+    _refreshSubunsub(){
+      if(this.refreshSub){
+        this.refreshSub.unsubscribe();
+      }
+      this.refreshSub = this.refreshTimer.subscribe((a) => {
+        console.log(a);
+        this.props.imService.search({name: this.querySubject.getValue()}).subscribe((services) => {
+          this.setState({
+            services: services
+          });
+        });
+      });
     }
 
     componentWillUnmount(){
       for(let sub of this.subs){
         sub.unsubscribe();
       }
+      if(this.refreshSub){
+        this.refreshSub.unsubscribe();
+        this.refreshSub = null;
+      }
     }
+
 
     //open Table dialog
     handleClickTable(service){
@@ -109,8 +126,6 @@ export class AdminPage extends Component {
         this.onChange("")
 
    }
-
-
 
 
     //Handles table dialog, closes it.
@@ -148,7 +163,6 @@ export class AdminPage extends Component {
 
 
     }
-
 
 
     //deletes a specific service on ID
@@ -191,10 +205,12 @@ export class AdminPage extends Component {
     }
 
     onChange(value){
+
+      this._refreshSubunsub();
       this.querySubject.next(value); // må gjøre så category funker, eget parameter eller objek
-        this.setState({
+      this.setState({
             searchValue: value
-        })
+      })
     }
 
     clearError(){
@@ -245,6 +261,8 @@ export class AdminPage extends Component {
               fontWeight: '200',
               fontFamily: 'roboto',
               textDecoration: 'none',
+              overflowWrap: 'break-word',
+
           },
           button: {
               marginRight: 12,
@@ -315,6 +333,7 @@ export class AdminPage extends Component {
             <TableHeader adjustForCheckbox = {false} displaySelectAll = {false} style = {TableStyle.header}>
               <TableRow style={TableStyle.header} onCellClick={(event,_,idx) => {
                 const columns = {
+                  [1]: "id",
                   [6]: "state",
                   [5]: "category",                   
                 }
@@ -322,7 +341,7 @@ export class AdminPage extends Component {
                   this.changeSorting(columns[idx]);
                 }
               }}>
-                    <TableHeaderColumn style={TableStyle.header}>ID</TableHeaderColumn>
+                    <TableHeaderColumn className = {_s.tableHeader} style={TableStyle.header}>ID ↑↓</TableHeaderColumn>
                     <TableHeaderColumn style={TableStyle.header}>NAME</TableHeaderColumn>
                     <TableHeaderColumn style={TableStyle.header}>HREF</TableHeaderColumn>
                     <TableHeaderColumn style={TableStyle.header}>HAS STARTED</TableHeaderColumn>
@@ -380,21 +399,34 @@ export class AdminPage extends Component {
           >
           <hr></hr>
 
+          <div className={_s.row}>
 
-          <ul style = {{listStyleType: "none"}} className={_s.modalList}>
-            <li>ID: <u style={ModuleStyle.rest}>{this.state.selected.id}</u></li>
-            <li>Description: <u style={ModuleStyle.rest}> {this.state.selected.description}</u> </li>
-            <li>Is service enabled: <u style={ModuleStyle.rest}>{this.state.selected.isServiceEnabled ? 'Yes' : 'No'} </u></li>
-            <li>Category: <u style={ModuleStyle.rest}>{this.state.selected.category}</u></li>
-          </ul>
+              <div className={_s.col}>
+                <ul style = {{listStyleType: "none"}} className={_s.modalList}>
+                <li>ID: <u style={ModuleStyle.rest}>{this.state.selected.id}</u></li>
+                <li>Description: <u style={ModuleStyle.rest}> {this.state.selected.description.split("\n").map((a) => <span>{a} <br/></span>)}</u> </li>
+                <li>Is service enabled: <u style={ModuleStyle.rest}>{this.state.selected.isServiceEnabled ? 'Yes' : 'No'} </u></li>
+                <li>Category: <u style={ModuleStyle.rest}>{this.state.selected.category}</u></li>
+                </ul>
+              </div>
 
-            <div className={_s.modalIcon}>
-                <div className={_s[`state-${this.state.selected.state}`]}>
-                  <FontIcon className="material-icons" style={{fontSize: '700%'}}>{icon}</FontIcon>
+              <div className={_s.modalIcon}>
+                <div className={_s.iconP}>
+                  <div className={_s[`state-${this.state.selected.state}`]}>
+                    <FontIcon className="material-icons" style={{fontSize: '700%'}}>{icon}</FontIcon>
+                  </div>
                 </div>
-             Status: {this.state.selected.state}
-            </div>
-            
+               <div className={_s.statusText}>
+                 Status: {this.state.selected.state}
+               </div>
+
+
+
+
+              </div>
+
+          </div>
+
           </Dialog>
           :
           null
