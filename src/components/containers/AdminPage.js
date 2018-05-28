@@ -47,6 +47,7 @@ export class AdminPage extends Component {
         tableDialog: false,
         deleteDialog: false,
         sortingOrder: "none",
+        searchValue: ""
       };
       this.icons = {
         active: "check_circle_outline",
@@ -119,6 +120,13 @@ export class AdminPage extends Component {
         deleteDialog: true
       });
     }
+
+    //Clear search text
+    handleClickClearSearch(){
+        this.onChange("")
+
+   }
+
 
     //Handles table dialog, closes it.
     handleTableClose(){
@@ -197,8 +205,12 @@ export class AdminPage extends Component {
     }
 
     onChange(value){
+
       this._refreshSubunsub();
-      this.querySubject.next(value); // må gjøre så category funker, eget parameter eller objekt
+      this.querySubject.next(value); // må gjøre så category funker, eget parameter eller objek
+      this.setState({
+            searchValue: value
+      })
     }
 
     clearError(){
@@ -294,14 +306,25 @@ export class AdminPage extends Component {
           <TextField
             onChange = {(e, v)=> this.onChange(v)}
             hintText="Search on Name"
+              value = {this.state.searchValue}
           />
+
+
+
+            <RaisedButton primary={true} style={ModuleStyle.button}
+                          label = "Clear search"
+                          className={_s.clearSearchButton}
+                          onClick = { () => this.handleClickClearSearch()}
+            />
+
+
 
             {this.props.user && this.props.user.isAdmin() ?
           <RaisedButton className={_s.deleteAll} onClick={ () => {
             this.handleClickDelete()
           }} label="Delete all" secondary={true}/> : null}
           {this.props.user && this.props.user.isAdmin() ?
-          <RaisedButton className={_s.deleteAll} onClick={ () => {
+          <RaisedButton className={_s.seedButton} onClick={ () => {
             this.seedServices()
           }} label="Example data" primary={true}/> : null}
 
