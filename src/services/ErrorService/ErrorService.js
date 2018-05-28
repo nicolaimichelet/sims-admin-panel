@@ -14,7 +14,7 @@ export class ErrorService {
 
   getErrorEvents (type) {
     return this.errorSubject.filter( (error) => {
-      return error.type == type;
+      return !type || error.type == type;
     })
   }
 
