@@ -67,7 +67,7 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
+      "src/**/*.{js,jsx,mjs}", "!src/**/*.mock.{js,jsx,mjs}"
     ],
     "setupFiles": [
       "<rootDir>/config/jest/enzyme.js",
