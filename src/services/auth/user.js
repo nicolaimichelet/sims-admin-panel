@@ -9,7 +9,8 @@ export class User{
         last_name: "User",
         admin: false
       };
-      this._admin = userdata.admin || false;
+      this._admin = userdata.admin || false
+
     }
     
     
