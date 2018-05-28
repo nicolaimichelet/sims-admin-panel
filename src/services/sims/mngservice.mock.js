@@ -5,7 +5,7 @@ import { ErrorService, ErrorEvent } from 'services';
 
 
 
-export class ManagedServiceServiceProvider extends IManagedService{
+export class ManagedServiceServiceMock extends IManagedService{
   constructor(serviceManager){
     super();
     this.error = serviceManager.getService(ErrorService);

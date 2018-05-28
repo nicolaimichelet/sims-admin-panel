@@ -6,7 +6,7 @@ import { User } from './user';
 
 
 
-export class AuthServiceProvider extends IAuthService{
+export class AuthServiceMock extends IAuthService{
   constructor(serviceManager,settings){
     super();
     
