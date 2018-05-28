@@ -29,7 +29,6 @@ import { DEFAULT_API } from 'common/constants';
 import { FlatButton, FontIcon, IconButton } from 'material-ui';
 
 
-const DEFAULT_QUERY = 'redux';
 
 
 export class AdminPage extends Component {
