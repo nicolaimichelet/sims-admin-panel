@@ -244,6 +244,23 @@ describe('ServiceForm', () => {
       }, 400);
     });
 
+    it('finds Submit button', (done) => {
+      const wrapper = setup();
+
+      const submitButton = wrapper.find({label: 'Submit'}).filter('RaisedButton');
+      console.log(submitButton.debug());
+
+      setTimeout( () => {
+        try {
+          expect(submitButton).toHaveLength(1);
+          done();
+        }
+        catch (error) {
+          done.fail(error);
+        }
+      }, 400);
+    });
+
   })
 });
 
