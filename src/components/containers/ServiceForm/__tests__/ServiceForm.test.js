@@ -45,6 +45,15 @@ describe('ServiceForm', () => {
     const wrapper = setup();
   });
 
+  it('doesnt render with guest user and no props', () => {
+    const auth = serviceManager.getService(IAuthService);
+    auth.login("guest").subscribe((user)=> {
+      expect(user).toBeTruthy();
+    });
+    const wrapper = !setup();
+  });
+
+
   describe('Form Inputs', () => {
     it('should respond to text input and change state of ServiceForm', (done) => {
       const wrapper = setup();
