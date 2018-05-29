@@ -205,7 +205,6 @@ export class ServiceForm extends Component {
           [field]: value
         })
       },() => this.validate())
-      console.log(field, value)
     }
 
     //validates fields
