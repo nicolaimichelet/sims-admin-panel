@@ -3,6 +3,7 @@ import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { IAuthService } from './auth.interface';
 import { HttpServiceInterface, ConfigServiceInterface } from 'services';
 import { User } from './user';
+import { last } from 'rxjs/operators';
 
 
 
@@ -63,7 +64,7 @@ export class AuthServiceMock extends IAuthService{
 
   //Get user once
   getUser(){
-    return this.userSubject.asObservable().take(1);
+    return this.userReplay.asObservable().takeLast();
   }
 
   //Stream of users

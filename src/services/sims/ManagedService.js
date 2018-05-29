@@ -7,7 +7,6 @@ export class ManagedService{
 
   constructor(data){
 
-    this.uuid = data.uuid;
     this.href = data.href;
     this.category = data.category;
     this.description = data.description;
@@ -87,7 +86,6 @@ export class ManagedService{
   toData(){
     return {
       id: this.id,
-      uuid:  this.uuid,
       href:  this.href,
       category:  this.category,
       description:  this.description,

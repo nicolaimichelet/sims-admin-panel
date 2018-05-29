@@ -8,10 +8,6 @@ export class ConfigServiceProvider extends ConfigServiceInterface{
     this.storage = storage !== null ? storage : new Storage();
   }
 
-  key(...a){
-    return this.storage.key(...a);
-  }
-
   setObject(key, obj){
     let data = JSON.stringify(obj);
     this.setItem(key, data);

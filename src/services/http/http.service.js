@@ -37,10 +37,6 @@ export class HttpServiceProvider extends HttpServiceInterface{
       });
   }
 
-  setToken(token) {
-    /*this.auth_token = token;
-    this.token_type = "Bearer";*/
-  }
 
   setAuthMethod(authenticator) {
     this.authenticator = authenticator;
@@ -48,7 +44,6 @@ export class HttpServiceProvider extends HttpServiceInterface{
 
   handleResponse(r) {
     if (!r.ok) {
-      console.log(r);
       return Observable.throw(r);
     }
     return Observable.fromPromise(r.clone().json()).catch((err) => {
@@ -135,7 +130,6 @@ export class HttpServiceProvider extends HttpServiceInterface{
 
 
   patch(url, body, ctype){
-    console.log(body);
     const request = new Request(url, {
       method: "PATCH",
       body: JSON.stringify(body),

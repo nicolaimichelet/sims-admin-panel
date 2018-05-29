@@ -9,6 +9,8 @@ import { THEME } from 'common/constants';
 
 import { mount, shallow } from 'enzyme';
 import AdminPage from 'components/containers/AdminPage';
+import { TableRow } from 'material-ui';
+import { debug } from 'util';
 
 
 describe('AdminPage', () => {
@@ -24,18 +26,93 @@ describe('AdminPage', () => {
     //auth.login("none");
   });
 
-  it('renders AdminPage with admin user and no props', () => {
+  it('renders AdminPage with "none" user and no props', () => {
     const auth = serviceManager.getService(IAuthService);
-    auth.login("none");
-    const wrapper = mount(
+    auth.login("none").subscribe((user)=>{
+      expect(user).toBeTruthy();
+      const wrapper = mount(
+        <ServiceProvider serviceManager={serviceManager}>
+          <MuiThemeProvider  muiTheme={THEME}>
+            <AdminPage user={user}/>
+          </MuiThemeProvider>
+        </ServiceProvider>,
+      ); 
+    }); 
+  });
+
+  it('renders AdminPage with "guest" user and no props', () => {
+    const auth = serviceManager.getService(IAuthService);
+    auth.login("guest").subscribe((user)=>{
+      expect(user).toBeTruthy();
+      const wrapper = mount(
+        <ServiceProvider serviceManager={serviceManager}>
+          <MuiThemeProvider  muiTheme={THEME}>
+            <AdminPage user={user}/>
+          </MuiThemeProvider>
+        </ServiceProvider>,
+      ); 
+    })
+  });
+
+  it('renders AdminPage with guest and login ', () => {
+    const auth = serviceManager.getService(IAuthService);
+    //auth.logout();
+    auth.login("guest").subscribe((user)=>{
+      expect(user).toBeTruthy();
+      expect(user.isAdmin()).toBeFalsy();
+      const wrapper = mount(
+        <ServiceProvider serviceManager={serviceManager}>
+          <MuiThemeProvider  muiTheme={THEME}>
+            <AdminPage user={user}/>
+          </MuiThemeProvider>
+        </ServiceProvider>
+      ); 
+    const AdminWrapper = wrapper.at(0).at(0);
+    expect(AdminWrapper.exists()).toBeTruthy();
+    expect(AdminWrapper.find({label:'Delete all'}).exists()).toBeFalsy();
+    expect(AdminWrapper.find({label:'Example data'}).exists()).toBeFalsy();
+    expect(AdminWrapper.find({label:'Clear search'}).exists()).toBeTruthy();
+    });
+
+
+
+  });
+
+  it('renders AdminPage with none finds buttons', () => {
+    const auth = serviceManager.getService(IAuthService);
+    auth.login("none").subscribe((user)=>{
+      expect(user).toBeTruthy();
+      const wrapper = mount(
+        <ServiceProvider serviceManager={serviceManager}>
+          <MuiThemeProvider  muiTheme={THEME}>
+            <AdminPage user={user}/>
+          </MuiThemeProvider>
+        </ServiceProvider>
+      ); 
+      const AdminWrapper = wrapper.at(0).at(0);
+      expect(AdminWrapper.exists());
+      expect(AdminWrapper.find({label:'Delete all'}).exists()).toBeTruthy();
+      expect(AdminWrapper.find({label:'Clear search'}).exists()).toBeTruthy();
+    });
+  });
+
+  it('renders AdminPage with none, finds raisedbutton', () => {
+    const auth = serviceManager.getService(IAuthService);
+    auth.login("none").subscribe((user)=>{
+      const wrapper = mount(
       <ServiceProvider serviceManager={serviceManager}>
         <MuiThemeProvider  muiTheme={THEME}>
-          <AdminPage />
+          <AdminPage user={user}/>
         </MuiThemeProvider>
-      </ServiceProvider>,
-    );
+      </ServiceProvider>
+      ); 
+    const AdminWrapper = wrapper.at(0).at(0);
+    expect(AdminWrapper.exists()).toBeTruthy();
+    expect(AdminWrapper.find('RaisedButton').exists()).toBeTruthy();
+    expect(AdminWrapper.find('RaisedButton')).toHaveLength();
+    console.log(AdminWrapper.debug());
+    });
   });
+
 });
-
-
 
