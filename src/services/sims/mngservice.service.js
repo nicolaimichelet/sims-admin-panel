@@ -26,7 +26,7 @@ export class ManagedServiceServiceProvider extends IManagedService{
           return ManagedService.fromData(elem)
         });
       }
-    )
+    );
   }
 
 
@@ -54,7 +54,14 @@ export class ManagedServiceServiceProvider extends IManagedService{
     const endpoint = new URL(`service/${service.id}`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
     const patch = service.toData();
     //return Observable.from(patches).flatMap((op)=> {
-    return this.http.patch(endpoint,patch, "application/merge-patch+json");
+    return this.http.patch(endpoint,patch, "application/merge-patch+json").map((data) => {
+      return ManagedService.fromData(data);
+    }).catch((error) => {
+      let errorEvent = new ErrorEvent("UPDATE_SERVICE","FATAL","Could not update service",error);
+      this.error.pushErrorEvent(errorEvent);
+      return Observable.of(errorEvent);
+    
+    });
     //return this.http.patch(endpoint,patch, "application/json");
     //}).bufferCount(patches.length);
   }
@@ -76,7 +83,7 @@ export class ManagedServiceServiceProvider extends IManagedService{
     const endpoint = new URL(`service/${id}`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
     return this.http.get(endpoint).map(
       (service) => {
-        return new ManagedService.fromData(service);
+        return ManagedService.fromData(service);
       }
     );
   }
