@@ -26,7 +26,7 @@ export class ManagedServiceServiceProvider extends IManagedService{
           return ManagedService.fromData(elem)
         });
       }
-    )
+    );
   }
 
 
@@ -76,7 +76,7 @@ export class ManagedServiceServiceProvider extends IManagedService{
     const endpoint = new URL(`service/${id}`,`${this.config.getItem("SIMS-BASE") || DEFAULT_API}`);
     return this.http.get(endpoint).map(
       (service) => {
-        return new ManagedService.fromData(service);
+        return ManagedService.fromData(service);
       }
     );
   }
