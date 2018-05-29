@@ -67,7 +67,7 @@ describe('MangedServiceServiceProvider', () => {
     });
   }
 
-  it('tries to fetch services', (done) => {
+  it('tries to fetch services using getServices, search and getService', (done) => {
     let payload = createService();
     fetch.once(JSON.stringify([payload.toData()]));
     fetch.once(JSON.stringify([payload.toData()]));
@@ -75,20 +75,45 @@ describe('MangedServiceServiceProvider', () => {
     
     
     managedService.getServices().merge(managedService.search("hello")).merge(managedService.getService(1).map((a) => [a]))
-    .map((a) => a[0]).bufferCount(3)
-    .map((services) => {
-      expect(services).toHaveLength(3);
-      for(let service of services){
-        let paths1 = paths(service.toData());
-        let paths2 = paths(payload.toData());
-        expect(paths1.length).toBeGreaterThan(0);
-        expect(paths1).toHaveLength(paths2.length);
-        expect(service.toData()).toEqual(payload.toData());
-      }
-    }).subscribe(() => {
-      done();
-    }, (err) => {
-      done.fail(err);
-    })
+      .map((a) => a[0]).bufferCount(3)
+      .map((services) => {
+        expect(services).toHaveLength(3);
+        for(let service of services){
+          let paths1 = paths(service.toData());
+          let paths2 = paths(payload.toData());
+          expect(paths1.length).toBeGreaterThan(0);
+          expect(paths1).toHaveLength(paths2.length);
+          expect(service.toData()).toEqual(payload.toData());
+        }
+      }).subscribe(() => {
+        done();
+      }, (err) => {
+        done.fail(err);
+      });
   });
+
+  it('tries to post and update a service', (done) => {
+
+    let payload = createService();
+    fetch.mockResponse(JSON.stringify(payload.toData()));
+    
+    
+    managedService.postService(payload).merge(managedService.updateService(payload))
+      .bufferCount(2)
+      .map((services) => {
+        expect(services).toHaveLength(2);
+        for(let service of services){
+          let paths1 = paths(service.toData());
+          let paths2 = paths(payload.toData());
+          expect(paths1.length).toBeGreaterThan(0);
+          expect(paths1).toHaveLength(paths2.length);
+          expect(service.toData()).toEqual(payload.toData());
+        }
+      }).subscribe(() => {
+        done();
+      }, (err) => {
+        done.fail(err);
+      });
+  });
+
 });
