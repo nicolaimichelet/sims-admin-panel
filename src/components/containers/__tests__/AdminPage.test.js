@@ -114,5 +114,23 @@ describe('AdminPage', () => {
     });
   });
 
+  it('fills out search field', () => {
+    const auth = serviceManager.getService(IAuthService);
+    auth.login("none").subscribe((user) => {
+      const wrapper = mount(
+        <ServiceProvider serviceManager={serviceManager}>
+          <MuiThemeProvider muiTheme={THEME}>
+            <AdminPage user={user}/>
+          </MuiThemeProvider>
+        </ServiceProvider>
+      );
+
+      const searchField = wrapper.find('.search')
+        .simulate('change', {target: {value: 'service'}});
+      console.log(searchField.debug());
+
+    });
+  });
+
 });
 
