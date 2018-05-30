@@ -8,7 +8,7 @@ import LoginView from './LoginView';
 import ServiceForm from 'components/containers/ServiceForm/ServiceForm';
 import ServiceEditForm from 'components/containers/ServiceForm/ServiceEditForm';
 import DetailView from './DetailView';
-import { IAuthService, mapAndConnect, ErrorService } from 'services';
+import { IAuthService, mapAndConnect, ErrorService, IManagedService } from 'services';
 import Snackbar from 'material-ui/Snackbar';
 
 export class App extends Component {
@@ -22,19 +22,36 @@ export class App extends Component {
 
   componentDidMount(){
     let authSub = this.props.auth.onUserChange().subscribe(user => {
-      this.setState({
-        redirect: user ? "/services" : "/login",
-        user: user
-      });
-      this.doRedirect = true;
-    })
+      if(user != null){
+        this.props.imService.getServices(0, 0).subscribe(() => {
+          this.doRedirect = true;
+          this.setState({
+            redirect: "/services",
+            user: user
+          });
+        }, () => {
+          this.doRedirect = true;  
+          this.setState({
+            redirect: "/login",
+            user: user
+          });
+        });
+      }else{
+        this.doRedirect = true;
+        this.setState({
+          redirect: "/login",
+          user: user
+        });
+      }
+      
+    });
     this.props.error.getErrorEvents("FATAL").subscribe( (errorEvent) => {
       this.props.auth.logout();
       this.setState({
         showErrorSnack: true,
         lastError: errorEvent.description
       });
-    })
+    });
   }
 
   componentWillUnmount(){
@@ -48,7 +65,6 @@ export class App extends Component {
   }
 
   render() {
-
     let redirect = this.doRedirect ? <Redirect to={this.state.redirect} /> : null;
     this.doRedirect = false;
     return (
@@ -76,12 +92,12 @@ export class App extends Component {
       </Switch>
       {redirect}
 
-        <Snackbar
-          open={this.state.showErrorSnack}
-          message={this.state.lastError}
-          autoHideDuration={4000}
-          onRequestClose={() => this.hideError()}
-        />
+      <Snackbar
+        open={this.state.showErrorSnack}
+        message={this.state.lastError}
+        autoHideDuration={4000}
+        onRequestClose={() => this.hideError()}
+      />
 
       </div>
 
@@ -92,5 +108,6 @@ export class App extends Component {
 
 export default mapAndConnect(App, {
   auth: IAuthService,
-  error: ErrorService
+  error: ErrorService,
+  imService: IManagedService
 })

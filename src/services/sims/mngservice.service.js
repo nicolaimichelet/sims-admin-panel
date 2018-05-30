@@ -46,7 +46,7 @@ export class ManagedServiceServiceProvider extends IManagedService{
       window.lastError = error;
       let errorEvent = new ErrorEvent("GET_SERVICE","FATAL", "Could not fetch services",error);
       this.error.pushErrorEvent(errorEvent);
-      return Observable.of(errorEvent);
+      return Observable.throw(errorEvent);
     });
   }
 
@@ -59,7 +59,7 @@ export class ManagedServiceServiceProvider extends IManagedService{
     }).catch((error) => {
       let errorEvent = new ErrorEvent("UPDATE_SERVICE","FATAL","Could not update service",error);
       this.error.pushErrorEvent(errorEvent);
-      return Observable.of(errorEvent);
+      return Observable.throw(errorEvent);
     
     });
     //return this.http.patch(endpoint,patch, "application/json");
@@ -74,7 +74,7 @@ export class ManagedServiceServiceProvider extends IManagedService{
     }).catch( (error) => {
       let errorEvent = new ErrorEvent("POST_SERVICE","FATAL","Could not post service",error);
       this.error.pushErrorEvent(errorEvent);
-      return Observable.of(errorEvent);
+      return Observable.throw(errorEvent);
     });
 
   }
