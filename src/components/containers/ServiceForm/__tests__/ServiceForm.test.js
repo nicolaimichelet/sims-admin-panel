@@ -229,13 +229,27 @@ describe('ServiceForm', () => {
 
     it('finds all New buttons and renders them in ServiceForm', (done) => {
       const wrapper = setup();
-
       const newButton = wrapper.find({label: 'New'}).filter('RaisedButton');
-      console.log(newButton.debug());
 
       setTimeout( () => {
         try {
           expect(newButton).toHaveLength(7);
+          done();
+        }
+        catch (error) {
+          done.fail(error);
+        }
+      }, 400);
+    });
+
+    it('finds Submit button', (done) => {
+      const wrapper = setup();
+      const submitButton = wrapper.find({label: 'Submit'}).filter('RaisedButton');
+      console.log(submitButton.debug());
+
+      setTimeout( () => {
+        try {
+          expect(submitButton).toHaveLength(1);
           done();
         }
         catch (error) {

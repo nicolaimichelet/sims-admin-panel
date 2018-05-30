@@ -114,5 +114,22 @@ describe('AdminPage', () => {
     });
   });
 
+  it('renders search field', () => {
+    const auth = serviceManager.getService(IAuthService);
+    auth.login("none").subscribe((user) => {
+      const wrapper = mount(
+        <ServiceProvider serviceManager={serviceManager}>
+          <MuiThemeProvider muiTheme={THEME}>
+            <AdminPage user={user}/>
+          </MuiThemeProvider>
+        </ServiceProvider>
+      );
+      const searchWrapper = wrapper.at(0).at(0);
+      expect(searchWrapper.exists()).toBeTruthy();
+      expect(searchWrapper.find('TextField').exists()).toBeTruthy();
+      expect(AdminWrapper.find('TextField')).toHaveLength();
+    });
+  });
+
 });
 
