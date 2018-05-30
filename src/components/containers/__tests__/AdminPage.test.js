@@ -114,7 +114,7 @@ describe('AdminPage', () => {
     });
   });
 
-  it('fills out search field', () => {
+  it('renders search field', () => {
     const auth = serviceManager.getService(IAuthService);
     auth.login("none").subscribe((user) => {
       const wrapper = mount(
@@ -124,11 +124,10 @@ describe('AdminPage', () => {
           </MuiThemeProvider>
         </ServiceProvider>
       );
-
-      const searchField = wrapper.find('.search')
-        .simulate('change', {target: {value: 'service'}});
-      console.log(searchField.debug());
-
+      const searchWrapper = wrapper.at(0).at(0);
+      expect(searchWrapper.exists()).toBeTruthy();
+      expect(searchWrapper.find('TextField').exists()).toBeTruthy();
+      expect(AdminWrapper.find('TextField')).toHaveLength();
     });
   });
 
