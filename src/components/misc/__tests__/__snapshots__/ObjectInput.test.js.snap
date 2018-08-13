@@ -1,0 +1,664 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ObjectInput renders with inputs 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ObjectInput
+    mapValues={[Function]}
+>
+    <input
+        name="name"
+        type="text"
+    />
+    <input
+        name="href"
+        type="text"
+    />
+</ObjectInput>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <input
+          checked={undefined}
+          name="name"
+          onChange={[Function]}
+          onCheck={[Function]}
+          type="text"
+          value={undefined}
+/>,
+        <input
+          checked={undefined}
+          name="href"
+          onChange={[Function]}
+          onCheck={[Function]}
+          type="text"
+          value={undefined}
+/>,
+      ],
+      "style": Object {
+        "display": "inline-block",
+      },
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": "0/.0",
+        "nodeType": "host",
+        "props": Object {
+          "checked": undefined,
+          "name": "name",
+          "onChange": [Function],
+          "onCheck": [Function],
+          "type": "text",
+          "value": undefined,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "input",
+      },
+      Object {
+        "instance": null,
+        "key": "1/.1",
+        "nodeType": "host",
+        "props": Object {
+          "checked": undefined,
+          "name": "href",
+          "onChange": [Function],
+          "onCheck": [Function],
+          "type": "text",
+          "value": undefined,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "input",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <input
+            checked={undefined}
+            name="name"
+            onChange={[Function]}
+            onCheck={[Function]}
+            type="text"
+            value={undefined}
+/>,
+          <input
+            checked={undefined}
+            name="href"
+            onChange={[Function]}
+            onCheck={[Function]}
+            type="text"
+            value={undefined}
+/>,
+        ],
+        "style": Object {
+          "display": "inline-block",
+        },
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": "0/.0",
+          "nodeType": "host",
+          "props": Object {
+            "checked": undefined,
+            "name": "name",
+            "onChange": [Function],
+            "onCheck": [Function],
+            "type": "text",
+            "value": undefined,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "input",
+        },
+        Object {
+          "instance": null,
+          "key": "1/.1",
+          "nodeType": "host",
+          "props": Object {
+            "checked": undefined,
+            "name": "href",
+            "onChange": [Function],
+            "onCheck": [Function],
+            "type": "text",
+            "value": undefined,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "input",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`ObjectInput renders with no props 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ObjectInput
+    mapValues={[Function]}
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": undefined,
+      "style": Object {
+        "display": "inline-block",
+      },
+    },
+    "ref": null,
+    "rendered": null,
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": undefined,
+        "style": Object {
+          "display": "inline-block",
+        },
+      },
+      "ref": null,
+      "rendered": null,
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`ObjectInput renders with sub objects 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ObjectInput
+    mapValues={[Function]}
+    value={
+        Object {
+            "href": "http://server:port",
+            "name": "server",
+            "spec": Object {
+              "type": "speed",
+              "value": "100Mbps",
+            },
+          }
+    }
+>
+    <input
+        name="name"
+        type="text"
+    />
+    <input
+        name="href"
+        type="text"
+    />
+    <input
+        name="spec.type"
+        type="text"
+    />
+    <input
+        name="spec.value"
+        type="text"
+    />
+</ObjectInput>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <input
+          checked="server"
+          name="name"
+          onChange={[Function]}
+          onCheck={[Function]}
+          type="text"
+          value="server"
+/>,
+        <input
+          checked="http://server:port"
+          name="href"
+          onChange={[Function]}
+          onCheck={[Function]}
+          type="text"
+          value="http://server:port"
+/>,
+        <input
+          checked="speed"
+          name="spec.type"
+          onChange={[Function]}
+          onCheck={[Function]}
+          type="text"
+          value="speed"
+/>,
+        <input
+          checked="100Mbps"
+          name="spec.value"
+          onChange={[Function]}
+          onCheck={[Function]}
+          type="text"
+          value="100Mbps"
+/>,
+      ],
+      "style": Object {
+        "display": "inline-block",
+      },
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": "0/.0",
+        "nodeType": "host",
+        "props": Object {
+          "checked": "server",
+          "name": "name",
+          "onChange": [Function],
+          "onCheck": [Function],
+          "type": "text",
+          "value": "server",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "input",
+      },
+      Object {
+        "instance": null,
+        "key": "1/.1",
+        "nodeType": "host",
+        "props": Object {
+          "checked": "http://server:port",
+          "name": "href",
+          "onChange": [Function],
+          "onCheck": [Function],
+          "type": "text",
+          "value": "http://server:port",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "input",
+      },
+      Object {
+        "instance": null,
+        "key": "2/.2",
+        "nodeType": "host",
+        "props": Object {
+          "checked": "speed",
+          "name": "spec.type",
+          "onChange": [Function],
+          "onCheck": [Function],
+          "type": "text",
+          "value": "speed",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "input",
+      },
+      Object {
+        "instance": null,
+        "key": "3/.3",
+        "nodeType": "host",
+        "props": Object {
+          "checked": "100Mbps",
+          "name": "spec.value",
+          "onChange": [Function],
+          "onCheck": [Function],
+          "type": "text",
+          "value": "100Mbps",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "input",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <input
+            checked="server"
+            name="name"
+            onChange={[Function]}
+            onCheck={[Function]}
+            type="text"
+            value="server"
+/>,
+          <input
+            checked="http://server:port"
+            name="href"
+            onChange={[Function]}
+            onCheck={[Function]}
+            type="text"
+            value="http://server:port"
+/>,
+          <input
+            checked="speed"
+            name="spec.type"
+            onChange={[Function]}
+            onCheck={[Function]}
+            type="text"
+            value="speed"
+/>,
+          <input
+            checked="100Mbps"
+            name="spec.value"
+            onChange={[Function]}
+            onCheck={[Function]}
+            type="text"
+            value="100Mbps"
+/>,
+        ],
+        "style": Object {
+          "display": "inline-block",
+        },
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": "0/.0",
+          "nodeType": "host",
+          "props": Object {
+            "checked": "server",
+            "name": "name",
+            "onChange": [Function],
+            "onCheck": [Function],
+            "type": "text",
+            "value": "server",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "input",
+        },
+        Object {
+          "instance": null,
+          "key": "1/.1",
+          "nodeType": "host",
+          "props": Object {
+            "checked": "http://server:port",
+            "name": "href",
+            "onChange": [Function],
+            "onCheck": [Function],
+            "type": "text",
+            "value": "http://server:port",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "input",
+        },
+        Object {
+          "instance": null,
+          "key": "2/.2",
+          "nodeType": "host",
+          "props": Object {
+            "checked": "speed",
+            "name": "spec.type",
+            "onChange": [Function],
+            "onCheck": [Function],
+            "type": "text",
+            "value": "speed",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "input",
+        },
+        Object {
+          "instance": null,
+          "key": "3/.3",
+          "nodeType": "host",
+          "props": Object {
+            "checked": "100Mbps",
+            "name": "spec.value",
+            "onChange": [Function],
+            "onCheck": [Function],
+            "type": "text",
+            "value": "100Mbps",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "input",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`ObjectInput renders with value and inputs 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ObjectInput
+    mapValues={[Function]}
+    value={
+        Object {
+            "href": "http://server:port",
+            "name": "server",
+          }
+    }
+>
+    <input
+        name="name"
+        type="text"
+    />
+    <input
+        name="href"
+        type="text"
+    />
+</ObjectInput>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <input
+          checked="server"
+          name="name"
+          onChange={[Function]}
+          onCheck={[Function]}
+          type="text"
+          value="server"
+/>,
+        <input
+          checked="http://server:port"
+          name="href"
+          onChange={[Function]}
+          onCheck={[Function]}
+          type="text"
+          value="http://server:port"
+/>,
+      ],
+      "style": Object {
+        "display": "inline-block",
+      },
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": "0/.0",
+        "nodeType": "host",
+        "props": Object {
+          "checked": "server",
+          "name": "name",
+          "onChange": [Function],
+          "onCheck": [Function],
+          "type": "text",
+          "value": "server",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "input",
+      },
+      Object {
+        "instance": null,
+        "key": "1/.1",
+        "nodeType": "host",
+        "props": Object {
+          "checked": "http://server:port",
+          "name": "href",
+          "onChange": [Function],
+          "onCheck": [Function],
+          "type": "text",
+          "value": "http://server:port",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "input",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <input
+            checked="server"
+            name="name"
+            onChange={[Function]}
+            onCheck={[Function]}
+            type="text"
+            value="server"
+/>,
+          <input
+            checked="http://server:port"
+            name="href"
+            onChange={[Function]}
+            onCheck={[Function]}
+            type="text"
+            value="http://server:port"
+/>,
+        ],
+        "style": Object {
+          "display": "inline-block",
+        },
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": "0/.0",
+          "nodeType": "host",
+          "props": Object {
+            "checked": "server",
+            "name": "name",
+            "onChange": [Function],
+            "onCheck": [Function],
+            "type": "text",
+            "value": "server",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "input",
+        },
+        Object {
+          "instance": null,
+          "key": "1/.1",
+          "nodeType": "host",
+          "props": Object {
+            "checked": "http://server:port",
+            "name": "href",
+            "onChange": [Function],
+            "onCheck": [Function],
+            "type": "text",
+            "value": "http://server:port",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "input",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

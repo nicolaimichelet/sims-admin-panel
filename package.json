@@ -17,6 +17,8 @@
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
     "electron": "^1.8.3",
+    "enzyme": "^3.3.0",
+    "enzyme-to-json": "^3.3.3",
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.1.0",
     "eslint-loader": "1.9.0",
@@ -28,12 +30,15 @@
     "file-loader": "1.1.5",
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
-    "jest": "20.0.4",
-    "material-ui": "^0.20.0",
+    "jest": "^20.0.4",
+    "material-design-icons": "^3.0.1",
+    "material-ui": "^0.20.1",
     "object-assign": "4.1.1",
+    "oidc-client": "^1.5.0-beta.2",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "promise": "8.0.1",
+    "prop-types": "^15.6.1",
     "raf": "3.4.0",
     "react": "^16.2.0",
     "react-dev-utils": "^5.0.0",
@@ -45,6 +50,7 @@
     "style-loader": "0.19.0",
     "superagent": "^3.8.2",
     "sw-precache-webpack-plugin": "0.11.4",
+    "typeface-roboto": "0.0.54",
     "url-loader": "0.6.2",
     "webpack": "3.8.1",
     "webpack-dev-server": "2.9.4",
@@ -55,16 +61,22 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "build-electron": "node scripts/build.js && node scripts/create-electron.js",
+    "build-electron": "node scripts/build-electron.js",
     "test": "node scripts/test.js --env=jsdom",
     "electron": "electron scripts/electron.js"
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
+      "src/**/*.{js,jsx,mjs}",
+      "!src/**/*.mock.{js,jsx,mjs}",
+      "!src/registerServiceWorker.js"
     ],
     "setupFiles": [
-      "<rootDir>/config/polyfills.js"
+      "<rootDir>/config/jest/enzyme.js",
+      "<rootDir>/config/polyfills.js",
+      "<rootDir>/config/jest/cssTransform.js",
+      "<rootDir>/config/jest/fileTransform.js",
+      "<rootDir>/config/jest/fetch.js"
     ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
@@ -81,8 +93,13 @@
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
     ],
     "moduleNameMapper": {
-      "^react-native$": "react-native-web"
+      "^react-native$": "react-native-web",
+      "\\.(css|less|scss)$": "identity-obj-proxy"
     },
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
     "moduleFileExtensions": [
       "web.js",
       "mjs",
@@ -102,6 +119,8 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "electron-packager": "^11.1.0"
+    "electron-packager": "^11.1.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest-fetch-mock": "^1.6.2"
   }
 }

@@ -37,9 +37,9 @@ export class HttpServiceProvider extends HttpServiceInterface{
       });
   }
 
-  setToken(token) {
-    this.auth_token = token;
-    this.token_type = "Bearer"; 
+
+  setAuthMethod(authenticator) {
+    this.authenticator = authenticator;
   }
 
   handleResponse(r) {
@@ -56,8 +56,9 @@ export class HttpServiceProvider extends HttpServiceInterface{
    */
   request(request) {
     // Add token to request
-    if(this.auth_token){
-      request.headers.set('Authorization', `${this.token_type} ${this.auth_token}`);
+    if(this.authenticator){
+      request = this.authenticator(request);
+      //request.headers.set('Authorization', `${this.token_type} ${this.auth_token}`);
     }
     const resolver = new Subject();
     // Push request into request 'stream'/queue
@@ -96,7 +97,7 @@ export class HttpServiceProvider extends HttpServiceInterface{
    * @param {boolean} url_encoded
    * @return Observable<{}>
    */
-  post(url, body, url_encoded) {
+  post(url, body, url_encoded, ctype) {
     let pUrl = url;
     let pBody = body;
     const headers = new Headers();
@@ -107,6 +108,10 @@ export class HttpServiceProvider extends HttpServiceInterface{
       pBody = null;
     } else {
       pBody = JSON.stringify(pBody);
+    }
+
+    if(ctype){
+      headers.set('Content-Type', ctype);
     }
     // Create request
     const request = new Request(pUrl, {
@@ -123,11 +128,16 @@ export class HttpServiceProvider extends HttpServiceInterface{
     return this.request(request);
   }
 
-  patch(url, body){
+
+  patch(url, body, ctype){
     const request = new Request(url, {
       method: "PATCH",
       body: JSON.stringify(body),
     });
+
+    if(ctype){
+      request.headers.set('Content-Type', ctype);
+    }
     return this.request(request);
   }
 }

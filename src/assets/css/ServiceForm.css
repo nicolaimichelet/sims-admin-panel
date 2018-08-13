@@ -1,38 +1,85 @@
+.paperContainer {
+  padding: 1em !important;
+  background-color: #fbfff0 !important;
+}
 .form {
-  margin-left: 20%;
-  margin-top: 3%;
-  margin-bottom: 3%;
+  margin-left: 0%;
+  margin-top: 0%;
+  margin-bottom: 1%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 2%;
+  margin-right: 2%;
+  background-color: #fbfff0 !important;
 }
 
-.relatedParty {
-  padding-left: 8%;
+.title{
+  border-left: 8px solid #7CB342;
+  padding-left: 0.6%;
+  width: 100%;
+  font-family: 'roboto';
+  font-weight: 200;
 }
-
-.advanced {
-  margin-right: 2% !important;
+.subTitle{
+  font-family: 'roboto';
+  font-weight: 400;
 }
-
-.toggle {
+.content{
+  font-family: 'roboto';
+  font-weight: 200;
+  width: 20%;
+  padding: 1%;
+}
+.dropDownMenu{
+  font-family: 'roboto';
+  font-weight: 200;
+  margin-right: 2%;
+  width: 110%;
+  flex: 1;
+}
+.dropDownMenu2{
+  font-family: 'roboto';
+  font-weight: 200;
+  padding-right: 2%;
+  width: 60%;
+}
+.toggle{
+  font-family: 'roboto';
+  font-weight: 200;
   width: 30%;
-  margin-top: 3%;
+  padding: 1%;
 }
-.formtext {
-  width: 30% !important;
-
-  padding-right: 10% !important;
-  margin-right: 3% !important;
-}
-
-.dropdown {
-  margin-top: 3%;
+.dates{
+  padding: 1%;
+  flex: 1;
+  font-family: 'roboto';
+  font-weight: 200;
 }
 
-h1{
-  margin-left: 0.6%;
-  margin-top: 2%;
-  font-family: Arial;
-}
-h3{
-  font-family: Arial;
+.objectTextField{
+  margin-right: 2em;
+  width: 20%;
+  font-family: 'roboto';
+  font-weight: 200;
 }
 
+.descriptionTextField{
+  margin-right: 2em;
+  width: 20%;
+  font-family: 'roboto';
+  font-weight: 200;
+}
+
+.divider{
+  margin-top: 2% !important ;
+  width: 100%;
+  margin-bottom: 2% !important ;
+}
+
+.submit{
+  align-self: flex-end;
+  padding: 1%;
+  flex: 1;
+  margin-bottom: 2%;
+}
